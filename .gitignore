@@ -1,0 +1,34 @@
+# ==============================================================================
+# Git Ignore for Songkhla Old Town AI Assistant (finalproject)
+# ==============================================================================
+
+# Security & Secrets (CRITICAL: Never commit API keys or Channel Secrets!)
+.env
+*.env
+*.env.local
+
+# Python Bytecode and Cache
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+*.pyo
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & Temporary Execution Files
+*.log
+*.tmp
+temp/
+scratch/

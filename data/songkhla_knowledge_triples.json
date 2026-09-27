@@ -1,0 +1,1668 @@
+{
+  "metadata": {
+    "title": "Songkhla Old Town Knowledge Graph Triples",
+    "version": "1.0",
+    "total_entities": 18,
+    "total_triples": 126,
+    "sources": [
+      "Songkhla_Travel_Guide_AnyFlip.pdf (21 Selected Pages)",
+      "Google Knowledge Panel / Wongnai Verified Facts (18 Places)"
+    ]
+  },
+  "entities": [
+    {
+      "id": "aitim_oang",
+      "label": "FoodShop",
+      "name": "ร้านไอติมโอ่ง",
+      "name_en": "Aitim Oang (Ong Ice Cream)",
+      "category": "ของหวาน / เครื่องดื่ม",
+      "street": "ถนนนางงาม",
+      "address": "ถนนนางงาม ซอย 2 ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "10:00 - 18:30 น.",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "20 - 30 บาท",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.3,
+      "review_count": 1250,
+      "phone": "074-315594",
+      "landmark_clue": "ตั้งอยู่ตรงข้ามศาลเจ้าพ่อหลักเมืองสงขลา",
+      "lat": 7.1966,
+      "lon": 100.5908,
+      "google_maps_url": "https://maps.google.com/?q=7.1966,100.5908",
+      "anyflip_page": 24
+    },
+    {
+      "id": "kiat_fang",
+      "label": "FoodShop",
+      "name": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+      "name_en": "Kiat Fang Stew & Salapao",
+      "category": "อาหารคาว",
+      "street": "ถนนนางงาม",
+      "address": "94 ถนนนางงาม ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "07:00 - 14:00 น. (หรือจนกว่าของจะหมด)",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "60 - 150 บาท (ซาลาเปา 20 - 35 บาท)",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.2,
+      "review_count": 1840,
+      "phone": "074-311998",
+      "landmark_clue": "สาขาแรกดั้งเดิมรุ่นที่ 3 ริมถนนนางงาม (เปิดมาตั้งแต่ พ.ศ. 2480)",
+      "lat": 7.1973,
+      "lon": 100.5904,
+      "google_maps_url": "https://maps.google.com/?q=7.1973,100.5904",
+      "anyflip_page": 23
+    },
+    {
+      "id": "tae_hiang_iu",
+      "label": "FoodShop",
+      "name": "ร้านแต้เฮี้ยงอิ้ว",
+      "name_en": "Tae Hiang Iu Restaurant",
+      "category": "อาหารคาว",
+      "street": "ถนนนางงาม",
+      "address": "85 ถนนนางงาม ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "รอบเที่ยง 11:30 - 14:00 น. และ รอบเย็น 17:00 - 20:00 น.",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "150 - 400 บาท",
+      "price_tier": "ระดับมาตรฐาน (Standard 50 - 150 บาท)",
+      "rating": 4.4,
+      "review_count": 920,
+      "phone": "074-311505",
+      "landmark_clue": "ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม",
+      "lat": 7.1969,
+      "lon": 100.5906,
+      "google_maps_url": "https://maps.google.com/?q=7.1969,100.5906",
+      "anyflip_page": 25
+    },
+    {
+      "id": "jae_ni",
+      "label": "FoodShop",
+      "name": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
+      "name_en": "Jae Ni Fish Porridge (Hub Ho Hin Branch)",
+      "category": "อาหารคาว",
+      "street": "ถนนนครนอก",
+      "address": "ถนนนครนอก ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "09:00 - 17:00 น.",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "60 - 120 บาท",
+      "price_tier": "ระดับมาตรฐาน (Standard 50 - 150 บาท)",
+      "rating": 4.3,
+      "review_count": 510,
+      "phone": "081-8979307",
+      "landmark_clue": "สาขาโรงสีแดง ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ย่านเมืองเก่า",
+      "lat": 7.1983,
+      "lon": 100.5886,
+      "google_maps_url": "https://maps.google.com/?q=7.1983,100.5886",
+      "anyflip_page": 28
+    },
+    {
+      "id": "khanom_thai_song_saen",
+      "label": "FoodShop",
+      "name": "บ้านขนมไทยสองแสน",
+      "name_en": "Baan Khanom Thai Song-Saen",
+      "category": "ของหวาน / ของฝาก",
+      "street": "ถนนนางงาม",
+      "address": "ถนนนางงาม ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "08:00 - 19:30 น. (หยุดทุกวันพุธ)",
+      "open_days": "วันพฤหัสบดี - วันอังคาร (ปิดวันพุธ)",
+      "price_range": "30 - 100 บาท",
+      "price_tier": "ระดับมาตรฐาน (Standard 50 - 150 บาท)",
+      "rating": 4.5,
+      "review_count": 680,
+      "phone": "074-321588 / 061-3695351",
+      "landmark_clue": "อยู่ตรงข้ามร้านแต้เฮี้ยงอิ้ว ใกล้ศาลเจ้าพ่อหลักเมือง",
+      "lat": 7.1968,
+      "lon": 100.5907,
+      "google_maps_url": "https://maps.google.com/?q=7.1968,100.5907",
+      "anyflip_page": 29
+    },
+    {
+      "id": "songkhla_station",
+      "label": "FoodShop",
+      "name": "สงขลาสเตชั่น (Songkhla Station Cafe & Art)",
+      "name_en": "Songkhla Station Cafe & Art Space",
+      "category": "ของหวาน / คาเฟ่และศิลปะ",
+      "street": "ถนนนครนอก",
+      "address": "ถนนนครนอก ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "จันทร์-ศุกร์ 09:30 - 18:00 น. / เสาร์-อาทิตย์ 08:00 - 19:00 น.",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "50 - 120 บาท",
+      "price_tier": "ระดับมาตรฐาน (Standard 50 - 150 บาท)",
+      "rating": 4.4,
+      "review_count": 430,
+      "phone": "081-8984088 / 093-7711181",
+      "landmark_clue": "อาคารตึกไม้โบราณ 2 ชั้น เยื้องโรงสีแดงหับโห้หิ้น ชั้นสองมีหอศิลป์",
+      "lat": 7.1981,
+      "lon": 100.5888,
+      "google_maps_url": "https://maps.google.com/?q=7.1981,100.5888",
+      "anyflip_page": 27
+    },
+    {
+      "id": "hub_ho_hin",
+      "label": "Place",
+      "name": "โรงสีแดง หับโห้หิ้น",
+      "name_en": "Hub Ho Hin Red Rice Mill",
+      "category": "สถานที่ท่องเที่ยวทางประวัติศาสตร์",
+      "street": "ถนนนครนอก",
+      "address": "13 ถนนนครนอก ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "08:00 - 18:00 น.",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "เข้าชมฟรี (ไม่มีค่าใช้จ่าย)",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.4,
+      "review_count": 2150,
+      "phone": "074-311015",
+      "landmark_clue": "อาคารไม้สีแดงสดริมทะเลสาบสงขลา ท่าเรือโบราณ",
+      "lat": 7.1986,
+      "lon": 100.5884,
+      "google_maps_url": "https://maps.google.com/?q=7.1986,100.5884",
+      "anyflip_page": 13
+    },
+    {
+      "id": "baan_nakorn_in",
+      "label": "Place",
+      "name": "บ้านนครใน",
+      "name_en": "Baan Nakorn-In Heritage Museum",
+      "category": "สถานที่ท่องเที่ยวทางประวัติศาสตร์",
+      "street": "ถนนนครใน",
+      "address": "117-122 ถนนนครใน ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "08:00 - 18:00 น. (เสาร์-อาทิตย์ ปิด 19:00 น.)",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "เข้าชมฟรี (ไม่มีค่าใช้จ่าย)",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.5,
+      "review_count": 1320,
+      "phone": "089-8766388",
+      "landmark_clue": "อาคารโบราณจีนและชิโนยูโรเปียน เชื่อมทะลุระหว่างถนนนครในกับถนนนครนอก",
+      "lat": 7.1978,
+      "lon": 100.5895,
+      "google_maps_url": "https://maps.google.com/?q=7.1978,100.5895",
+      "anyflip_page": 11
+    },
+    {
+      "id": "baan_chinese_300yr",
+      "label": "Place",
+      "name": "บ้านจีน 300 ปี",
+      "name_en": "300-Year-Old Chinese House",
+      "category": "สถานที่ท่องเที่ยวทางประวัติศาสตร์",
+      "street": "ถนนนครนอก",
+      "address": "ถนนนครนอก ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "09:00 - 17:00 น.",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "เข้าชมฟรี",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.2,
+      "review_count": 340,
+      "phone": "-",
+      "landmark_clue": "บ้านไม้เก่าสไตล์จีนฮกเกี้ยนโบราณ ใกล้กับโรงสีแดง",
+      "lat": 7.198,
+      "lon": 100.5887,
+      "google_maps_url": "https://maps.google.com/?q=7.1980,100.5887",
+      "anyflip_page": 14
+    },
+    {
+      "id": "baan_ww2",
+      "label": "Place",
+      "name": "บ้านสงครามโลก (ตึกสงครามโลก)",
+      "name_en": "World War II Ruin House",
+      "category": "สถานที่ท่องเที่ยวทางประวัติศาสตร์",
+      "street": "ถนนนครใน",
+      "address": "ถนนนครนอกตัดถนนยะลา ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "ชมภายนอกได้ตลอดเวลา / เปิดภายในเฉพาะช่วงจัดนิทรรศการศิลปะ",
+      "open_days": "เปิดทุกวัน (ชมสถาปัตยกรรมภายนอก)",
+      "price_range": "เข้าชมฟรี",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.1,
+      "review_count": 210,
+      "phone": "-",
+      "landmark_clue": "อาคารซากปรักหักพังประวัติศาสตร์จากระเบิดสงครามโลกครั้งที่ 2",
+      "lat": 7.1988,
+      "lon": 100.5891,
+      "google_maps_url": "https://maps.google.com/?q=7.1988,100.5891",
+      "anyflip_page": 15
+    },
+    {
+      "id": "city_pillar_shrine",
+      "label": "Place",
+      "name": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "name_en": "Songkhla City Pillar Shrine",
+      "category": "สถานที่ท่องเที่ยวทางวัฒนธรรม / สิ่งศักดิ์สิทธิ์",
+      "street": "ถนนนางงาม",
+      "address": "ถนนนางงาม ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "08:00 - 17:00 น.",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "เข้าชมฟรี / ไหว้พระทำบุญตามศรัทธา",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.6,
+      "review_count": 2890,
+      "phone": "074-311015",
+      "landmark_clue": "ศูนย์กลางความศรัทธาใจกลางถนนนางงาม ตรงข้ามร้านไอติมโอ่ง",
+      "lat": 7.1965,
+      "lon": 100.591,
+      "google_maps_url": "https://maps.google.com/?q=7.1965,100.5910",
+      "anyflip_page": 17
+    },
+    {
+      "id": "songkhla_street_art",
+      "label": "Place",
+      "name": "สงขลา สตรีทอาร์ท (Street Art)",
+      "name_en": "Songkhla Old Town Street Art",
+      "category": "จุดถ่ายภาพ / ศิลปะกลางแจ้ง",
+      "street": "กระจายตามแนวถนนนางงาม ถนนนครนอก ถนนนครใน",
+      "address": "ย่านเมืองเก่าสงขลา ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "ชมได้ตลอด 24 ชั่วโมง (แนะนำช่วง 08:00 - 17:30 น.)",
+      "open_days": "เปิดทุกวัน",
+      "price_range": "เข้าชมฟรี",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.5,
+      "review_count": 3100,
+      "phone": "-",
+      "landmark_clue": "ภาพวาดฝาผนังตึกเก่า เช่น ภาพร้านน้ำชา ฟอกซีย่า รถลาก เรือประมง",
+      "lat": 7.1972,
+      "lon": 100.5902,
+      "google_maps_url": "https://maps.google.com/?q=7.1972,100.5902",
+      "anyflip_page": 18
+    },
+    {
+      "id": "songkhla_art_center",
+      "label": "Place",
+      "name": "หอศิลป์สงขลา (Songkhla Art Center)",
+      "name_en": "Songkhla Art Center",
+      "category": "พิพิธภัณฑ์และศิลปะ",
+      "street": "ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
+      "address": "14 ถนนกำแพงเพชร ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "10:30 - 17:30 น. (ปิดทุกวันจันทร์)",
+      "open_days": "วันอังคาร - วันอาทิตย์ (ปิดวันจันทร์)",
+      "price_range": "เข้าชมฟรี (ไม่มีค่าใช้จ่าย)",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.4,
+      "review_count": 390,
+      "phone": "081-5988899",
+      "landmark_clue": "อาคารโรงสีเก่าดัดแปลงเป็นหอศิลป์ ใกล้แนวกำแพงเมืองเก่า",
+      "lat": 7.1958,
+      "lon": 100.5915,
+      "google_maps_url": "https://maps.google.com/?q=7.1958,100.5915",
+      "anyflip_page": 10
+    },
+    {
+      "id": "singora_tram",
+      "label": "Place",
+      "name": "รถรางชมเมืองสงขลา (Singora Tram)",
+      "name_en": "Singora Tram Tour",
+      "category": "การเดินทางและกิจกรรมท่องเที่ยว",
+      "street": "จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ (ถ.จะนะ)",
+      "address": "หน้าพิพิธภัณฑ์พธำมะรงค์ ถนนจะนะ ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "มี 6 รอบต่อวัน: 09:00, 10:00, 11:00, 13:00, 14:00, 15:00 น.",
+      "open_days": "ให้บริการทุกวัน (รวมวันหยุดนักขัตฤกษ์)",
+      "price_range": "นั่งฟรี ไม่มีค่าใช้จ่าย",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.6,
+      "review_count": 870,
+      "phone": "074-311015 (เทศบาลนครสงขลา)",
+      "landmark_clue": "รถรางนำเที่ยวบริการฟรีโดยเทศบาลนครสงขลา มีวิทยากรบรรยายประวัติศาสตร์",
+      "lat": 7.1995,
+      "lon": 100.593,
+      "google_maps_url": "https://maps.google.com/?q=7.1995,100.5930",
+      "anyflip_page": 20
+    },
+    {
+      "id": "khao_tang_kuan",
+      "label": "Place",
+      "name": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้าเขาตังกวน)",
+      "name_en": "Khao Tang Kuan & Cable Lift",
+      "category": "จุดชมวิว / สถานที่ท่องเที่ยวธรรมชาติและประวัติศาสตร์",
+      "street": "ถนนสุขุม เชิงเขาตังกวน",
+      "address": "ถนนสุขุม ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "08:30 - 18:30 น.",
+      "open_days": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+      "price_range": "ค่าลิฟต์ขึ้น-ลง ผู้ใหญ่ 30 บาท / เด็ก 20 บาท",
+      "price_tier": "ระดับประหยัด (Budget < 50 บาท)",
+      "rating": 4.5,
+      "review_count": 3450,
+      "phone": "074-316330",
+      "landmark_clue": "ยอดเขาใจกลางเมืองสงขลา มีลิฟต์โดยสารขึ้นสู่ยอดเขาและพระเจดีย์หลวง",
+      "lat": 7.2104,
+      "lon": 100.5898,
+      "google_maps_url": "https://maps.google.com/?q=7.2104,100.5898",
+      "anyflip_page": 21
+    },
+    {
+      "id": "hotel_songkhla_taeraek",
+      "label": "Hotel",
+      "name": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "name_en": "Songkhla TaeRaek Antique Hotel",
+      "category": "โรงแรม / ที่พัก",
+      "street": "ถนนเพชรคีรี (ย่านเมืองเก่า)",
+      "address": "40 ถนนเพชรคีรี ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "เปิด 24 ชั่วโมง (Check-in 14:00 น. / Check-out 12:00 น.)",
+      "open_days": "เปิดทุกวัน",
+      "price_range": "800 - 1,800 บาท/คืน",
+      "price_tier": "ระดับพรีเมียม / โรงแรม (Premium > 150 บาท)",
+      "rating": 4.4,
+      "review_count": 520,
+      "phone": "074-322227",
+      "landmark_clue": "โรงแรมสไตล์แอนทีคคลาสสิก อยู่ตรงหัวมุมถนนเพชรคีรี เดินถึงถนนนางงามได้ง่าย",
+      "lat": 7.1952,
+      "lon": 100.5901,
+      "google_maps_url": "https://maps.google.com/?q=7.1952,100.5901",
+      "anyflip_page": 31
+    },
+    {
+      "id": "hotel_club_tree",
+      "label": "Hotel",
+      "name": "โรงแรมคลับทรี (Club Tree Hotel)",
+      "name_en": "Club Tree Hotel",
+      "category": "โรงแรม / ที่พัก",
+      "street": "ถนนทะเลหลวง",
+      "address": "165/8 ถนนทะเลหลวง ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "เปิด 24 ชั่วโมง (Check-in 14:00 น. / Check-out 12:00 น.)",
+      "open_days": "เปิดทุกวัน",
+      "price_range": "1,000 - 1,300 บาท/คืน",
+      "price_tier": "ระดับพรีเมียม / โรงแรม (Premium > 150 บาท)",
+      "rating": 4.3,
+      "review_count": 780,
+      "phone": "098-1515515",
+      "landmark_clue": "โรงแรมสไตล์บูทีกโมเดิร์นโคโลเนียล ใกล้หาดชลาทัศน์และเมืองเก่า",
+      "lat": 7.1912,
+      "lon": 100.5982,
+      "google_maps_url": "https://maps.google.com/?q=7.1912,100.5982",
+      "anyflip_page": 32
+    },
+    {
+      "id": "hotel_montana",
+      "label": "Hotel",
+      "name": "โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
+      "name_en": "Montana Hotel Songkhla",
+      "category": "โรงแรม / ที่พัก",
+      "street": "ถนนสะเดา",
+      "address": "24/3 ถนนสะเดา ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "open_hours": "เปิด 24 ชั่วโมง (Check-in 14:00 น. / Check-out 12:00 น.)",
+      "open_days": "เปิดทุกวัน",
+      "price_range": "1,500 - 2,500 บาท/คืน (รวมอาหารเช้า)",
+      "price_tier": "ระดับพรีเมียม / โรงแรม (Premium > 150 บาท)",
+      "rating": 4.2,
+      "review_count": 640,
+      "phone": "074-300614 / 063-0819747",
+      "landmark_clue": "โรงแรมทำเลสะดวก ใกล้สนามกีฬาติณสูลานนท์และหาดชลาทัศน์",
+      "lat": 7.1925,
+      "lon": 100.6015,
+      "google_maps_url": "https://maps.google.com/?q=7.1925,100.6015",
+      "anyflip_page": 32
+    }
+  ],
+  "triples": [
+    {
+      "source": "ร้านไอติมโอ่ง",
+      "source_id": "aitim_oang",
+      "source_type": "FoodShop",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนางงาม",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "ร้านไอติมโอ่ง",
+      "source_id": "aitim_oang",
+      "source_type": "FoodShop",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "20 - 30 บาท"
+      }
+    },
+    {
+      "source": "ร้านไอติมโอ่ง",
+      "source_id": "aitim_oang",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ไอติมไข่แข็ง",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านไอติมโอ่ง",
+      "source_id": "aitim_oang",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ไอติมทรงเครื่องใส่ไข่",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านไอติมโอ่ง",
+      "source_id": "aitim_oang",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ลูกชิ้นปลาทอด",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านไอติมโอ่ง",
+      "source_id": "aitim_oang",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "เกี๊ยวทอด",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+      "source_id": "kiat_fang",
+      "source_type": "FoodShop",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนางงาม",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+      "source_id": "kiat_fang",
+      "source_type": "FoodShop",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "60 - 150 บาท (ซาลาเปา 20 - 35 บาท)"
+      }
+    },
+    {
+      "source": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+      "source_id": "kiat_fang",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ข้าวสตูหมูเครื่องใน",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+      "source_id": "kiat_fang",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "หมูกรอบ",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+      "source_id": "kiat_fang",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ข้าวหมูแดง",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+      "source_id": "kiat_fang",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ซาลาเปาลูกใหญ่ไส้หมูสับ",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+      "source_id": "kiat_fang",
+      "source_type": "FoodShop",
+      "relation": "HISTORICAL_ERA",
+      "target": "ยุคก่อนสงครามโลก (พ.ศ. 2480)",
+      "target_type": "HistoricalEra",
+      "properties": {}
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source_id": "tae_hiang_iu",
+      "source_type": "FoodShop",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนางงาม",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source_id": "tae_hiang_iu",
+      "source_type": "FoodShop",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับมาตรฐาน (Standard 50 - 150 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "150 - 400 บาท"
+      }
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source_id": "tae_hiang_iu",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ต้มยำแห้งปลากระพง",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source_id": "tae_hiang_iu",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "เป็ดพะโล้",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source_id": "tae_hiang_iu",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "กุ้งแม่น้ำทอดกระเทียม",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source_id": "tae_hiang_iu",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "หมูสับต้มบ๊วย",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source_id": "tae_hiang_iu",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "เต้าหู้ราดหน้าปู",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
+      "source_id": "jae_ni",
+      "source_type": "FoodShop",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนครนอก",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
+      "source_id": "jae_ni",
+      "source_type": "FoodShop",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับมาตรฐาน (Standard 50 - 150 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "60 - 120 บาท"
+      }
+    },
+    {
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
+      "source_id": "jae_ni",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ข้าวต้มปลากะพงสด",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
+      "source_id": "jae_ni",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "หมี่ซั่วแห้งรวมพล",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
+      "source_id": "jae_ni",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ข้าวต้มกระดูกหมู",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
+      "source_id": "jae_ni",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ลูกชิ้นปลาลวก",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "source_id": "khanom_thai_song_saen",
+      "source_type": "FoodShop",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนางงาม",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "source_id": "khanom_thai_song_saen",
+      "source_type": "FoodShop",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับมาตรฐาน (Standard 50 - 150 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "30 - 100 บาท"
+      }
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "source_id": "khanom_thai_song_saen",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ขนมทองเอก",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "source_id": "khanom_thai_song_saen",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ขนมสัมปันนี",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "source_id": "khanom_thai_song_saen",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ขนมขี้มอด",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "source_id": "khanom_thai_song_saen",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "สาเกเชื่อม",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "source_id": "khanom_thai_song_saen",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ข้าวฟ่างเปียกกะทิสด",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "source_id": "khanom_thai_song_saen",
+      "source_type": "FoodShop",
+      "relation": "HISTORICAL_ERA",
+      "target": "ยุคหลังสงคราม (พ.ศ. 2490)",
+      "target_type": "HistoricalEra",
+      "properties": {}
+    },
+    {
+      "source": "สงขลาสเตชั่น (Songkhla Station Cafe & Art)",
+      "source_id": "songkhla_station",
+      "source_type": "FoodShop",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนครนอก",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "สงขลาสเตชั่น (Songkhla Station Cafe & Art)",
+      "source_id": "songkhla_station",
+      "source_type": "FoodShop",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับมาตรฐาน (Standard 50 - 150 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "50 - 120 บาท"
+      }
+    },
+    {
+      "source": "สงขลาสเตชั่น (Songkhla Station Cafe & Art)",
+      "source_id": "songkhla_station",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "กาแฟสดสเปเชียลตี้",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "สงขลาสเตชั่น (Songkhla Station Cafe & Art)",
+      "source_id": "songkhla_station",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "ชาไทยโบราณ",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "สงขลาสเตชั่น (Songkhla Station Cafe & Art)",
+      "source_id": "songkhla_station",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "วาฟเฟิลโฮมเมด",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "สงขลาสเตชั่น (Songkhla Station Cafe & Art)",
+      "source_id": "songkhla_station",
+      "source_type": "FoodShop",
+      "relation": "SERVES",
+      "target": "นิทรรศการภาพถ่ายเมืองเก่า",
+      "target_type": "Dish",
+      "properties": {}
+    },
+    {
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "source_id": "hub_ho_hin",
+      "source_type": "Place",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนครนอก",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "source_id": "hub_ho_hin",
+      "source_type": "Place",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "เข้าชมฟรี (ไม่มีค่าใช้จ่าย)"
+      }
+    },
+    {
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "source_id": "hub_ho_hin",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ถ่ายภาพอาคารไม้สีแดงริมน้ำ",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "source_id": "hub_ho_hin",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "นิทรรศการประวัติศาสตร์ท่าเรือสงขลา",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "source_id": "hub_ho_hin",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "จุดชมวิวทะเลสาบสงขลา",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "source_id": "hub_ho_hin",
+      "source_type": "Place",
+      "relation": "HISTORICAL_ERA",
+      "target": "สมัยรัชกาลที่ 6 (พ.ศ. 2457)",
+      "target_type": "HistoricalEra",
+      "properties": {}
+    },
+    {
+      "source": "บ้านนครใน",
+      "source_id": "baan_nakorn_in",
+      "source_type": "Place",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนครใน",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "บ้านนครใน",
+      "source_id": "baan_nakorn_in",
+      "source_type": "Place",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "เข้าชมฟรี (ไม่มีค่าใช้จ่าย)"
+      }
+    },
+    {
+      "source": "บ้านนครใน",
+      "source_id": "baan_nakorn_in",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "พิพิธภัณฑ์ของสะสมโบราณ",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "บ้านนครใน",
+      "source_id": "baan_nakorn_in",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "เตียงโบราณราชวงศ์ชิง",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "บ้านนครใน",
+      "source_id": "baan_nakorn_in",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "สถาปัตยกรรมชิโน-ยูโรเปียน",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "บ้านจีน 300 ปี",
+      "source_id": "baan_chinese_300yr",
+      "source_type": "Place",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนครนอก",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "บ้านจีน 300 ปี",
+      "source_id": "baan_chinese_300yr",
+      "source_type": "Place",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "เข้าชมฟรี"
+      }
+    },
+    {
+      "source": "บ้านจีน 300 ปี",
+      "source_id": "baan_chinese_300yr",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "สถาปัตยกรรมเรือนแถวไม้จีนดั้งเดิม",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "บ้านจีน 300 ปี",
+      "source_id": "baan_chinese_300yr",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ร่องรอยการค้าโบราณริมฝั่งทะเลสาบ",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "บ้านจีน 300 ปี",
+      "source_id": "baan_chinese_300yr",
+      "source_type": "Place",
+      "relation": "HISTORICAL_ERA",
+      "target": "ยุคการค้าทางทะเลจีนโบราณ (กว่า 300 ปี)",
+      "target_type": "HistoricalEra",
+      "properties": {}
+    },
+    {
+      "source": "บ้านสงครามโลก (ตึกสงครามโลก)",
+      "source_id": "baan_ww2",
+      "source_type": "Place",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนครใน",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "บ้านสงครามโลก (ตึกสงครามโลก)",
+      "source_id": "baan_ww2",
+      "source_type": "Place",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "เข้าชมฟรี"
+      }
+    },
+    {
+      "source": "บ้านสงครามโลก (ตึกสงครามโลก)",
+      "source_id": "baan_ww2",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "โครงสร้างตึกประวัติศาสตร์ถูกทิ้งระเบิด พ.ศ. 2484",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "บ้านสงครามโลก (ตึกสงครามโลก)",
+      "source_id": "baan_ww2",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "จุดถ่ายภาพวินเทจ",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "บ้านสงครามโลก (ตึกสงครามโลก)",
+      "source_id": "baan_ww2",
+      "source_type": "Place",
+      "relation": "HISTORICAL_ERA",
+      "target": "สงครามมหาเอเชียบูรพา (พ.ศ. 2484)",
+      "target_type": "HistoricalEra",
+      "properties": {}
+    },
+    {
+      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "source_id": "city_pillar_shrine",
+      "source_type": "Place",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนางงาม",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "source_id": "city_pillar_shrine",
+      "source_type": "Place",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "เข้าชมฟรี / ไหว้พระทำบุญตามศรัทธา"
+      }
+    },
+    {
+      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "source_id": "city_pillar_shrine",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "เสาหลักเมืองไม้ชัยพฤกษ์",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "source_id": "city_pillar_shrine",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "สถาปัตยกรรมศาลเจ้าจีนโบราณ",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "source_id": "city_pillar_shrine",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "สักการะเทพเจ้ากวนอูและเสี่ยงเซียมซี",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "source_id": "city_pillar_shrine",
+      "source_type": "Place",
+      "relation": "HISTORICAL_ERA",
+      "target": "สมัยรัชกาลที่ 3 (การสร้างเมืองสงขลาฝั่งบ่อยาง)",
+      "target_type": "HistoricalEra",
+      "properties": {}
+    },
+    {
+      "source": "สงขลา สตรีทอาร์ท (Street Art)",
+      "source_id": "songkhla_street_art",
+      "source_type": "Place",
+      "relation": "LOCATED_ON",
+      "target": "กระจายตามแนวถนนนางงาม ถนนนครนอก ถนนนครใน",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "สงขลา สตรีทอาร์ท (Street Art)",
+      "source_id": "songkhla_street_art",
+      "source_type": "Place",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "เข้าชมฟรี"
+      }
+    },
+    {
+      "source": "สงขลา สตรีทอาร์ท (Street Art)",
+      "source_id": "songkhla_street_art",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "สงขลา สตรีทอาร์ท (Street Art)",
+      "source_id": "songkhla_street_art",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ภาพเด็กเล่นริมกำแพง",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "สงขลา สตรีทอาร์ท (Street Art)",
+      "source_id": "songkhla_street_art",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ภาพวิถีชีวิตชาวประมง",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "หอศิลป์สงขลา (Songkhla Art Center)",
+      "source_id": "songkhla_art_center",
+      "source_type": "Place",
+      "relation": "LOCATED_ON",
+      "target": "ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "หอศิลป์สงขลา (Songkhla Art Center)",
+      "source_id": "songkhla_art_center",
+      "source_type": "Place",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "เข้าชมฟรี (ไม่มีค่าใช้จ่าย)"
+      }
+    },
+    {
+      "source": "หอศิลป์สงขลา (Songkhla Art Center)",
+      "source_id": "songkhla_art_center",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "นิทรรศการหมุนเวียนศิลปินท้องถิ่นและนานาชาติ",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "หอศิลป์สงขลา (Songkhla Art Center)",
+      "source_id": "songkhla_art_center",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "สถาปัตยกรรมโครงสร้างเหล็กโรงสีเก่า",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "รถรางชมเมืองสงขลา (Singora Tram)",
+      "source_id": "singora_tram",
+      "source_type": "Place",
+      "relation": "LOCATED_ON",
+      "target": "จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ (ถ.จะนะ)",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "รถรางชมเมืองสงขลา (Singora Tram)",
+      "source_id": "singora_tram",
+      "source_type": "Place",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "นั่งฟรี ไม่มีค่าใช้จ่าย"
+      }
+    },
+    {
+      "source": "รถรางชมเมืองสงขลา (Singora Tram)",
+      "source_id": "singora_tram",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "นั่งชม 3 ถนนเมืองเก่า",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "รถรางชมเมืองสงขลา (Singora Tram)",
+      "source_id": "singora_tram",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "แวะถ่ายรูปแหลมสมิหลา นางเงือกทอง",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "รถรางชมเมืองสงขลา (Singora Tram)",
+      "source_id": "singora_tram",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ชมประติมากรรมพญานาคพ่นน้ำ",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้าเขาตังกวน)",
+      "source_id": "khao_tang_kuan",
+      "source_type": "Place",
+      "relation": "LOCATED_ON",
+      "target": "ถนนสุขุม เชิงเขาตังกวน",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้าเขาตังกวน)",
+      "source_id": "khao_tang_kuan",
+      "source_type": "Place",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับประหยัด (Budget < 50 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "ค่าลิฟต์ขึ้น-ลง ผู้ใหญ่ 30 บาท / เด็ก 20 บาท"
+      }
+    },
+    {
+      "source": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้าเขาตังกวน)",
+      "source_id": "khao_tang_kuan",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "วิว 360 องศาเห็นทั้งทะเลอ่าวไทยและทะเลสาบสงขลา",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้าเขาตังกวน)",
+      "source_id": "khao_tang_kuan",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "พระเจดีย์หลวงคู่บ้านคู่เมือง",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้าเขาตังกวน)",
+      "source_id": "khao_tang_kuan",
+      "source_type": "Place",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ประภาคารโบราณสมัย ร.5",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้าเขาตังกวน)",
+      "source_id": "khao_tang_kuan",
+      "source_type": "Place",
+      "relation": "HISTORICAL_ERA",
+      "target": "สมัยพระบาทสมเด็จพระจอมเกล้าเจ้าอยู่หัว (ร.4)",
+      "target_type": "HistoricalEra",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "source_id": "hotel_songkhla_taeraek",
+      "source_type": "Hotel",
+      "relation": "LOCATED_ON",
+      "target": "ถนนเพชรคีรี (ย่านเมืองเก่า)",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "source_id": "hotel_songkhla_taeraek",
+      "source_type": "Hotel",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับพรีเมียม / โรงแรม (Premium > 150 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "800 - 1,800 บาท/คืน"
+      }
+    },
+    {
+      "source": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "source_id": "hotel_songkhla_taeraek",
+      "source_type": "Hotel",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ห้องพักตกแต่งย้อนยุควิคตอเรียนผสมชิโนโปรตุกีส",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "source_id": "hotel_songkhla_taeraek",
+      "source_type": "Hotel",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ระเบียงชมวิวเมืองเก่า",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "source_id": "hotel_songkhla_taeraek",
+      "source_type": "Hotel",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "บริการจักรยานปั่นเที่ยวฟรี",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมคลับทรี (Club Tree Hotel)",
+      "source_id": "hotel_club_tree",
+      "source_type": "Hotel",
+      "relation": "LOCATED_ON",
+      "target": "ถนนทะเลหลวง",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมคลับทรี (Club Tree Hotel)",
+      "source_id": "hotel_club_tree",
+      "source_type": "Hotel",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับพรีเมียม / โรงแรม (Premium > 150 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "1,000 - 1,300 บาท/คืน"
+      }
+    },
+    {
+      "source": "โรงแรมคลับทรี (Club Tree Hotel)",
+      "source_id": "hotel_club_tree",
+      "source_type": "Hotel",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ห้องพักโมเดิร์นสะอาด สงบ",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมคลับทรี (Club Tree Hotel)",
+      "source_id": "hotel_club_tree",
+      "source_type": "Hotel",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ที่จอดรถสะดวกสบาย",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมคลับทรี (Club Tree Hotel)",
+      "source_id": "hotel_club_tree",
+      "source_type": "Hotel",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ใกล้หาดสมิหลา",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
+      "source_id": "hotel_montana",
+      "source_type": "Hotel",
+      "relation": "LOCATED_ON",
+      "target": "ถนนสะเดา",
+      "target_type": "Street",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
+      "source_id": "hotel_montana",
+      "source_type": "Hotel",
+      "relation": "HAS_PRICE_TIER",
+      "target": "ระดับพรีเมียม / โรงแรม (Premium > 150 บาท)",
+      "target_type": "PriceTier",
+      "properties": {
+        "price_range": "1,500 - 2,500 บาท/คืน (รวมอาหารเช้า)"
+      }
+    },
+    {
+      "source": "โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
+      "source_id": "hotel_montana",
+      "source_type": "Hotel",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ห้องพักขนาดใหญ่พร้อมระเบียง",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
+      "source_id": "hotel_montana",
+      "source_type": "Hotel",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "บุฟเฟต์อาหารเช้า",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
+      "source_id": "hotel_montana",
+      "source_type": "Hotel",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "สระว่ายน้ำและห้องฟิตเนส",
+      "target_type": "Activity",
+      "properties": {}
+    },
+    {
+      "source": "หอศิลป์สงขลา (Songkhla Art Center)",
+      "source_id": "songkhla_art_center",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 1,
+        "scheduled_time": "09:00",
+        "itinerary_activity": "ชมนิทรรศการศิลปะร่วมสมัย"
+      }
+    },
+    {
+      "source": "บ้านนครใน",
+      "source_id": "baan_nakorn_in",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 2,
+        "scheduled_time": "10:00",
+        "itinerary_activity": "ชมพิพิธภัณฑ์บ้านโบราณสองฝั่งถนน"
+      }
+    },
+    {
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "source_id": "hub_ho_hin",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 3,
+        "scheduled_time": "11:00",
+        "itinerary_activity": "ถ่ายภาพอาคารไม้สีแดงและชมวิวทะเลสาบสงขลา"
+      }
+    },
+    {
+      "source": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+      "source_id": "kiat_fang",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 4,
+        "scheduled_time": "12:00",
+        "itinerary_activity": "รับประทานข้าวสตูและซาลาเปาลูกใหญ่"
+      }
+    },
+    {
+      "source": "บ้านจีน 300 ปี",
+      "source_id": "baan_chinese_300yr",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 5,
+        "scheduled_time": "13:00",
+        "itinerary_activity": "ชมสถาปัตยกรรมเรือนไม้จีนโบราณ"
+      }
+    },
+    {
+      "source": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "source_id": "hotel_songkhla_taeraek",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 6,
+        "scheduled_time": "14:00",
+        "itinerary_activity": "เช็คอินเข้าที่พักสไตล์แอนทีค"
+      }
+    },
+    {
+      "source": "บ้านสงครามโลก (ตึกสงครามโลก)",
+      "source_id": "baan_ww2",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 7,
+        "scheduled_time": "15:00",
+        "itinerary_activity": "ชมร่องรอยประวัติศาสตร์สงครามมหาเอเชียบูรพา"
+      }
+    },
+    {
+      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "source_id": "city_pillar_shrine",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 8,
+        "scheduled_time": "16:00",
+        "itinerary_activity": "สักการะศาลเจ้าพ่อหลักเมืองสงขลา"
+      }
+    },
+    {
+      "source": "สงขลา สตรีทอาร์ท (Street Art)",
+      "source_id": "songkhla_street_art",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 9,
+        "scheduled_time": "17:00",
+        "itinerary_activity": "เดินถ่ายรูปสตรีทอาร์ทบนกำแพงเมืองเก่า"
+      }
+    },
+    {
+      "source": "ร้านไอติมโอ่ง",
+      "source_id": "aitim_oang",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 10,
+        "scheduled_time": "17:30",
+        "itinerary_activity": "ชิมไอติมโอ่งโบราณและไอติมไข่แข็ง"
+      }
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source_id": "tae_hiang_iu",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 1",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 1,
+        "order": 11,
+        "scheduled_time": "18:00",
+        "itinerary_activity": "รับประทานอาหารค่ำ ต้มยำแห้งปลากระพง"
+      }
+    },
+    {
+      "source": "รถรางชมเมืองสงขลา (Singora Tram)",
+      "source_id": "singora_tram",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 2",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 2,
+        "order": 1,
+        "scheduled_time": "08:00",
+        "itinerary_activity": "นั่งรถรางชมเมืองสงขลา แหลมสมิหลา นางเงือกทอง"
+      }
+    },
+    {
+      "source": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้าเขาตังกวน)",
+      "source_id": "khao_tang_kuan",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 2",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 2,
+        "order": 2,
+        "scheduled_time": "10:00",
+        "itinerary_activity": "ขึ้นลิฟต์กระเช้าไฟฟ้าชมวิว 360 องศา"
+      }
+    },
+    {
+      "source": "สงขลาสเตชั่น (Songkhla Station Cafe & Art)",
+      "source_id": "songkhla_station",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 2",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 2,
+        "order": 3,
+        "scheduled_time": "11:00",
+        "itinerary_activity": "จิบกาแฟสดและชมภาพถ่ายเมืองเก่า"
+      }
+    },
+    {
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
+      "source_id": "jae_ni",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 2",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 2,
+        "order": 4,
+        "scheduled_time": "12:00",
+        "itinerary_activity": "รับประทานข้าวต้มปลากะพงและหมี่ซั่วแห้ง"
+      }
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "source_id": "khanom_thai_song_saen",
+      "source_type": "Place",
+      "relation": "VISITED_ON",
+      "target": "โปรแกรมเที่ยวสงขลา วันที่ 2",
+      "target_type": "TourDay",
+      "properties": {
+        "day": 2,
+        "order": 5,
+        "scheduled_time": "13:00",
+        "itinerary_activity": "ซื้อของฝากขนมทองเอกและสัมปันนี"
+      }
+    },
+    {
+      "source": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "source_id": "hotel_songkhla_taeraek",
+      "source_type": "Place",
+      "relation": "NEARBY",
+      "target": "สงขลา สตรีทอาร์ท (Street Art)",
+      "target_type": "Place",
+      "properties": {
+        "distance_m": 300,
+        "walk_min": 4
+      }
+    },
+    {
+      "source": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "source_id": "hotel_songkhla_taeraek",
+      "source_type": "Place",
+      "relation": "NEARBY",
+      "target": "โรงสีแดง หับโห้หิ้น",
+      "target_type": "Place",
+      "properties": {
+        "distance_m": 450,
+        "walk_min": 6
+      }
+    },
+    {
+      "source": "โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+      "source_id": "hotel_songkhla_taeraek",
+      "source_type": "Place",
+      "relation": "NEARBY",
+      "target": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "target_type": "Place",
+      "properties": {
+        "distance_m": 250,
+        "walk_min": 3
+      }
+    },
+    {
+      "source": "ร้านไอติมโอ่ง",
+      "source_id": "aitim_oang",
+      "source_type": "Place",
+      "relation": "NEARBY",
+      "target": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "target_type": "Place",
+      "properties": {
+        "distance_m": 20,
+        "walk_min": 1
+      }
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source_id": "tae_hiang_iu",
+      "source_type": "Place",
+      "relation": "NEARBY",
+      "target": "บ้านขนมไทยสองแสน",
+      "target_type": "Place",
+      "properties": {
+        "distance_m": 15,
+        "walk_min": 1
+      }
+    },
+    {
+      "source": "สงขลาสเตชั่น (Songkhla Station Cafe & Art)",
+      "source_id": "songkhla_station",
+      "source_type": "Place",
+      "relation": "NEARBY",
+      "target": "โรงสีแดง หับโห้หิ้น",
+      "target_type": "Place",
+      "properties": {
+        "distance_m": 40,
+        "walk_min": 1
+      }
+    },
+    {
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
+      "source_id": "jae_ni",
+      "source_type": "Place",
+      "relation": "NEARBY",
+      "target": "โรงสีแดง หับโห้หิ้น",
+      "target_type": "Place",
+      "properties": {
+        "distance_m": 30,
+        "walk_min": 1
+      }
+    },
+    {
+      "source": "บ้านนครใน",
+      "source_id": "baan_nakorn_in",
+      "source_type": "Place",
+      "relation": "NEARBY",
+      "target": "โรงสีแดง หับโห้หิ้น",
+      "target_type": "Place",
+      "properties": {
+        "distance_m": 120,
+        "walk_min": 2
+      }
+    }
+  ]
+}
