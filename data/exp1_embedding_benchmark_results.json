@@ -1,0 +1,1784 @@
+{
+  "benchmark_metadata": {
+    "timestamp": "2026-09-27 17:27:34",
+    "num_chunks": 21,
+    "num_test_queries": 15,
+    "num_domain_terms": 15,
+    "device": "CPU",
+    "eval_framework": "sentence-transformers / PyTorch"
+  },
+  "models": {
+    "model_a": {
+      "model_name": "paraphrase-multilingual-MiniLM-L12-v2",
+      "hf_path": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "category": "Multilingual Small",
+      "use_e5_prefix": false,
+      "param_count_m": 117.65,
+      "embedding_dimension": 384,
+      "tokenization": {
+        "vocab_size": 250002,
+        "total_tokens_for_15_terms": 78,
+        "mean_tokens_per_term": 5.2,
+        "std_tokens_per_term": 1.6,
+        "min_tokens": 3,
+        "max_tokens": 8,
+        "term_details": [
+          {
+            "term": "หับ โห้ หิ้น",
+            "char_length": 12,
+            "token_count": 7,
+            "tokens": [
+              "▁ห",
+              "ับ",
+              "▁",
+              "โห",
+              "้",
+              "▁ห",
+              "ิ้น"
+            ],
+            "fragmentation_ratio": 2.33
+          },
+          {
+            "term": "เกียดฟั่ง",
+            "char_length": 9,
+            "token_count": 5,
+            "tokens": [
+              "▁",
+              "เกีย",
+              "ด",
+              "ฟ",
+              "ั่ง"
+            ],
+            "fragmentation_ratio": 5.0
+          },
+          {
+            "term": "แต้เฮี้ยงอิ้ว",
+            "char_length": 13,
+            "token_count": 8,
+            "tokens": [
+              "▁",
+              "แต",
+              "้",
+              "เฮ",
+              "ี้ย",
+              "ง",
+              "อ",
+              "ิ้ว"
+            ],
+            "fragmentation_ratio": 8.0
+          },
+          {
+            "term": "ซินกวนฮง",
+            "char_length": 8,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ซิน",
+              "ก",
+              "วน",
+              "ฮ",
+              "ง"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "บะเต็ง",
+            "char_length": 6,
+            "token_count": 4,
+            "tokens": [
+              "▁",
+              "บะ",
+              "เต",
+              "็ง"
+            ],
+            "fragmentation_ratio": 4.0
+          },
+          {
+            "term": "บ้านนครใน",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁บ้าน",
+              "นคร",
+              "ใน"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ศาลเจ้าพ่อหลักเมือง",
+            "char_length": 19,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ศาล",
+              "เจ้า",
+              "พ่อ",
+              "หลัก",
+              "เมือง"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "ไอติมโอ่ง",
+            "char_length": 9,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ไอ",
+              "ติ",
+              "ม",
+              "โอ",
+              "่ง"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "ถนนนางงาม",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁ถนน",
+              "นาง",
+              "งาม"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ชิโน-ยูโรเปียน",
+            "char_length": 14,
+            "token_count": 7,
+            "tokens": [
+              "▁",
+              "ชิ",
+              "โน",
+              "-",
+              "ยูโร",
+              "เป",
+              "ียน"
+            ],
+            "fragmentation_ratio": 7.0
+          },
+          {
+            "term": "ถนนนครนอก",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁ถนน",
+              "นคร",
+              "นอก"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ถนนนครใน",
+            "char_length": 8,
+            "token_count": 3,
+            "tokens": [
+              "▁ถนน",
+              "นคร",
+              "ใน"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "สตรีทอาร์ทสงขลา",
+            "char_length": 15,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "สตรี",
+              "ท",
+              "อาร์",
+              "ท",
+              "สงขลา"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "เขาตังกวน",
+            "char_length": 9,
+            "token_count": 5,
+            "tokens": [
+              "▁เขา",
+              "ต",
+              "ัง",
+              "ก",
+              "วน"
+            ],
+            "fragmentation_ratio": 5.0
+          },
+          {
+            "term": "หาดสมิหลา",
+            "char_length": 9,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "หาด",
+              "ส",
+              "มิ",
+              "ห",
+              "ลา"
+            ],
+            "fragmentation_ratio": 6.0
+          }
+        ]
+      },
+      "latency_cpu_ms": {
+        "iterations": 10,
+        "batch_size": 15,
+        "mean_latency_ms": 76.37970999639947,
+        "std_latency_ms": 6.088788283709653,
+        "min_latency_ms": 67.94410001020879,
+        "max_latency_ms": 85.75190001283772,
+        "ms_per_sentence": 5.091980666426632,
+        "throughput_sentences_per_sec": 196.38723426296195
+      },
+      "retrieval": {
+        "mrr": 0.706143790849673,
+        "hit_at_1_accuracy": 0.6,
+        "hit_at_3_accuracy": 0.8666666666666667,
+        "mean_positive_similarity": 0.5892714937527974,
+        "mean_top_negative_similarity": 0.5569991866747538,
+        "mean_cosine_margin": 0.03227230707804362,
+        "query_evaluations": [
+          {
+            "query_id": 1,
+            "query": "ร้านไอติมโอ่งเปิดกี่โมงและราคาเท่าไหร่",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_014",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.5197,
+            "top_negative_similarity": 0.4502,
+            "cosine_margin": 0.0695
+          },
+          {
+            "query_id": 2,
+            "query": "ร้านเกียดฟั่งข้าวสตูเปิดปิดกี่โมง มีเมนูอะไรบ้าง",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_013",
+            "retrieved_rank_1": "chunk_017",
+            "ground_truth_rank": 3,
+            "hit_at_1": false,
+            "hit_at_3": true,
+            "reciprocal_rank": 0.3333,
+            "positive_similarity": 0.4571,
+            "top_negative_similarity": 0.5162,
+            "cosine_margin": -0.0591
+          },
+          {
+            "query_id": 3,
+            "query": "ร้านแต้เฮี้ยงอิ้วเปิดกี่รอบ และเบอร์โทรเบอร์อะไร",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_015",
+            "retrieved_rank_1": "chunk_017",
+            "ground_truth_rank": 3,
+            "hit_at_1": false,
+            "hit_at_3": true,
+            "reciprocal_rank": 0.3333,
+            "positive_similarity": 0.3986,
+            "top_negative_similarity": 0.4663,
+            "cosine_margin": -0.0677
+          },
+          {
+            "query_id": 4,
+            "query": "หอศิลป์สงขลาเปิดวันไหนบ้าง มีวันหยุดไหม",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_004",
+            "retrieved_rank_1": "chunk_004",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.7495,
+            "top_negative_similarity": 0.6538,
+            "cosine_margin": 0.0957
+          },
+          {
+            "query_id": 5,
+            "query": "เบอร์โทรฉุกเฉินตำรวจท่องเที่ยวสงขลาคือเบอร์อะไร",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_021",
+            "retrieved_rank_1": "chunk_021",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.7906,
+            "top_negative_similarity": 0.502,
+            "cosine_margin": 0.2886
+          },
+          {
+            "query_id": 6,
+            "query": "เดินอยู่ถนนนางงาม มีร้านอาหารและของหวานอะไรเปิดอยู่บ้าง",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_017",
+            "ground_truth_rank": 5,
+            "hit_at_1": false,
+            "hit_at_3": false,
+            "reciprocal_rank": 0.2,
+            "positive_similarity": 0.4679,
+            "top_negative_similarity": 0.6511,
+            "cosine_margin": -0.1831
+          },
+          {
+            "query_id": 7,
+            "query": "พักที่โรงแรมสงขลาแต่แรก เดินไปสตรีทอาร์ทและโรงสีแดงกี่เมตร",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_020",
+            "retrieved_rank_1": "chunk_020",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.7761,
+            "top_negative_similarity": 0.586,
+            "cosine_margin": 0.19
+          },
+          {
+            "query_id": 8,
+            "query": "ตามแผนเที่ยววันที่ 1 มื้อเที่ยงกินที่ไหน และบ่ายโมงไปเที่ยวไหนต่อ",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_001",
+            "retrieved_rank_1": "chunk_002",
+            "ground_truth_rank": 3,
+            "hit_at_1": false,
+            "hit_at_3": true,
+            "reciprocal_rank": 0.3333,
+            "positive_similarity": 0.367,
+            "top_negative_similarity": 0.4179,
+            "cosine_margin": -0.0509
+          },
+          {
+            "query_id": 9,
+            "query": "มีงบประมาณ 100 บาท กินอะไรได้บ้างในย่านเมืองเก่าสงขลา",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_018",
+            "ground_truth_rank": 3,
+            "hit_at_1": false,
+            "hit_at_3": true,
+            "reciprocal_rank": 0.3333,
+            "positive_similarity": 0.5716,
+            "top_negative_similarity": 0.6654,
+            "cosine_margin": -0.0938
+          },
+          {
+            "query_id": 10,
+            "query": "รถรางชมเมืองสงขลาขึ้นที่ไหน และพาไปชมจุดสำคัญอะไรบ้าง",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_011",
+            "retrieved_rank_1": "chunk_011",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.7042,
+            "top_negative_similarity": 0.6201,
+            "cosine_margin": 0.084
+          },
+          {
+            "query_id": 11,
+            "query": "เล่าประวัติความเป็นมาของโรงสีแดงหับโห้หิ้น ยุค ร.6 ให้ฟังหน่อย",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_006",
+            "retrieved_rank_1": "chunk_006",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.4878,
+            "top_negative_similarity": 0.4028,
+            "cosine_margin": 0.085
+          },
+          {
+            "query_id": 12,
+            "query": "บ้านนครในมีความสำคัญทางประวัติศาสตร์อย่างไร และมีของสะสมอะไร",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_005",
+            "retrieved_rank_1": "chunk_005",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.6169,
+            "top_negative_similarity": 0.5036,
+            "cosine_margin": 0.1133
+          },
+          {
+            "query_id": 13,
+            "query": "จุดกำเนิดของ 3 ถนนสายวัฒนธรรมในเมืองเก่าสงขลาเริ่มต้นอย่างไร",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_003",
+            "retrieved_rank_1": "chunk_003",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8505,
+            "top_negative_similarity": 0.6646,
+            "cosine_margin": 0.1859
+          },
+          {
+            "query_id": 14,
+            "query": "ช่วยวางแผนเที่ยวสงขลา 1 วันเต็ม สำหรับคนที่อยากเน้นกินของอร่อยและถ่ายรูปตึกเก่า",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_001",
+            "retrieved_rank_1": "chunk_001",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.7269,
+            "top_negative_similarity": 0.6889,
+            "cosine_margin": 0.0381
+          },
+          {
+            "query_id": 15,
+            "query": "เปรียบเทียบจุดเด่นของโรงแรมสงขลาแต่แรก กับ โรงแรมคลับทรี",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_019",
+            "retrieved_rank_1": "chunk_020",
+            "ground_truth_rank": 17,
+            "hit_at_1": false,
+            "hit_at_3": false,
+            "reciprocal_rank": 0.0588,
+            "positive_similarity": 0.3548,
+            "top_negative_similarity": 0.5662,
+            "cosine_margin": -0.2115
+          }
+        ]
+      }
+    },
+    "model_b_raw": {
+      "model_name": "multilingual-e5-base (Raw)",
+      "hf_path": "intfloat/multilingual-e5-base",
+      "category": "Multilingual Medium (Raw)",
+      "use_e5_prefix": false,
+      "param_count_m": 278.04,
+      "embedding_dimension": 768,
+      "tokenization": {
+        "vocab_size": 250002,
+        "total_tokens_for_15_terms": 78,
+        "mean_tokens_per_term": 5.2,
+        "std_tokens_per_term": 1.6,
+        "min_tokens": 3,
+        "max_tokens": 8,
+        "term_details": [
+          {
+            "term": "หับ โห้ หิ้น",
+            "char_length": 12,
+            "token_count": 7,
+            "tokens": [
+              "▁ห",
+              "ับ",
+              "▁",
+              "โห",
+              "้",
+              "▁ห",
+              "ิ้น"
+            ],
+            "fragmentation_ratio": 2.33
+          },
+          {
+            "term": "เกียดฟั่ง",
+            "char_length": 9,
+            "token_count": 5,
+            "tokens": [
+              "▁",
+              "เกีย",
+              "ด",
+              "ฟ",
+              "ั่ง"
+            ],
+            "fragmentation_ratio": 5.0
+          },
+          {
+            "term": "แต้เฮี้ยงอิ้ว",
+            "char_length": 13,
+            "token_count": 8,
+            "tokens": [
+              "▁",
+              "แต",
+              "้",
+              "เฮ",
+              "ี้ย",
+              "ง",
+              "อ",
+              "ิ้ว"
+            ],
+            "fragmentation_ratio": 8.0
+          },
+          {
+            "term": "ซินกวนฮง",
+            "char_length": 8,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ซิน",
+              "ก",
+              "วน",
+              "ฮ",
+              "ง"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "บะเต็ง",
+            "char_length": 6,
+            "token_count": 4,
+            "tokens": [
+              "▁",
+              "บะ",
+              "เต",
+              "็ง"
+            ],
+            "fragmentation_ratio": 4.0
+          },
+          {
+            "term": "บ้านนครใน",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁บ้าน",
+              "นคร",
+              "ใน"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ศาลเจ้าพ่อหลักเมือง",
+            "char_length": 19,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ศาล",
+              "เจ้า",
+              "พ่อ",
+              "หลัก",
+              "เมือง"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "ไอติมโอ่ง",
+            "char_length": 9,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ไอ",
+              "ติ",
+              "ม",
+              "โอ",
+              "่ง"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "ถนนนางงาม",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁ถนน",
+              "นาง",
+              "งาม"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ชิโน-ยูโรเปียน",
+            "char_length": 14,
+            "token_count": 7,
+            "tokens": [
+              "▁",
+              "ชิ",
+              "โน",
+              "-",
+              "ยูโร",
+              "เป",
+              "ียน"
+            ],
+            "fragmentation_ratio": 7.0
+          },
+          {
+            "term": "ถนนนครนอก",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁ถนน",
+              "นคร",
+              "นอก"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ถนนนครใน",
+            "char_length": 8,
+            "token_count": 3,
+            "tokens": [
+              "▁ถนน",
+              "นคร",
+              "ใน"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "สตรีทอาร์ทสงขลา",
+            "char_length": 15,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "สตรี",
+              "ท",
+              "อาร์",
+              "ท",
+              "สงขลา"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "เขาตังกวน",
+            "char_length": 9,
+            "token_count": 5,
+            "tokens": [
+              "▁เขา",
+              "ต",
+              "ัง",
+              "ก",
+              "วน"
+            ],
+            "fragmentation_ratio": 5.0
+          },
+          {
+            "term": "หาดสมิหลา",
+            "char_length": 9,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "หาด",
+              "ส",
+              "มิ",
+              "ห",
+              "ลา"
+            ],
+            "fragmentation_ratio": 6.0
+          }
+        ]
+      },
+      "latency_cpu_ms": {
+        "iterations": 10,
+        "batch_size": 15,
+        "mean_latency_ms": 188.6310300033074,
+        "std_latency_ms": 15.314963037124324,
+        "min_latency_ms": 168.99520001607016,
+        "max_latency_ms": 218.25689999968745,
+        "ms_per_sentence": 12.575402000220492,
+        "throughput_sentences_per_sec": 79.5203207008783
+      },
+      "retrieval": {
+        "mrr": 0.9,
+        "hit_at_1_accuracy": 0.8666666666666667,
+        "hit_at_3_accuracy": 0.8666666666666667,
+        "mean_positive_similarity": 0.8725869655609131,
+        "mean_top_negative_similarity": 0.8353202025095622,
+        "mean_cosine_margin": 0.03726676305135091,
+        "query_evaluations": [
+          {
+            "query_id": 1,
+            "query": "ร้านไอติมโอ่งเปิดกี่โมงและราคาเท่าไหร่",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_014",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8907,
+            "top_negative_similarity": 0.8077,
+            "cosine_margin": 0.083
+          },
+          {
+            "query_id": 2,
+            "query": "ร้านเกียดฟั่งข้าวสตูเปิดปิดกี่โมง มีเมนูอะไรบ้าง",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_013",
+            "retrieved_rank_1": "chunk_013",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8793,
+            "top_negative_similarity": 0.8217,
+            "cosine_margin": 0.0576
+          },
+          {
+            "query_id": 3,
+            "query": "ร้านแต้เฮี้ยงอิ้วเปิดกี่รอบ และเบอร์โทรเบอร์อะไร",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_015",
+            "retrieved_rank_1": "chunk_015",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8805,
+            "top_negative_similarity": 0.8151,
+            "cosine_margin": 0.0654
+          },
+          {
+            "query_id": 4,
+            "query": "หอศิลป์สงขลาเปิดวันไหนบ้าง มีวันหยุดไหม",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_004",
+            "retrieved_rank_1": "chunk_004",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8911,
+            "top_negative_similarity": 0.8425,
+            "cosine_margin": 0.0486
+          },
+          {
+            "query_id": 5,
+            "query": "เบอร์โทรฉุกเฉินตำรวจท่องเที่ยวสงขลาคือเบอร์อะไร",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_021",
+            "retrieved_rank_1": "chunk_021",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.9116,
+            "top_negative_similarity": 0.8438,
+            "cosine_margin": 0.0678
+          },
+          {
+            "query_id": 6,
+            "query": "เดินอยู่ถนนนางงาม มีร้านอาหารและของหวานอะไรเปิดอยู่บ้าง",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_018",
+            "ground_truth_rank": 4,
+            "hit_at_1": false,
+            "hit_at_3": false,
+            "reciprocal_rank": 0.25,
+            "positive_similarity": 0.8072,
+            "top_negative_similarity": 0.8102,
+            "cosine_margin": -0.0029
+          },
+          {
+            "query_id": 7,
+            "query": "พักที่โรงแรมสงขลาแต่แรก เดินไปสตรีทอาร์ทและโรงสีแดงกี่เมตร",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_020",
+            "retrieved_rank_1": "chunk_020",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8819,
+            "top_negative_similarity": 0.8424,
+            "cosine_margin": 0.0395
+          },
+          {
+            "query_id": 8,
+            "query": "ตามแผนเที่ยววันที่ 1 มื้อเที่ยงกินที่ไหน และบ่ายโมงไปเที่ยวไหนต่อ",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_001",
+            "retrieved_rank_1": "chunk_001",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8427,
+            "top_negative_similarity": 0.837,
+            "cosine_margin": 0.0057
+          },
+          {
+            "query_id": 9,
+            "query": "มีงบประมาณ 100 บาท กินอะไรได้บ้างในย่านเมืองเก่าสงขลา",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_020",
+            "ground_truth_rank": 4,
+            "hit_at_1": false,
+            "hit_at_3": false,
+            "reciprocal_rank": 0.25,
+            "positive_similarity": 0.837,
+            "top_negative_similarity": 0.8502,
+            "cosine_margin": -0.0132
+          },
+          {
+            "query_id": 10,
+            "query": "รถรางชมเมืองสงขลาขึ้นที่ไหน และพาไปชมจุดสำคัญอะไรบ้าง",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_011",
+            "retrieved_rank_1": "chunk_011",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8776,
+            "top_negative_similarity": 0.8698,
+            "cosine_margin": 0.0079
+          },
+          {
+            "query_id": 11,
+            "query": "เล่าประวัติความเป็นมาของโรงสีแดงหับโห้หิ้น ยุค ร.6 ให้ฟังหน่อย",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_006",
+            "retrieved_rank_1": "chunk_006",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.87,
+            "top_negative_similarity": 0.8057,
+            "cosine_margin": 0.0643
+          },
+          {
+            "query_id": 12,
+            "query": "บ้านนครในมีความสำคัญทางประวัติศาสตร์อย่างไร และมีของสะสมอะไร",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_005",
+            "retrieved_rank_1": "chunk_005",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8582,
+            "top_negative_similarity": 0.8018,
+            "cosine_margin": 0.0563
+          },
+          {
+            "query_id": 13,
+            "query": "จุดกำเนิดของ 3 ถนนสายวัฒนธรรมในเมืองเก่าสงขลาเริ่มต้นอย่างไร",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_003",
+            "retrieved_rank_1": "chunk_003",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.9033,
+            "top_negative_similarity": 0.8409,
+            "cosine_margin": 0.0624
+          },
+          {
+            "query_id": 14,
+            "query": "ช่วยวางแผนเที่ยวสงขลา 1 วันเต็ม สำหรับคนที่อยากเน้นกินของอร่อยและถ่ายรูปตึกเก่า",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_001",
+            "retrieved_rank_1": "chunk_001",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.889,
+            "top_negative_similarity": 0.8758,
+            "cosine_margin": 0.0131
+          },
+          {
+            "query_id": 15,
+            "query": "เปรียบเทียบจุดเด่นของโรงแรมสงขลาแต่แรก กับ โรงแรมคลับทรี",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_019",
+            "retrieved_rank_1": "chunk_019",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8686,
+            "top_negative_similarity": 0.8653,
+            "cosine_margin": 0.0033
+          }
+        ]
+      }
+    },
+    "model_b_prefix": {
+      "model_name": "multilingual-e5-base (Prefix)",
+      "hf_path": "intfloat/multilingual-e5-base",
+      "category": "Multilingual Medium (E5-Instructed)",
+      "use_e5_prefix": true,
+      "param_count_m": 278.04,
+      "embedding_dimension": 768,
+      "tokenization": {
+        "vocab_size": 250002,
+        "total_tokens_for_15_terms": 78,
+        "mean_tokens_per_term": 5.2,
+        "std_tokens_per_term": 1.6,
+        "min_tokens": 3,
+        "max_tokens": 8,
+        "term_details": [
+          {
+            "term": "หับ โห้ หิ้น",
+            "char_length": 12,
+            "token_count": 7,
+            "tokens": [
+              "▁ห",
+              "ับ",
+              "▁",
+              "โห",
+              "้",
+              "▁ห",
+              "ิ้น"
+            ],
+            "fragmentation_ratio": 2.33
+          },
+          {
+            "term": "เกียดฟั่ง",
+            "char_length": 9,
+            "token_count": 5,
+            "tokens": [
+              "▁",
+              "เกีย",
+              "ด",
+              "ฟ",
+              "ั่ง"
+            ],
+            "fragmentation_ratio": 5.0
+          },
+          {
+            "term": "แต้เฮี้ยงอิ้ว",
+            "char_length": 13,
+            "token_count": 8,
+            "tokens": [
+              "▁",
+              "แต",
+              "้",
+              "เฮ",
+              "ี้ย",
+              "ง",
+              "อ",
+              "ิ้ว"
+            ],
+            "fragmentation_ratio": 8.0
+          },
+          {
+            "term": "ซินกวนฮง",
+            "char_length": 8,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ซิน",
+              "ก",
+              "วน",
+              "ฮ",
+              "ง"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "บะเต็ง",
+            "char_length": 6,
+            "token_count": 4,
+            "tokens": [
+              "▁",
+              "บะ",
+              "เต",
+              "็ง"
+            ],
+            "fragmentation_ratio": 4.0
+          },
+          {
+            "term": "บ้านนครใน",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁บ้าน",
+              "นคร",
+              "ใน"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ศาลเจ้าพ่อหลักเมือง",
+            "char_length": 19,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ศาล",
+              "เจ้า",
+              "พ่อ",
+              "หลัก",
+              "เมือง"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "ไอติมโอ่ง",
+            "char_length": 9,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ไอ",
+              "ติ",
+              "ม",
+              "โอ",
+              "่ง"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "ถนนนางงาม",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁ถนน",
+              "นาง",
+              "งาม"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ชิโน-ยูโรเปียน",
+            "char_length": 14,
+            "token_count": 7,
+            "tokens": [
+              "▁",
+              "ชิ",
+              "โน",
+              "-",
+              "ยูโร",
+              "เป",
+              "ียน"
+            ],
+            "fragmentation_ratio": 7.0
+          },
+          {
+            "term": "ถนนนครนอก",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁ถนน",
+              "นคร",
+              "นอก"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ถนนนครใน",
+            "char_length": 8,
+            "token_count": 3,
+            "tokens": [
+              "▁ถนน",
+              "นคร",
+              "ใน"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "สตรีทอาร์ทสงขลา",
+            "char_length": 15,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "สตรี",
+              "ท",
+              "อาร์",
+              "ท",
+              "สงขลา"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "เขาตังกวน",
+            "char_length": 9,
+            "token_count": 5,
+            "tokens": [
+              "▁เขา",
+              "ต",
+              "ัง",
+              "ก",
+              "วน"
+            ],
+            "fragmentation_ratio": 5.0
+          },
+          {
+            "term": "หาดสมิหลา",
+            "char_length": 9,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "หาด",
+              "ส",
+              "มิ",
+              "ห",
+              "ลา"
+            ],
+            "fragmentation_ratio": 6.0
+          }
+        ]
+      },
+      "latency_cpu_ms": {
+        "iterations": 10,
+        "batch_size": 15,
+        "mean_latency_ms": 200.8708100009244,
+        "std_latency_ms": 29.14631926249381,
+        "min_latency_ms": 175.05329998675734,
+        "max_latency_ms": 253.5267000203021,
+        "ms_per_sentence": 13.39138733339496,
+        "throughput_sentences_per_sec": 74.6748619171246
+      },
+      "retrieval": {
+        "mrr": 0.9166666666666666,
+        "hit_at_1_accuracy": 0.8666666666666667,
+        "hit_at_3_accuracy": 0.9333333333333333,
+        "mean_positive_similarity": 0.8740944862365723,
+        "mean_top_negative_similarity": 0.835121210416158,
+        "mean_cosine_margin": 0.038973275820414224,
+        "query_evaluations": [
+          {
+            "query_id": 1,
+            "query": "ร้านไอติมโอ่งเปิดกี่โมงและราคาเท่าไหร่",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_014",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8914,
+            "top_negative_similarity": 0.8079,
+            "cosine_margin": 0.0835
+          },
+          {
+            "query_id": 2,
+            "query": "ร้านเกียดฟั่งข้าวสตูเปิดปิดกี่โมง มีเมนูอะไรบ้าง",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_013",
+            "retrieved_rank_1": "chunk_013",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8778,
+            "top_negative_similarity": 0.8266,
+            "cosine_margin": 0.0513
+          },
+          {
+            "query_id": 3,
+            "query": "ร้านแต้เฮี้ยงอิ้วเปิดกี่รอบ และเบอร์โทรเบอร์อะไร",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_015",
+            "retrieved_rank_1": "chunk_015",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8844,
+            "top_negative_similarity": 0.8166,
+            "cosine_margin": 0.0678
+          },
+          {
+            "query_id": 4,
+            "query": "หอศิลป์สงขลาเปิดวันไหนบ้าง มีวันหยุดไหม",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_004",
+            "retrieved_rank_1": "chunk_004",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8906,
+            "top_negative_similarity": 0.843,
+            "cosine_margin": 0.0476
+          },
+          {
+            "query_id": 5,
+            "query": "เบอร์โทรฉุกเฉินตำรวจท่องเที่ยวสงขลาคือเบอร์อะไร",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_021",
+            "retrieved_rank_1": "chunk_021",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.911,
+            "top_negative_similarity": 0.8419,
+            "cosine_margin": 0.0692
+          },
+          {
+            "query_id": 6,
+            "query": "เดินอยู่ถนนนางงาม มีร้านอาหารและของหวานอะไรเปิดอยู่บ้าง",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_018",
+            "ground_truth_rank": 2,
+            "hit_at_1": false,
+            "hit_at_3": true,
+            "reciprocal_rank": 0.5,
+            "positive_similarity": 0.8084,
+            "top_negative_similarity": 0.8095,
+            "cosine_margin": -0.0011
+          },
+          {
+            "query_id": 7,
+            "query": "พักที่โรงแรมสงขลาแต่แรก เดินไปสตรีทอาร์ทและโรงสีแดงกี่เมตร",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_020",
+            "retrieved_rank_1": "chunk_020",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8812,
+            "top_negative_similarity": 0.8429,
+            "cosine_margin": 0.0383
+          },
+          {
+            "query_id": 8,
+            "query": "ตามแผนเที่ยววันที่ 1 มื้อเที่ยงกินที่ไหน และบ่ายโมงไปเที่ยวไหนต่อ",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_001",
+            "retrieved_rank_1": "chunk_001",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8477,
+            "top_negative_similarity": 0.8431,
+            "cosine_margin": 0.0046
+          },
+          {
+            "query_id": 9,
+            "query": "มีงบประมาณ 100 บาท กินอะไรได้บ้างในย่านเมืองเก่าสงขลา",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_020",
+            "ground_truth_rank": 4,
+            "hit_at_1": false,
+            "hit_at_3": false,
+            "reciprocal_rank": 0.25,
+            "positive_similarity": 0.8421,
+            "top_negative_similarity": 0.8512,
+            "cosine_margin": -0.009
+          },
+          {
+            "query_id": 10,
+            "query": "รถรางชมเมืองสงขลาขึ้นที่ไหน และพาไปชมจุดสำคัญอะไรบ้าง",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_011",
+            "retrieved_rank_1": "chunk_011",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.885,
+            "top_negative_similarity": 0.8701,
+            "cosine_margin": 0.015
+          },
+          {
+            "query_id": 11,
+            "query": "เล่าประวัติความเป็นมาของโรงสีแดงหับโห้หิ้น ยุค ร.6 ให้ฟังหน่อย",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_006",
+            "retrieved_rank_1": "chunk_006",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8704,
+            "top_negative_similarity": 0.8029,
+            "cosine_margin": 0.0675
+          },
+          {
+            "query_id": 12,
+            "query": "บ้านนครในมีความสำคัญทางประวัติศาสตร์อย่างไร และมีของสะสมอะไร",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_005",
+            "retrieved_rank_1": "chunk_005",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8569,
+            "top_negative_similarity": 0.7902,
+            "cosine_margin": 0.0666
+          },
+          {
+            "query_id": 13,
+            "query": "จุดกำเนิดของ 3 ถนนสายวัฒนธรรมในเมืองเก่าสงขลาเริ่มต้นอย่างไร",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_003",
+            "retrieved_rank_1": "chunk_003",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.9023,
+            "top_negative_similarity": 0.8359,
+            "cosine_margin": 0.0664
+          },
+          {
+            "query_id": 14,
+            "query": "ช่วยวางแผนเที่ยวสงขลา 1 วันเต็ม สำหรับคนที่อยากเน้นกินของอร่อยและถ่ายรูปตึกเก่า",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_001",
+            "retrieved_rank_1": "chunk_001",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8889,
+            "top_negative_similarity": 0.8802,
+            "cosine_margin": 0.0088
+          },
+          {
+            "query_id": 15,
+            "query": "เปรียบเทียบจุดเด่นของโรงแรมสงขลาแต่แรก กับ โรงแรมคลับทรี",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_019",
+            "retrieved_rank_1": "chunk_019",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8732,
+            "top_negative_similarity": 0.865,
+            "cosine_margin": 0.0083
+          }
+        ]
+      }
+    },
+    "model_c": {
+      "model_name": "ConGen-WangchanBERTa",
+      "hf_path": "kornwtp/ConGen-model-wangchanberta",
+      "category": "Thai Monolingual Domain",
+      "use_e5_prefix": false,
+      "param_count_m": 105.84,
+      "embedding_dimension": 768,
+      "tokenization": {
+        "vocab_size": 25004,
+        "total_tokens_for_15_terms": 66,
+        "mean_tokens_per_term": 4.4,
+        "std_tokens_per_term": 1.3063945294843615,
+        "min_tokens": 3,
+        "max_tokens": 8,
+        "term_details": [
+          {
+            "term": "หับ โห้ หิ้น",
+            "char_length": 12,
+            "token_count": 8,
+            "tokens": [
+              "▁",
+              "หั",
+              "บ",
+              "▁โห",
+              "้",
+              "▁",
+              "ห",
+              "ิ้น"
+            ],
+            "fragmentation_ratio": 2.67
+          },
+          {
+            "term": "เกียดฟั่ง",
+            "char_length": 9,
+            "token_count": 5,
+            "tokens": [
+              "▁",
+              "เกีย",
+              "ด",
+              "ฟ",
+              "ั่ง"
+            ],
+            "fragmentation_ratio": 5.0
+          },
+          {
+            "term": "แต้เฮี้ยงอิ้ว",
+            "char_length": 13,
+            "token_count": 5,
+            "tokens": [
+              "▁",
+              "แต้",
+              "เฮี้ย",
+              "งอ",
+              "ิ้ว"
+            ],
+            "fragmentation_ratio": 5.0
+          },
+          {
+            "term": "ซินกวนฮง",
+            "char_length": 8,
+            "token_count": 4,
+            "tokens": [
+              "▁",
+              "ซิน",
+              "กวน",
+              "ฮง"
+            ],
+            "fragmentation_ratio": 4.0
+          },
+          {
+            "term": "บะเต็ง",
+            "char_length": 6,
+            "token_count": 3,
+            "tokens": [
+              "▁",
+              "บะ",
+              "เต็ง"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "บ้านนครใน",
+            "char_length": 9,
+            "token_count": 4,
+            "tokens": [
+              "▁",
+              "บ้าน",
+              "นคร",
+              "ใน"
+            ],
+            "fragmentation_ratio": 4.0
+          },
+          {
+            "term": "ศาลเจ้าพ่อหลักเมือง",
+            "char_length": 19,
+            "token_count": 4,
+            "tokens": [
+              "▁ศาล",
+              "เจ้าพ่อ",
+              "หลัก",
+              "เมือง"
+            ],
+            "fragmentation_ratio": 4.0
+          },
+          {
+            "term": "ไอติมโอ่ง",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁",
+              "ไอติม",
+              "โอ่ง"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ถนนนางงาม",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁",
+              "ถนน",
+              "นางงาม"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "ชิโน-ยูโรเปียน",
+            "char_length": 14,
+            "token_count": 6,
+            "tokens": [
+              "▁",
+              "ชิโน",
+              "-",
+              "ยูโร",
+              "เปีย",
+              "น"
+            ],
+            "fragmentation_ratio": 6.0
+          },
+          {
+            "term": "ถนนนครนอก",
+            "char_length": 9,
+            "token_count": 4,
+            "tokens": [
+              "▁",
+              "ถนน",
+              "นคร",
+              "นอก"
+            ],
+            "fragmentation_ratio": 4.0
+          },
+          {
+            "term": "ถนนนครใน",
+            "char_length": 8,
+            "token_count": 4,
+            "tokens": [
+              "▁",
+              "ถนน",
+              "นคร",
+              "ใน"
+            ],
+            "fragmentation_ratio": 4.0
+          },
+          {
+            "term": "สตรีทอาร์ทสงขลา",
+            "char_length": 15,
+            "token_count": 5,
+            "tokens": [
+              "▁",
+              "สตรีท",
+              "อาร์",
+              "ท",
+              "สงขลา"
+            ],
+            "fragmentation_ratio": 5.0
+          },
+          {
+            "term": "เขาตังกวน",
+            "char_length": 9,
+            "token_count": 3,
+            "tokens": [
+              "▁เขา",
+              "ตัง",
+              "กวน"
+            ],
+            "fragmentation_ratio": 3.0
+          },
+          {
+            "term": "หาดสมิหลา",
+            "char_length": 9,
+            "token_count": 5,
+            "tokens": [
+              "▁",
+              "หาด",
+              "ส",
+              "มิ",
+              "หลา"
+            ],
+            "fragmentation_ratio": 5.0
+          }
+        ]
+      },
+      "latency_cpu_ms": {
+        "iterations": 10,
+        "batch_size": 15,
+        "mean_latency_ms": 164.84350000100676,
+        "std_latency_ms": 15.087846115143783,
+        "min_latency_ms": 149.23119999002665,
+        "max_latency_ms": 197.22770000225864,
+        "ms_per_sentence": 10.989566666733785,
+        "throughput_sentences_per_sec": 90.99539866545172
+      },
+      "retrieval": {
+        "mrr": 0.8944444444444444,
+        "hit_at_1_accuracy": 0.8666666666666667,
+        "hit_at_3_accuracy": 0.9333333333333333,
+        "mean_positive_similarity": 0.5742619295914968,
+        "mean_top_negative_similarity": 0.48203652501106264,
+        "mean_cosine_margin": 0.09222540458043417,
+        "query_evaluations": [
+          {
+            "query_id": 1,
+            "query": "ร้านไอติมโอ่งเปิดกี่โมงและราคาเท่าไหร่",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_014",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.5556,
+            "top_negative_similarity": 0.2572,
+            "cosine_margin": 0.2984
+          },
+          {
+            "query_id": 2,
+            "query": "ร้านเกียดฟั่งข้าวสตูเปิดปิดกี่โมง มีเมนูอะไรบ้าง",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_013",
+            "retrieved_rank_1": "chunk_013",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.5574,
+            "top_negative_similarity": 0.5316,
+            "cosine_margin": 0.0258
+          },
+          {
+            "query_id": 3,
+            "query": "ร้านแต้เฮี้ยงอิ้วเปิดกี่รอบ และเบอร์โทรเบอร์อะไร",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_015",
+            "retrieved_rank_1": "chunk_015",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.4572,
+            "top_negative_similarity": 0.4563,
+            "cosine_margin": 0.001
+          },
+          {
+            "query_id": 4,
+            "query": "หอศิลป์สงขลาเปิดวันไหนบ้าง มีวันหยุดไหม",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_004",
+            "retrieved_rank_1": "chunk_004",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.7052,
+            "top_negative_similarity": 0.5754,
+            "cosine_margin": 0.1298
+          },
+          {
+            "query_id": 5,
+            "query": "เบอร์โทรฉุกเฉินตำรวจท่องเที่ยวสงขลาคือเบอร์อะไร",
+            "type": "Simple Fact",
+            "expected_chunk": "chunk_021",
+            "retrieved_rank_1": "chunk_021",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8103,
+            "top_negative_similarity": 0.3672,
+            "cosine_margin": 0.4431
+          },
+          {
+            "query_id": 6,
+            "query": "เดินอยู่ถนนนางงาม มีร้านอาหารและของหวานอะไรเปิดอยู่บ้าง",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_017",
+            "ground_truth_rank": 3,
+            "hit_at_1": false,
+            "hit_at_3": true,
+            "reciprocal_rank": 0.3333,
+            "positive_similarity": 0.4196,
+            "top_negative_similarity": 0.458,
+            "cosine_margin": -0.0384
+          },
+          {
+            "query_id": 7,
+            "query": "พักที่โรงแรมสงขลาแต่แรก เดินไปสตรีทอาร์ทและโรงสีแดงกี่เมตร",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_020",
+            "retrieved_rank_1": "chunk_020",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.7368,
+            "top_negative_similarity": 0.5155,
+            "cosine_margin": 0.2213
+          },
+          {
+            "query_id": 8,
+            "query": "ตามแผนเที่ยววันที่ 1 มื้อเที่ยงกินที่ไหน และบ่ายโมงไปเที่ยวไหนต่อ",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_001",
+            "retrieved_rank_1": "chunk_001",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.4942,
+            "top_negative_similarity": 0.4756,
+            "cosine_margin": 0.0185
+          },
+          {
+            "query_id": 9,
+            "query": "มีงบประมาณ 100 บาท กินอะไรได้บ้างในย่านเมืองเก่าสงขลา",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_014",
+            "retrieved_rank_1": "chunk_018",
+            "ground_truth_rank": 12,
+            "hit_at_1": false,
+            "hit_at_3": false,
+            "reciprocal_rank": 0.0833,
+            "positive_similarity": 0.2751,
+            "top_negative_similarity": 0.4269,
+            "cosine_margin": -0.1518
+          },
+          {
+            "query_id": 10,
+            "query": "รถรางชมเมืองสงขลาขึ้นที่ไหน และพาไปชมจุดสำคัญอะไรบ้าง",
+            "type": "Multi-hop Relational",
+            "expected_chunk": "chunk_011",
+            "retrieved_rank_1": "chunk_011",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.5505,
+            "top_negative_similarity": 0.5022,
+            "cosine_margin": 0.0483
+          },
+          {
+            "query_id": 11,
+            "query": "เล่าประวัติความเป็นมาของโรงสีแดงหับโห้หิ้น ยุค ร.6 ให้ฟังหน่อย",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_006",
+            "retrieved_rank_1": "chunk_006",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.4655,
+            "top_negative_similarity": 0.4111,
+            "cosine_margin": 0.0544
+          },
+          {
+            "query_id": 12,
+            "query": "บ้านนครในมีความสำคัญทางประวัติศาสตร์อย่างไร และมีของสะสมอะไร",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_005",
+            "retrieved_rank_1": "chunk_005",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.5283,
+            "top_negative_similarity": 0.527,
+            "cosine_margin": 0.0013
+          },
+          {
+            "query_id": 13,
+            "query": "จุดกำเนิดของ 3 ถนนสายวัฒนธรรมในเมืองเก่าสงขลาเริ่มต้นอย่างไร",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_003",
+            "retrieved_rank_1": "chunk_003",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.8208,
+            "top_negative_similarity": 0.586,
+            "cosine_margin": 0.2348
+          },
+          {
+            "query_id": 14,
+            "query": "ช่วยวางแผนเที่ยวสงขลา 1 วันเต็ม สำหรับคนที่อยากเน้นกินของอร่อยและถ่ายรูปตึกเก่า",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_001",
+            "retrieved_rank_1": "chunk_001",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.6301,
+            "top_negative_similarity": 0.5332,
+            "cosine_margin": 0.0969
+          },
+          {
+            "query_id": 15,
+            "query": "เปรียบเทียบจุดเด่นของโรงแรมสงขลาแต่แรก กับ โรงแรมคลับทรี",
+            "type": "Complex Synthesis",
+            "expected_chunk": "chunk_019",
+            "retrieved_rank_1": "chunk_019",
+            "ground_truth_rank": 1,
+            "hit_at_1": true,
+            "hit_at_3": true,
+            "reciprocal_rank": 1.0,
+            "positive_similarity": 0.6075,
+            "top_negative_similarity": 0.6074,
+            "cosine_margin": 0.0001
+          }
+        ]
+      }
+    }
+  }
+}

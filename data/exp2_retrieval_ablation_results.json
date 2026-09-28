@@ -1,0 +1,1876 @@
+{
+  "overall_summary": {
+    "sparse": {
+      "name": "BM25 Only (Lexical)",
+      "hit1_count": 12,
+      "hit1_pct": 80.0,
+      "hit3_count": 13,
+      "hit3_pct": 86.7,
+      "mrr": 0.8333
+    },
+    "dense": {
+      "name": "Dense Only (FAISS FlatIP)",
+      "hit1_count": 12,
+      "hit1_pct": 80.0,
+      "hit3_count": 13,
+      "hit3_pct": 86.7,
+      "mrr": 0.8333
+    },
+    "graph": {
+      "name": "Graph Only (NetworkX)",
+      "hit1_count": 8,
+      "hit1_pct": 53.3,
+      "hit3_count": 8,
+      "hit3_pct": 53.3,
+      "mrr": 0.5333
+    },
+    "hybrid": {
+      "name": "Hybrid RAG (Tri-RRF k=60)",
+      "hit1_count": 12,
+      "hit1_pct": 80.0,
+      "hit3_count": 14,
+      "hit3_pct": 93.3,
+      "mrr": 0.8556
+    }
+  },
+  "category_summary": {
+    "Named Entity (BM25)": {
+      "sparse": {
+        "name": "BM25 Only (Lexical)",
+        "hit1_count": 5,
+        "hit1_pct": 100.0,
+        "hit3_count": 5,
+        "hit3_pct": 100.0,
+        "mrr": 1.0
+      },
+      "dense": {
+        "name": "Dense Only (FAISS FlatIP)",
+        "hit1_count": 4,
+        "hit1_pct": 80.0,
+        "hit3_count": 4,
+        "hit3_pct": 80.0,
+        "mrr": 0.8
+      },
+      "graph": {
+        "name": "Graph Only (NetworkX)",
+        "hit1_count": 3,
+        "hit1_pct": 60.0,
+        "hit3_count": 3,
+        "hit3_pct": 60.0,
+        "mrr": 0.6
+      },
+      "hybrid": {
+        "name": "Hybrid RAG (Tri-RRF k=60)",
+        "hit1_count": 4,
+        "hit1_pct": 80.0,
+        "hit3_count": 4,
+        "hit3_pct": 80.0,
+        "mrr": 0.8
+      }
+    },
+    "Paraphrase / Semantic (Dense)": {
+      "sparse": {
+        "name": "BM25 Only (Lexical)",
+        "hit1_count": 3,
+        "hit1_pct": 60.0,
+        "hit3_count": 4,
+        "hit3_pct": 80.0,
+        "mrr": 0.7
+      },
+      "dense": {
+        "name": "Dense Only (FAISS FlatIP)",
+        "hit1_count": 5,
+        "hit1_pct": 100.0,
+        "hit3_count": 5,
+        "hit3_pct": 100.0,
+        "mrr": 1.0
+      },
+      "graph": {
+        "name": "Graph Only (NetworkX)",
+        "hit1_count": 0,
+        "hit1_pct": 0.0,
+        "hit3_count": 0,
+        "hit3_pct": 0.0,
+        "mrr": 0.0
+      },
+      "hybrid": {
+        "name": "Hybrid RAG (Tri-RRF k=60)",
+        "hit1_count": 5,
+        "hit1_pct": 100.0,
+        "hit3_count": 5,
+        "hit3_pct": 100.0,
+        "mrr": 1.0
+      }
+    },
+    "Spatial / Multi-hop (Graph)": {
+      "sparse": {
+        "name": "BM25 Only (Lexical)",
+        "hit1_count": 4,
+        "hit1_pct": 80.0,
+        "hit3_count": 4,
+        "hit3_pct": 80.0,
+        "mrr": 0.8
+      },
+      "dense": {
+        "name": "Dense Only (FAISS FlatIP)",
+        "hit1_count": 3,
+        "hit1_pct": 60.0,
+        "hit3_count": 4,
+        "hit3_pct": 80.0,
+        "mrr": 0.7
+      },
+      "graph": {
+        "name": "Graph Only (NetworkX)",
+        "hit1_count": 5,
+        "hit1_pct": 100.0,
+        "hit3_count": 5,
+        "hit3_pct": 100.0,
+        "mrr": 1.0
+      },
+      "hybrid": {
+        "name": "Hybrid RAG (Tri-RRF k=60)",
+        "hit1_count": 3,
+        "hit1_pct": 60.0,
+        "hit3_count": 5,
+        "hit3_pct": 100.0,
+        "mrr": 0.7667
+      }
+    }
+  },
+  "per_query_details": [
+    {
+      "id": 1,
+      "category": "Named Entity (BM25)",
+      "query": "ร้านแต้เฮี้ยงอิ้ว ถนนนางงาม เปิดกี่โมง เมนูยำมะม่วงราคาเท่าไหร่",
+      "description": "ถามชื่อเฉพาะร้านอาหารแต้จิ๋ว 'แต้เฮี้ยงอิ้ว' บนถนนนางงาม",
+      "expected_chunks": [
+        "chunk_015"
+      ],
+      "expected_entities": [
+        "แต้เฮี้ยงอิ้ว",
+        "tae_hiang_iu"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 568.86,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_018",
+              "title": "บ้านขนมไทยสองแสน (AnyFlip หน้า 29)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 252.97,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_017",
+              "title": "ร้านเจ๊นิ ข้าวต้มปลา (AnyFlip หน้า 28)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_tae_hiang_iu",
+              "title": "[Graph Subgraph] ร้านแต้เฮี้ยงอิ้ว",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_ถนนนางงาม",
+              "title": "[Graph Subgraph] ถนนนางงาม",
+              "matched": false
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 23.36,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_018",
+              "title": "บ้านขนมไทยสองแสน (AnyFlip หน้า 29)",
+              "matched": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 2,
+      "category": "Named Entity (BM25)",
+      "query": "เกียดฟั่ง ข้าวสตูหมูกรอบและซาลาเปาลูกใหญ่ ตั้งอยู่ถนนใด",
+      "description": "ถามชื่อเฉพาะร้าน 'เกียดฟั่ง' และเมนูซิกเนเจอร์ 'ข้าวสตู'",
+      "expected_chunks": [
+        "chunk_013"
+      ],
+      "expected_entities": [
+        "เกียดฟั่ง",
+        "kiat_fang",
+        "ข้าวสตูสงขลา"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_008",
+              "title": "บ้านสงครามโลก (AnyFlip หน้า 16)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 21.74,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_017",
+              "title": "ร้านเจ๊นิ ข้าวต้มปลา (AnyFlip หน้า 28)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 1.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_หมูกรอบ",
+              "title": "[Graph Subgraph] หมูกรอบ",
+              "matched": false
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 25.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
+              "matched": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 3,
+      "category": "Named Entity (BM25)",
+      "query": "โรงสีแดง หับโห้หิ้น สถาปัตยกรรมสีแดงสดริมทะเลสาบสงขลา",
+      "description": "ถามชื่อเฉพาะประวัติศาสตร์ 'หับโห้หิ้น' (โรงสีแดง)",
+      "expected_chunks": [
+        "chunk_006"
+      ],
+      "expected_entities": [
+        "หับโห้หิ้น",
+        "hub_ho_hin",
+        "โรงสีแดง"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_006",
+              "title": "โรงสีแดง หับโห้หิ้น (AnyFlip หน้า 14)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 20.45,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_005",
+              "title": "บ้านนครใน (AnyFlip หน้า 11)",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_009",
+              "title": "ศาลเจ้าพ่อหลักเมืองสงขลา (AnyFlip หน้า 17)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 1.05,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_hub_ho_hin",
+              "title": "[Graph Subgraph] โรงสีแดง หับโห้หิ้น",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท (Street Art)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_hotel_montana",
+              "title": "[Graph Subgraph] โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
+              "matched": false
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 21.95,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_005",
+              "title": "บ้านนครใน (AnyFlip หน้า 11)",
+              "matched": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 4,
+      "category": "Named Entity (BM25)",
+      "query": "บ้านขนมไทยสองแสน ขนมขี้มอด ขนมทองเอก และขนมสัมปันนี",
+      "description": "ถามชื่อเฉพาะร้านขนมโบราณ 'สองแสน' พร้อมชื่อขนมไทยเฉพาะทาง",
+      "expected_chunks": [
+        "chunk_018"
+      ],
+      "expected_entities": [
+        "สองแสน",
+        "khanom_thai_song_saen",
+        "บ้านขนมไทยสองแสน"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_018",
+              "title": "บ้านขนมไทยสองแสน (AnyFlip หน้า 29)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 22.16,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_018",
+              "title": "บ้านขนมไทยสองแสน (AnyFlip หน้า 29)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 1.03,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_khanom_thai_song_saen",
+              "title": "[Graph Subgraph] บ้านขนมไทยสองแสน",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_ขนมทองเอก",
+              "title": "[Graph Subgraph] ขนมทองเอก",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_ขนมสัมปันนี",
+              "title": "[Graph Subgraph] ขนมสัมปันนี",
+              "matched": false
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 24.04,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_018",
+              "title": "บ้านขนมไทยสองแสน (AnyFlip หน้า 29)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 5,
+      "category": "Named Entity (BM25)",
+      "query": "เบอร์โทรศัพท์สำคัญสถานีตำรวจภูธรเมืองสงขลา 074-311011 และโรงพยาบาลสงขลา",
+      "description": "ค้นหาเบอร์โทรศัพท์และสมุดหน้าเหลืองฉุกเฉินด้วยคำศัพท์เฉพาะ",
+      "expected_chunks": [
+        "chunk_021"
+      ],
+      "expected_entities": [
+        "เบอร์โทรศัพท์สำคัญ",
+        "สายด่วน",
+        "ฉุกเฉิน",
+        "สถานีตำรวจภูธร"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_021",
+              "title": "เบอร์โทรศัพท์สำคัญ สายด่วน และกรณีฉุกเฉินในสงขลา",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_012",
+              "title": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้า) (AnyFlip หน้า 21)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 21.75,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_021",
+              "title": "เบอร์โทรศัพท์สำคัญ สายด่วน และกรณีฉุกเฉินในสงขลา",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_019",
+              "title": "โรงแรมที่พักในย่านเมืองเก่าสงขลา (AnyFlip หน้า 31)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_012",
+              "title": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้า) (AnyFlip หน้า 21)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท (Street Art)",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_hotel_montana",
+              "title": "[Graph Subgraph] โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
+              "matched": false
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 20.92,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_021",
+              "title": "เบอร์โทรศัพท์สำคัญ สายด่วน และกรณีฉุกเฉินในสงขลา",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_012",
+              "title": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้า) (AnyFlip หน้า 21)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 6,
+      "category": "Paraphrase / Semantic (Dense)",
+      "query": "อยากทานของหวานเย็นๆ คลายร้อน ชื่นใจตอนบ่าย มีร้านแนะนำไหม",
+      "description": "ค้นหาของหวานคลายร้อน โดยไม่เอ่ยชื่อร้าน 'ไอติมโอ่ง' หรือคำว่า 'ไอศกรีม'",
+      "expected_chunks": [
+        "chunk_014",
+        "chunk_018"
+      ],
+      "expected_entities": [
+        "ไอติมโอ่ง",
+        "สองแสน",
+        "aithim_ong",
+        "khanom_thai_song_saen"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_010",
+              "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 23.06,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_018",
+              "title": "บ้านขนมไทยสองแสน (AnyFlip หน้า 29)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_014",
+              "title": "ร้านไอติมโอ่ง (AnyFlip หน้า 24)",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": []
+        },
+        "hybrid": {
+          "latency_ms": 23.87,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_018",
+              "title": "บ้านขนมไทยสองแสน (AnyFlip หน้า 29)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_014",
+              "title": "ร้านไอติมโอ่ง (AnyFlip หน้า 24)",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 7,
+      "category": "Paraphrase / Semantic (Dense)",
+      "query": "สถานที่จัดแสดงนิทรรศการศิลปะร่วมสมัยและภาพเขียนของศิลปินเมืองใต้",
+      "description": "ค้นหานิทรรศการศิลปะร่วมสมัย โดยไม่เอ่ยคำว่า 'หอศิลป์สงขลา' ตรงๆ",
+      "expected_chunks": [
+        "chunk_004",
+        "chunk_010"
+      ],
+      "expected_entities": [
+        "หอศิลป์สงขลา",
+        "สตรีทอาร์ท",
+        "songkhla_art_center",
+        "songkhla_street_art"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_004",
+              "title": "หอศิลป์สงขลา (AnyFlip หน้า 10)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_008",
+              "title": "บ้านสงครามโลก (AnyFlip หน้า 16)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_005",
+              "title": "บ้านนครใน (AnyFlip หน้า 11)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 20.05,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_004",
+              "title": "หอศิลป์สงขลา (AnyFlip หน้า 10)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_010",
+              "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": []
+        },
+        "hybrid": {
+          "latency_ms": 22.19,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_004",
+              "title": "หอศิลป์สงขลา (AnyFlip หน้า 10)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_005",
+              "title": "บ้านนครใน (AnyFlip หน้า 11)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 8,
+      "category": "Paraphrase / Semantic (Dense)",
+      "query": "จุดชมทัศนียภาพเมืองเก่าและเวิ้งอ่าวแบบมุมสูง ขึ้นไปด้วยกระเช้าลิฟต์แก้ว",
+      "description": "ค้นหาจุดชมวิว 360 องศาบนยอดเขา โดยไม่เอ่ยคำว่า 'เขาตังกวน'",
+      "expected_chunks": [
+        "chunk_012"
+      ],
+      "expected_entities": [
+        "เขาตังกวน",
+        "khao_tang_kuan",
+        "ลิฟต์กระเช้าไฟฟ้า"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.98,
+          "hit_rank": 2,
+          "hit1": false,
+          "hit3": true,
+          "reciprocal_rank": 0.5,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_008",
+              "title": "บ้านสงครามโลก (AnyFlip หน้า 16)",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_012",
+              "title": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้า) (AnyFlip หน้า 21)",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": true
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 17.49,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_012",
+              "title": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้า) (AnyFlip หน้า 21)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_008",
+              "title": "บ้านสงครามโลก (AnyFlip หน้า 16)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": true
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": []
+        },
+        "hybrid": {
+          "latency_ms": 21.05,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_012",
+              "title": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้า) (AnyFlip หน้า 21)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_008",
+              "title": "บ้านสงครามโลก (AnyFlip หน้า 16)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 9,
+      "category": "Paraphrase / Semantic (Dense)",
+      "query": "ร้านกาแฟบรรยากาศคลาสสิกในอาคารเก่าแก่ที่มีจำหน่ายของที่ระลึกและงานฝีมือ",
+      "description": "ค้นหาคาเฟ่ในตึกเก่าและของที่ระลึก โดยไม่เอ่ยคำว่า 'สงขลาสเตชั่น'",
+      "expected_chunks": [
+        "chunk_016"
+      ],
+      "expected_entities": [
+        "สงขลาสเตชั่น",
+        "songkhla_station"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 1.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_008",
+              "title": "บ้านสงครามโลก (AnyFlip หน้า 16)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 22.06,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_017",
+              "title": "ร้านเจ๊นิ ข้าวต้มปลา (AnyFlip หน้า 28)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": []
+        },
+        "hybrid": {
+          "latency_ms": 23.66,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_005",
+              "title": "บ้านนครใน (AnyFlip หน้า 11)",
+              "matched": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 10,
+      "category": "Paraphrase / Semantic (Dense)",
+      "query": "อาหารเช้าสูตรโบราณน้ำซุปเข้มข้นใส่เครื่องในหมู ทานคู่กับหมั่นโถวหรือซาลาเปาร้อนๆ",
+      "description": "ค้นหาอาหารเช้าน้ำซุปเครื่องในหมู โดยไม่เอ่ยคำว่า 'เกียดฟั่ง' หรือ 'ข้าวสตู'",
+      "expected_chunks": [
+        "chunk_013"
+      ],
+      "expected_entities": [
+        "เกียดฟั่ง",
+        "ข้าวสตู",
+        "kiat_fang"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 1.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 18.04,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_006",
+              "title": "โรงสีแดง หับโห้หิ้น (AnyFlip หน้า 14)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": []
+        },
+        "hybrid": {
+          "latency_ms": 22.43,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 11,
+      "category": "Spatial / Multi-hop (Graph)",
+      "query": "จากโรงแรมสงขลาแต่แรก เดินเท้าไปจุดถ่ายรูปสงขลาสตรีทอาร์ทและโรงสีแดงหับโห้หิ้น ระยะทางกี่เมตร",
+      "description": "ความสัมพันธ์ระยะทางเดินเท้าแบบเชื่อมโยงหลายโหนด (Multi-hop Distance)",
+      "expected_chunks": [
+        "chunk_020"
+      ],
+      "expected_entities": [
+        "โรงแรมสงขลาแต่แรก",
+        "songkhla_taeraek",
+        "สตรีทอาร์ท",
+        "หับโห้หิ้น"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_010",
+              "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
+              "matched": true
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 21.46,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 1.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_hub_ho_hin",
+              "title": "[Graph Subgraph] โรงสีแดง หับโห้หิ้น",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท (Street Art)",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_hotel_songkhla_taeraek",
+              "title": "[Graph Subgraph] โรงแรมสงขลาแต่แรก (Songkhla TaeRaek Antique Hotel)",
+              "matched": true
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 22.07,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_010",
+              "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
+              "matched": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 12,
+      "category": "Spatial / Multi-hop (Graph)",
+      "query": "ถนนนางงาม มีร้านอาหาร ร้านของหวาน และศาสนสถานอะไรตั้งอยู่บนถนนสายนี้บ้าง",
+      "description": "ความสัมพันธ์ LOCATED_ON ของสถานที่และร้านอาหารบนถนนนางงาม",
+      "expected_chunks": [
+        "chunk_003",
+        "chunk_014"
+      ],
+      "expected_entities": [
+        "ถนนนางงาม",
+        "นางงาม"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 1.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_017",
+              "title": "ร้านเจ๊นิ ข้าวต้มปลา (AnyFlip หน้า 28)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 19.95,
+          "hit_rank": 2,
+          "hit1": false,
+          "hit3": true,
+          "reciprocal_rank": 0.5,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_017",
+              "title": "ร้านเจ๊นิ ข้าวต้มปลา (AnyFlip หน้า 28)",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_014",
+              "title": "ร้านไอติมโอ่ง (AnyFlip หน้า 24)",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_010",
+              "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_ถนนนางงาม",
+              "title": "[Graph Subgraph] ถนนนางงาม",
+              "matched": true
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 18.51,
+          "hit_rank": 2,
+          "hit1": false,
+          "hit3": true,
+          "reciprocal_rank": 0.5,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_017",
+              "title": "ร้านเจ๊นิ ข้าวต้มปลา (AnyFlip หน้า 28)",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_014",
+              "title": "ร้านไอติมโอ่ง (AnyFlip หน้า 24)",
+              "matched": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 13,
+      "category": "Spatial / Multi-hop (Graph)",
+      "query": "โปรแกรมท่องเที่ยววันที่ 1 ช่วงบ่ายหลังรับประทานอาหารเที่ยงที่ร้านเกียดฟั่ง ต้องไปชมสถานที่ใดต่อตามลำดับ",
+      "description": "ลำดับกิจกรรมตามเวลา VISITED_ON ของโปรแกรมเที่ยววันที่ 1",
+      "expected_chunks": [
+        "chunk_001"
+      ],
+      "expected_entities": [
+        "โปรแกรมเที่ยวสงขลา วันที่ 1",
+        "วันที่ 1",
+        "เกียดฟั่ง"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_008",
+              "title": "บ้านสงครามโลก (AnyFlip หน้า 16)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 20.72,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_kiat_fang",
+              "title": "[Graph Subgraph] ร้านเกียดฟั่ง (ข้าวสตูสงขลา)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_โปรแกรมเที่ยวสงขลา วันที่ 1",
+              "title": "[Graph Subgraph] โปรแกรมเที่ยวสงขลา วันที่ 1",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_โปรแกรมเที่ยวสงขลา วันที่ 2",
+              "title": "[Graph Subgraph] โปรแกรมเที่ยวสงขลา วันที่ 2",
+              "matched": false
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 22.71,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_002",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 14,
+      "category": "Spatial / Multi-hop (Graph)",
+      "query": "บริเวณรอบๆ ศาลเจ้าพ่อหลักเมืองสงขลา มีสถานที่ท่องเที่ยวและร้านอาหารอะไรในระยะเดินเท้าใกล้เคียง",
+      "description": "ค้นหาสถานที่ข้างเคียงผ่านกราฟความสัมพันธ์ NEARBY รอบศาลเจ้าพ่อหลักเมือง",
+      "expected_chunks": [
+        "chunk_009"
+      ],
+      "expected_entities": [
+        "ศาลเจ้าพ่อหลักเมืองสงขลา",
+        "city_pillar_shrine",
+        "ศาลเจ้าพ่อหลักเมือง"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_011",
+              "title": "รถรางชมเมืองสงขลา และแหลมสมิหลา (AnyFlip หน้า 20)",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 21.64,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_city_pillar_shrine",
+              "title": "[Graph Subgraph] ศาลเจ้าพ่อหลักเมืองสงขลา",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท (Street Art)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_hotel_montana",
+              "title": "[Graph Subgraph] โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
+              "matched": false
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 23.38,
+          "hit_rank": 3,
+          "hit1": false,
+          "hit3": true,
+          "reciprocal_rank": 0.3333333333333333,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_009",
+              "title": "ศาลเจ้าพ่อหลักเมืองสงขลา (AnyFlip หน้า 17)",
+              "matched": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 15,
+      "category": "Spatial / Multi-hop (Graph)",
+      "query": "เส้นทางท่องเที่ยวเชื่อมโยงระหว่างถนนนครนอก ถนนนครใน และท่าเรือทะเลสาบ",
+      "description": "โครงข่ายเชิงพื้นที่เชื่อมโยง 3 ถนนสายวัฒนธรรมและท่าเรือ",
+      "expected_chunks": [
+        "chunk_003",
+        "chunk_006"
+      ],
+      "expected_entities": [
+        "ถนนนครนอก",
+        "ถนนนครใน",
+        "3 ถนนประวัติศาสตร์"
+      ],
+      "retrieval": {
+        "sparse": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_006",
+              "title": "โรงสีแดง หับโห้หิ้น (AnyFlip หน้า 14)",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_005",
+              "title": "บ้านนครใน (AnyFlip หน้า 11)",
+              "matched": false
+            }
+          ]
+        },
+        "dense": {
+          "latency_ms": 16.97,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_010",
+              "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
+              "matched": false
+            }
+          ]
+        },
+        "graph": {
+          "latency_ms": 0.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_ถนนนครนอก",
+              "title": "[Graph Subgraph] ถนนนครนอก",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_ถนนนครใน",
+              "title": "[Graph Subgraph] ถนนนครใน",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_กระจายตามแนวถนนนางงาม ถนนนครนอก ถนนนครใน",
+              "title": "[Graph Subgraph] กระจายตามแนวถนนนางงาม ถนนนครนอก ถนนนครใน",
+              "matched": true
+            }
+          ]
+        },
+        "hybrid": {
+          "latency_ms": 24.14,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "chunk_010",
+              "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": false
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
