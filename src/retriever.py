@@ -3,9 +3,8 @@ import json
 import pickle
 from typing import List, Dict, Any
 
-# Ensure instantaneous offline loading from local cache
-os.environ["HF_HUB_OFFLINE"] = "1"
-os.environ["TRANSFORMERS_OFFLINE"] = "1"
+os.environ.pop("HF_HUB_OFFLINE", None)
+os.environ.pop("TRANSFORMERS_OFFLINE", None)
 
 import faiss
 import numpy as np

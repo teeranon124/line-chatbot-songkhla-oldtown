@@ -19,11 +19,12 @@ from .graph_engine import SongkhlaGraphEngine
 
 SYSTEM_PROMPT = """คุณคือ "น้องสิงขร" ผู้ช่วยอัจฉริยะนำเที่ยวย่านเมืองเก่าสงขลา
 หน้าที่ของคุณ:
-1. ตอบให้ 'สั้น กระชับ ตรงประเด็น' กับคำถามที่สุด
+1. ตอบให้ 'สั้น กระชับ ตรงประเด็น' ไม่เกิน 3-4 บรรทัด
 2. ห้ามมีคำเกริ่นทักทายเยิ่นเย้อ เช่น "สวัสดีค่ะ ยินดีต้อนรับ..." หรือ "น้องสิงขรขอแนะนำ..." ให้ตอบเข้าเนื้อหาทันที
 3. ห้ามใช้เครื่องหมาย Markdown เช่น เครื่องหมายดอกจัน ** หรือเครื่องหมาย # เด็ดขาด ให้ใช้ภาษาไทยธรรมดาที่เป็นธรรมชาติ
-4. ตอบเฉพาะสิ่งที่ถาม เช่น ถามเวลาเปิด-ปิด ให้ตอบแค่เวลาและวันทำการ ไม่ต้องอธิบายประวัติยาวหรือแถมข้อมูลที่ไม่ได้ถาม
-5. อ้างอิงข้อมูลจากบริบทอย่างเคร่งครัด หากไม่มีข้อมูลให้ตอบตามตรงว่าไม่มีข้อมูล ห้ามกุเรื่องขึ้นมาเอง"""
+4. ต้องตอบเป็นภาษาไทยล้วน 100% ห้ามมีตัวอักษรจีนหรือภาษาต่างประเทศปะปนเด็ดขาด (เช่น ห้ามใช้คำว่า 墙壁 ให้ใช้คำว่า กำแพงหรือผนัง)
+5. หากถามเรื่องของหวานหรือของกินเล่น ให้เลือกเฉพาะร้านของหวาน เช่น ร้านไอติมโอ่ง หรือบ้านขนมไทยสองแสน ห้ามนำร้านอาหารคาวมาตอบเป็นของหวาน
+6. อ้างอิงข้อมูลจากบริบทอย่างเคร่งครัด หากไม่มีข้อมูลให้ตอบตามตรงว่าไม่มีข้อมูล ห้ามกุเรื่องขึ้นมาเอง"""
 
 
 class SongkhlaRAGEngine:
@@ -42,18 +43,17 @@ class SongkhlaRAGEngine:
     def route_model(self, query: str, context_chunks: List[Dict[str, Any]]) -> Tuple[str, str]:
         """
         Adaptive Model Router:
-        - Default to Local LLM (Ollama) for fast, concise, offline-first execution.
-        - Route to Cloud API (Groq) ONLY for explicit multi-day itinerary synthesis or deep comparative reasoning.
+        - Default to Local LLM (Ollama) for fast, concise, offline-first execution of factual queries.
+        - Route to Cloud API (Groq) for multi-day itinerary synthesis, complex planning, or multi-constraint reasoning.
         """
-        q_len = len(query.strip())
-        deep_complex_keywords = [
-            "จัดทริป 2 วัน", "จัดทริป 3 วัน", "วางแผนเที่ยว 2 วัน", "วางแผนเที่ยว 3 วัน",
-            "จัดตารางเที่ยวละเอียด", "เปรียบเทียบข้อดีข้อเสียเชิงลึก", "วิเคราะห์สถาปัตยกรรมเชิงลึก"
+        complex_keywords = [
+            "จัดทริป", "วางแผนเที่ยว", "จัดตาราง", "2 วัน", "3 วัน", "ทั้งวัน",
+            "เปรียบเทียบ", "ข้อดีข้อเสีย", "วิเคราะห์", "คำนวณงบ", "งบประมาณ"
         ]
         
-        is_deep_complex = any(kw in query for kw in deep_complex_keywords) and q_len >= 60
+        is_complex = any(kw in query for kw in complex_keywords) or (len(query.strip()) > 50 and "และ" in query)
         
-        if is_deep_complex and self.groq_api_key:
+        if is_complex and self.groq_api_key:
             return "groq", self.groq_model
         return "ollama", self.local_model
 
@@ -159,12 +159,14 @@ class SongkhlaRAGEngine:
                     provider = "groq (failover)"
                     model_name = self.groq_model
 
-        # Clean answer: remove all markdown formatting noise and greetings
+        # Clean answer: remove all markdown formatting noise, greetings, and stray Chinese characters
         clean_ans = answer.strip()
         clean_ans = re.sub(r'\*\*(.*?)\*\*', r'\1', clean_ans)
         clean_ans = re.sub(r'\*(.*?)\*', r'\1', clean_ans)
         clean_ans = re.sub(r'#+\s*', '', clean_ans)
         clean_ans = re.sub(r'^\s*สวัสดี.*?(ค่ะ|ครับ)[!🏮\s]*\n*', '', clean_ans)
+        clean_ans = clean_ans.replace("墙壁", "กำแพง")
+        clean_ans = re.sub(r'[\u4e00-\u9fff]+', '', clean_ans)
         answer = clean_ans.strip()
 
         latency = time.time() - start_time
