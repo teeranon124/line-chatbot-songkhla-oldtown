@@ -7,7 +7,7 @@
     "Dish": "อาหาร เมนูขึ้นชื่อ และของฝากท้องถิ่น",
     "Activity": "กิจกรรมท่องเที่ยวและเชิงวัฒนธรรม",
     "TourDay": "วันในโปรแกรมการเดินทาง (Itinerary Day 1 & Day 2)",
-    "PriceTier": "ระดับงบประมาณ (ประหยัด, มาตรฐาน, พิเศษ)",
+    "PriceTier": "ระดับงบประมาณ (ประหยัด, มาตรฐาน, พรีเมียม)",
     "HistoricalEra": "ยุคสมัยและช่วงเวลาสำคัญในประวัติศาสตร์"
   },
   "AllowedRelations": [
@@ -15,8 +15,8 @@
     "SERVES",
     "OFFERS_ACTIVITY",
     "VISITED_ON",
-    "HAS_PRICE_TIER",
     "HISTORICAL_ERA",
+    "CONNECTS_TO",
     "NEARBY"
   ]
 }

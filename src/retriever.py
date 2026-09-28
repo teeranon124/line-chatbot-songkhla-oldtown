@@ -74,18 +74,24 @@ class SparseRetriever:
 
 
 class DynamicTopKManager:
-    """Calculates optimal Top-K (2 to 5) based on query characteristics."""
+    """Calculates optimal Top-K (2, 4, 7) based on empirical query complexity."""
     @staticmethod
     def calculate_k(query: str, default_k: int = retrieval.default_top_k) -> int:
-        q_len = len(query.strip())
-        # Multi-constraint keywords requiring broader context
-        multi_constraint_kws = ["เปรียบเทียบ", "แนะนำ", "ทริป", "วางแผน", "ทั้งวัน", "งบ", "ราคา", "กี่โมง"]
+        q_clean = query.strip()
+        q_len = len(q_clean)
         
-        if any(kw in query for kw in multi_constraint_kws) or q_len > 45:
-            return min(retrieval.max_top_k, 4)
-        elif q_len < 15:
-            return max(retrieval.min_top_k, 2)
-        return default_k
+        # 1. Complex Multi-constraint / Itinerary / Budget planning (Need k=7 to prevent context starvation)
+        complex_kws = ["ทริป", "ตาราง", "วางแผน", "ทั้งวัน", "2 วัน", "1 วัน", "งบ", "งบประมาณ", "คำนวณ", "กี่บาท", "เส้นทางเดิน"]
+        if any(kw in q_clean for kw in complex_kws) or (q_len > 55 and "และ" in q_clean):
+            return retrieval.max_top_k  # 7
+
+        # 2. Simple Fact-seeking (Hours, phone, location) -> k=2 (Minimize tokens and reduce distraction)
+        simple_fact_kws = ["กี่โมง", "เปิดกี่โมง", "ปิดกี่โมง", "เบอร์โทร", "เบอร์", "โทรศัพท์", "ที่ตั้ง", "พิกัด", "ตั้งอยู่ถนน"]
+        if any(kw in q_clean for kw in simple_fact_kws) or q_len < 22:
+            return retrieval.min_top_k  # 2
+
+        # 3. Standard Comparison / Area discovery queries -> k=4
+        return default_k  # 4
 
 
 class HybridRetriever:
@@ -147,11 +153,27 @@ class HybridRetriever:
                 chunk_map[key] = chunk
                 fused_scores[key] = fused_scores.get(key, 0.0) + w_sparse / (rrf_k + rank + 1)
 
+        # Build mapping from place_id to chunk
+        place_to_chunk = {}
+        for c in self.chunks:
+            pid = c.get("place_id")
+            if pid:
+                place_to_chunk[pid] = c
+
         # Graph candidates
-        graph_hits = self.graph.search_subgraph(query, top_k=top_k)
+        graph_hits = self.graph.search_subgraph(query, top_k=top_k * 2)
         for rank, g_chunk in enumerate(graph_hits):
-            key = g_chunk["chunk_id"]
-            chunk_map[key] = g_chunk
+            raw_id = g_chunk.get("chunk_id", "").replace("graph_", "")
+            matched_chunk = place_to_chunk.get(raw_id)
+            if matched_chunk:
+                key = matched_chunk["chunk_id"]
+                if key not in chunk_map:
+                    chunk_map[key] = dict(matched_chunk)
+                # Augment text chunk with Knowledge Graph relational evidence
+                chunk_map[key]["graph_subgraph"] = g_chunk.get("content", "")
+            else:
+                key = g_chunk["chunk_id"]
+                chunk_map[key] = g_chunk
             fused_scores[key] = fused_scores.get(key, 0.0) + w_graph / (rrf_k + rank + 1)
 
         # Sort by fused score

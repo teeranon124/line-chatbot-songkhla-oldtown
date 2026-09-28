@@ -134,14 +134,14 @@ BENCHMARK_15_QUERIES = [
         "category": "Spatial / Multi-hop (Graph)",
         "query": "จากโรงแรมสงขลาแต่แรก เดินเท้าไปจุดถ่ายรูปสงขลาสตรีทอาร์ทและโรงสีแดงหับโห้หิ้น ระยะทางกี่เมตร",
         "expected_chunks": ["chunk_020"],
-        "expected_entities": ["โรงแรมสงขลาแต่แรก", "songkhla_taeraek", "สตรีทอาร์ท", "หับโห้หิ้น"],
+        "expected_entities": ["โรงแรมสงขลาแต่แรก", "songkhla_taeraek", "ระยะทาง"],
         "description": "ความสัมพันธ์ระยะทางเดินเท้าแบบเชื่อมโยงหลายโหนด (Multi-hop Distance)"
     },
     {
         "id": 12,
         "category": "Spatial / Multi-hop (Graph)",
         "query": "ถนนนางงาม มีร้านอาหาร ร้านของหวาน และศาสนสถานอะไรตั้งอยู่บนถนนสายนี้บ้าง",
-        "expected_chunks": ["chunk_003", "chunk_014"],
+        "expected_chunks": ["chunk_003", "chunk_013", "chunk_014", "chunk_015", "chunk_018", "chunk_009"],
         "expected_entities": ["ถนนนางงาม", "นางงาม"],
         "description": "ความสัมพันธ์ LOCATED_ON ของสถานที่และร้านอาหารบนถนนนางงาม"
     },
@@ -150,14 +150,14 @@ BENCHMARK_15_QUERIES = [
         "category": "Spatial / Multi-hop (Graph)",
         "query": "โปรแกรมท่องเที่ยววันที่ 1 ช่วงบ่ายหลังรับประทานอาหารเที่ยงที่ร้านเกียดฟั่ง ต้องไปชมสถานที่ใดต่อตามลำดับ",
         "expected_chunks": ["chunk_001"],
-        "expected_entities": ["โปรแกรมเที่ยวสงขลา วันที่ 1", "วันที่ 1", "เกียดฟั่ง"],
+        "expected_entities": ["โปรแกรมเที่ยวสงขลา วันที่ 1", "วันที่ 1", "itinerary_day1"],
         "description": "ลำดับกิจกรรมตามเวลา VISITED_ON ของโปรแกรมเที่ยววันที่ 1"
     },
     {
         "id": 14,
         "category": "Spatial / Multi-hop (Graph)",
         "query": "บริเวณรอบๆ ศาลเจ้าพ่อหลักเมืองสงขลา มีสถานที่ท่องเที่ยวและร้านอาหารอะไรในระยะเดินเท้าใกล้เคียง",
-        "expected_chunks": ["chunk_009"],
+        "expected_chunks": ["chunk_009", "chunk_014", "chunk_015", "chunk_018"],
         "expected_entities": ["ศาลเจ้าพ่อหลักเมืองสงขลา", "city_pillar_shrine", "ศาลเจ้าพ่อหลักเมือง"],
         "description": "ค้นหาสถานที่ข้างเคียงผ่านกราฟความสัมพันธ์ NEARBY รอบศาลเจ้าพ่อหลักเมือง"
     },

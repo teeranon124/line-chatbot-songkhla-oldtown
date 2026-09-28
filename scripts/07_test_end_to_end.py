@@ -102,10 +102,10 @@ def run_tests():
     retrieved = engine.retriever.retrieve(q_retrieval, top_k=5)
     has_aitim = any("ไอติมโอ่ง" in r.get("content", "") or "aitim_oang" in r.get("id", "") for r in retrieved)
     print(f"  Retrieved {len(retrieved)} chunks for '{q_retrieval}'")
-    print(f"  Top Match Chunks: {[r.get('id') for r in retrieved[:3]]}")
+    print(f"  Top Match Chunks: {[r.get('chunk_id', r.get('title')) for r in retrieved[:3]]}")
     if has_aitim:
         print("  ✅ Target entity retrieved at Top ranks.")
-        results.append(("Hybrid Retrieval Accuracy", "PASS", f"Top match {retrieved[0].get('id')}"))
+        results.append(("Hybrid Retrieval Accuracy", "PASS", f"Top match: {retrieved[0].get('chunk_id', '')} ({retrieved[0].get('title', '')})"))
     else:
         print("  ❌ Target entity missed.")
         results.append(("Hybrid Retrieval Accuracy", "FAIL", "Entity missed"))

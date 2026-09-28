@@ -3,9 +3,10 @@
     "title": "Songkhla Old Town Knowledge Graph Triples (100% Automated LLM Extraction)",
     "version": "2.0-automated",
     "total_entities": 18,
-    "total_triples": 147,
+    "total_triples": 133,
     "extraction_model": "qwen2.5:3b",
-    "source": "Raw PDF Chunks (21 chunks from Songkhla_Travel_Guide_AnyFlip.pdf)"
+    "source": "Raw PDF Chunks (21 chunks from Songkhla_Travel_Guide_AnyFlip.pdf)",
+    "hardcoded": false
   },
   "entities": [
     {
@@ -371,11 +372,11 @@
   ],
   "triples": [
     {
-      "source": "หอศิลป์สงขลา",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนหาดใหญ่",
+      "source": "ร้านเกียดฟั่ง",
+      "relation": "SERVES",
+      "target": "ข้าวสตู",
       "properties": {
-        "evidence": "โปรแกรมท่องเที่ยวระบุว่าท่านจะถูกส่งต่อจากสนามบินหาดใหญ่ไปยังหอศิลป์สงขลา",
+        "evidence": "รับประทานอาหารกลางวัน ข้าวสตู ที่ ร้านเกียดฟั่ง",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -383,89 +384,49 @@
     {
       "source": "ร้านเกียดฟั่ง",
       "relation": "SERVES",
-      "target": "ข้าวสตูและซาลาเปา",
+      "target": "ซาลาเปา",
       "properties": {
-        "evidence": "ร้านเกียดฟั่งเป็นสถานที่ที่นักท่องเที่ยวจะรับประทานอาหารกลางวัน",
+        "evidence": "รับประทานอาหารกลางวัน ข้าวสตูและซาลาเปา ที่ ร้านเกียดฟั่ง",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "บ้านนครใน",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "วิถีชีวิตโบราณ",
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "relation": "HISTORICAL_ERA",
+      "target": "รัชกาลที่ 6",
       "properties": {
-        "evidence": "ท่านจะได้เรียนรู้วิถีชีวิตโบราณที่บ้านนครใน",
+        "evidence": "ถ่ายภาพสถาปัตยกรรมไม้สีแดงที่ โรงสีแดงหับโห้หิ้น",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ร้านไอติมโอ่ง",
-      "relation": "CONNECTS_TO",
+      "source": "ร้านเกียดฟั่ง",
+      "relation": "LOCATED_ON",
       "target": "ถนนนางงาม",
       "properties": {
-        "evidence": "โปรแกรมท่องเที่ยวระบุว่าท่านจะเดินเล่นถ่ายภาพที่สงขลาสตรีทอาร์ท และแวะชิมร้านไอติมโอ่ง (ถนนนางงาม)",
+        "evidence": "รับประทานอาหารกลางวัน ข้าวสตูและซาลาเปา ที่ ร้านเกียดฟั่ง",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "source": "โรงแรมที่พัก",
+      "relation": "LOCATED_ON",
+      "target": "ถนนสุขุม",
+      "properties": {
+        "evidence": "รับประทานอาหารเช้าที่โรงแรมที่พัก",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ร้านเจ๊นิ",
       "relation": "SERVES",
-      "target": "อาหารจีนแต้จิ๋ว",
+      "target": "ข้าวต้มปลากะพงและบะหมี่",
       "properties": {
-        "evidence": "ร้านแต้เฮี้ยงอิ้วเป็นสถานที่ที่นักท่องเที่ยวจะรับประทานอาหารค่ำ",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านสงครามโลก",
-      "relation": "VISITED_ON",
-      "target": "วันที่ 1",
-      "properties": {
-        "evidence": "โปรแกรมท่องเที่ยวระบุว่าท่านจะชมสถาปัตยกรรมฮกเกี้ยนโบราณ บ้านจีน 300 ปี วันที่ 1",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
-      "relation": "VISITED_ON",
-      "target": "วันที่ 1",
-      "properties": {
-        "evidence": "โปรแกรมท่องเที่ยวระบุว่าท่านจะสักการะสิ่งศักดิ์สิทธิ์ ศาลเจ้าพ่อหลักเมืองสงขลา วันที่ 1",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านจีน 300 ปี",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "สถาปัตยกรรมฮกเกี้ยนโบราณ",
-      "properties": {
-        "evidence": "ท่านจะได้ชมสถาปัตยกรรมฮกเกี้ยนโบราณ บ้านจีน 300 ปี",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านสงครามโลก",
-      "relation": "CONNECTS_TO",
-      "target": "บ้านจีน 300 ปี",
-      "properties": {
-        "evidence": "โปรแกรมท่องเที่ยวระบุว่าท่านจะชมสถาปัตยกรรมฮกเกี้ยนโบราณ บ้านจีน 300 ปี วันที่ 1",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านบ้านขนมไทยสองแสน",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนหรือตรอกที่เชื่อมถึงกัน",
-      "properties": {
-        "evidence": "แวะซื้อของฝากขนมไทยโบราณ ทองเอก สัมปันนี ที่ ร้านบ้านขนมไทยสองแสน",
+        "evidence": "รับประทานอาหารเที่ยง ข้าวต้มปลากะพงและบะหมี่ ที่ ร้านเจ๊นิ (สาขาโรงสีแดง)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -473,29 +434,9 @@
     {
       "source": "ร้านบ้านขนมไทยสองแสน",
       "relation": "NEARBY",
-      "target": "สถานที่ใกล้เคียง",
+      "target": "ร้านเจ๊นิ",
       "properties": {
         "evidence": "แวะซื้อของฝากขนมไทยโบราณ ทองเอก สัมปันนี ที่ ร้านบ้านขนมไทยสองแสน",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเจ๊นิ (สาขาโรงสีแดง)",
-      "relation": "SERVES",
-      "target": "เมนูเด็ด/ของกิน/ของฝาก",
-      "properties": {
-        "evidence": "รับประทานอาหารเที่ยง ข้าวต้มปลากะพงและบะหมี่ ที่ ร้านเจ๊นิ (สาขาโรงสีแดง)",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเจ๊นิ (สาขาโรงสีแดง)",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "กิจกรรมท่องเที่ยว/ไฮไลท์",
-      "properties": {
-        "evidence": "รับประทานอาหารเที่ยง ข้าวต้มปลากะพงและบะหมี่ ที่ ร้านเจ๊นิ (สาขาโรงสีแดง)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -515,7 +456,7 @@
       "relation": "LOCATED_ON",
       "target": "ย่านเมืองเก่าสงขลา",
       "properties": {
-        "evidence": "ย่านเมืองเก่าสงขลาตั้งอยู่ในเขตตำบลบ่อยาง อำเภอเมืองสงขลา มีถนนหลัก 2 สาย คือ 'ถนนนครนอก' และ 'ถนนนครใน'",
+        "evidence": "ย่านเมืองเก่าสงขลาตั้งอยู่ในเขตตำบลบ่อยาง อำเภอเมืองสงขลา มีถนนหลัก 2 สาย คือ 'ถนนนครใน'",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -525,17 +466,57 @@
       "relation": "LOCATED_ON",
       "target": "ย่านเมืองเก่าสงขลา",
       "properties": {
-        "evidence": "ย่านนี้จึงประกอบด้วย 3 ถนนสายวัฒนธรรมที่เชื่อมโยงวิถีชีวิตคนไทยพุทธ ไทยจีน และมุสลิม เข้าไว้ด้วยกันอย่างงดงาม ถนนเก้าห้อง หรือที่รู้จักในปัจจุบันคือ 'ถนนนางงาม'",
+        "evidence": "ย่านเมืองเก่าสงขลาตั้งอยู่ในเขตตำบลบ่อยาง อำเภอเมืองสงขลา มีถนนหลัก 3 สาย คือ 'ถนนเก้าห้อง'",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ถนนนางงาม",
+      "relation": "LOCATED_ON",
+      "target": "ย่านเมืองเก่าสงขลา",
+      "properties": {
+        "evidence": "ย่านเมืองเก่าสงขลาตั้งอยู่ในเขตตำบลบ่อยาง อำเภอเมืองสงขลา มีถนนหลัก 3 สาย คือ 'ถนนเก้าห้อง'",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ถนนนครนอก",
+      "relation": "HISTORICAL_ERA",
+      "target": "รัชกาลที่ 6",
+      "properties": {
+        "evidence": "ถนนนครนอก สร้างขึ้นในสมัยรัชกาลที่ 6",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ถนนนครใน",
+      "relation": "HISTORICAL_ERA",
+      "target": "รัชกาลที่ 6",
+      "properties": {
+        "evidence": "ถนนนครใน สร้างขึ้นในสมัยรัชกาลที่ 6",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ถนนเก้าห้อง",
+      "relation": "HISTORICAL_ERA",
+      "target": "รัชกาลที่ 6",
+      "properties": {
+        "evidence": "ถนนเก้าห้อง สร้างขึ้นในสมัยรัชกาลที่ 6",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
       "source": "หอศิลป์สงขลา",
-      "relation": "LOCATED_ON",
-      "target": "ถนนกำแพงเพชร",
+      "relation": "HISTORICAL_ERA",
+      "target": "ไม่มี",
       "properties": {
-        "evidence": "หอศิลป์สงขลา หอศิลป์สงขลา - หอศิลป์สงขลา อยู่ที่ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
+        "evidence": "ไม่มีข้อมูลเกี่ยวกับยุคสมัย",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -543,39 +524,29 @@
     {
       "source": "หอศิลป์สงขลา",
       "relation": "CONNECTS_TO",
-      "target": "ถนนกำแพงเพชร",
+      "target": "โรงสีเก่าดัดแปลงเป็นหอศิลป์",
       "properties": {
-        "evidence": "หอศิลป์สงขลา หอศิลป์สงขลา - หอศิลป์สงขลา อยู่ที่ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
+        "evidence": "ที่ตั้ง / ถนน: ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
       "source": "หอศิลป์สงขลา",
-      "relation": "NEARBY",
-      "target": "ถนนนางงาม",
+      "relation": "CONNECTS_TO",
+      "target": "แนวกำแพงเมืองเก่า",
       "properties": {
-        "evidence": "หอศิลป์สงขลา หอศิลป์สงขลา - หอศิลป์สงขลา อยู่ที่ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
+        "evidence": "ที่ตั้ง / ถนน: ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "หอศิลป์สงขลา",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "นิทรรศการหมุนเวียนศิลปินท้องถิ่นและนานาชาติ, สถาปัตยกรรมโครงสร้างเหล็กโรงสีเก่า",
+      "source": "บ้านนครใน",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนครใน",
       "properties": {
-        "evidence": "หอศิลป์สงขลา หอศิลป์สงขลา - หอศิลป์สงขลา เป็นศูนย์ร่วมศิลปินท้องถิ่น ส่งเสริมเยาวชนในด้านศิลปะ แขนงต่างๆ เข้าชมฟรีได้ ทุกวันพฤหัสบดี ศุกร์ เสาร์ อาทิตย์ ตั้งแต่เวลา 13.00 น. - 17.00 น.",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "หอศิลป์สงขลา",
-      "relation": "VISITED_ON",
-      "target": "วันพฤหัสบดี ศุกร์ เสาร์ อาทิตย์",
-      "properties": {
-        "evidence": "หอศิลป์สงขลา หอศิลป์สงขลา - หอศิลป์สงขลา เป็นแห่งเดี่ยวในเมือง สงขลาที่เป็นของเอกชน ให้ประชาชนและ นั กท่องเที่ยวได้เข้าชมฟรี เปิดโอกาสให้ชาว สงขลาได้สัมผัสกับงานศิลป์ของศิลปิน ระดับชาติ และเป็นศูนย์ร่วมศิลปินท้องถิ่น ส่งเสริมเยาวชนในด้านศิลปะ แขนงต่างๆ เข้าชมฟรีได้ ทุกวันพฤหัสบดี ศุกร์ เสาร์ อาทิตย์ ตั้งแต่เวลา 13.00 น. - 17.00 น.",
+        "evidence": "ที่ตั้ง / ถนน: ถนนนครใน (อาคารโบราณจีนและชิโนยูโรเปียน เชื่อมทะลุระหว่างถนนนครในกับถนนนครนอก)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -583,49 +554,9 @@
     {
       "source": "บ้านนครใน",
       "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล 2559",
+      "target": "รัชกาลที่ 6",
       "properties": {
-        "evidence": "บ้านนครในก่อตั้งเมื่อปี 2016 พ.ศ. 2559",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านนครใน",
-      "relation": "LOCATED_ON",
-      "target": "ถนนนครใน (อาคารโบราณจีนและชิโนยูโรเปียน)",
-      "properties": {
-        "evidence": "บูรณะตึกเก่าร่วมร้อยปีและสร้างตึก หลังใหม่เพื่อเปิดเป็นพิพิธภัณฑ์สำหรับ เมืองสงขลาภายในมีจัดแสดงของ โบราณและวิถขนบธรรมเนี ยมสงขลา โบราณไว้มากมายตั้งอยู่บนถนนนคร ในและเชื่อมไปทางถนนนครนอกบน อาคาร 5 ชั้น",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านนครใน",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนครนอก",
-      "properties": {
-        "evidence": "เชื่อมไปทางถนนนครนอก",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านนครใน",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "พิพิธภัณฑ์ของสะสมโบราณ, เตียงโบราณราชวงศ์ชิง, สถาปัตยกรรมชิโน-ยูโรเปียน",
-      "properties": {
-        "evidence": "ภายในมีจัดแสดงของ โบราณและวิถขนบธรรมเนี ยมสงขลา โบราณไว้มากมายตั้งอยู่บนถนนนคร ในและเชื่อมไปทางถนนนครนอกบน อาคาร 5 ชั้นสามารถมองเห็นทิวทัศน์ ของเมืองสงขลาแบบ 360 องศา",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านนครใน",
-      "relation": "VISITED_ON",
-      "target": "ทุกวัน (จันทร์ - อาทิตย์)",
-      "properties": {
-        "evidence": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
+        "evidence": "ก่อตั้งเมื่อปี 2016 พ.ศ. 2559",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -633,19 +564,39 @@
     {
       "source": "บ้านนครใน",
       "relation": "SERVES",
-      "target": "เข้าชมฟรี (ไม่มีค่าใช้จ่าย)",
+      "target": "พิพิธภัณฑ์ของสะสมโบราณ",
       "properties": {
-        "evidence": "เข้าชมฟรี (ไม่มีค่าใช้จ่าย)",
+        "evidence": "ภายในมีจัดแสดงของ โบราณและวิถขนบธรรมเนี ยมสงขลา โบราณไว้มากมาย",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
       "source": "บ้านนครใน",
-      "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล 2559",
+      "relation": "SERVES",
+      "target": "เตียงโบราณราชวงศ์ชิง",
       "properties": {
-        "evidence": "บ้านนครในก่อตั้งเมื่อปี 2016 พ.ศ. 2559",
+        "evidence": "ภายในมีจัดแสดงของ โบราณและวิถขนบธรรมเนี ยมสงขลา โบราณไว้มากมาย",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "บ้านนครใน",
+      "relation": "SERVES",
+      "target": "สถาปัตยกรรมชิโน-ยูโรเปียน",
+      "properties": {
+        "evidence": "ภายในมีจัดแสดงของ โบราณและวิถขนบธรรมเนี ยมสงขลา โบราณไว้มากมาย",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "บ้านนครใน",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "มองเห็นทิวทัศน์ของเมืองสงขลา",
+      "properties": {
+        "evidence": "ตั้งอยู่บนอาคาร 5 ชั้นสามารถมองเห็นทิวทัศน์ของเมืองสงขลาแบบ 360 องศา",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -662,27 +613,17 @@
     },
     {
       "source": "บ้านนครใน",
-      "relation": "NEARBY",
-      "target": "ถนนนครใน (อาคารโบราณจีนและชิโนยูโรเปียน)",
-      "properties": {
-        "evidence": "ภายในมีจัดแสดงของ โบราณและวิถขนบธรรมเนี ยมสงขลา โบราณไว้มากมายตั้งอยู่บนถนนนคร ในและเชื่อมไปทางถนนนครนอกบน อาคาร 5 ชั้นสามารถมองเห็นทิวทัศน์ ของเมืองสงขลาแบบ 360 องศา",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "โรงสีหับ โห้ หิ้น",
-      "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล ที่ 2",
-      "properties": {
-        "evidence": "หลังสงครามโลกครั้งที่ 2",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "โรงสีหับ โห้ หิ้น",
       "relation": "CONNECTS_TO",
+      "target": "ถนนนครใน",
+      "properties": {
+        "evidence": "เชื่อมไปทางถนนนครนอก",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "relation": "LOCATED_ON",
       "target": "ถนนนครนอก",
       "properties": {
         "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก (อาคารไม้สีแดงสดริมทะเลสาบสงขลา ท่าเรือโบราณ)",
@@ -691,37 +632,47 @@
       }
     },
     {
-      "source": "โรงสีหับ โห้ หิ้น",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ถ่ายภาพอาคารไม้สีแดงริมน้ำ, นิทรรศการประวัติศาสตร์ท่าเรือสงขลา, จุดชมวิวทะเลสาบสงขลา",
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "relation": "HISTORICAL_ERA",
+      "target": "สงครามโลกครั้งที่ 2",
       "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: ถ่ายภาพอาคารไม้สีแดงริมน้ำ, นิทรรศการประวัติศาสตร์ท่าเรือสงขลา, จุดชมวิวทะเลสาบสงขลา",
+        "evidence": "หลังสงครามโลกครั้งที่ 2 ได้เลิกกิจการโรงสีข้าวเปลี่ยนเป็น โกดังเก็บยางพาราเพื่อส่ งออกและท่า เทียบเรือประมงปัจจุบันเป็นที่ตั้งของ ภาคีคนรักเมืองสงขลา",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "โรงสีหับ โห้ หิ้น",
-      "relation": "VISITED_ON",
-      "target": "วันหรือเวลาในแผนเที่ยว 08:00 - 18:00 น.",
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "relation": "SERVES",
+      "target": "ถ่ายภาพอาคารไม้สีแดงริมน้ำ",
       "properties": {
-        "evidence": "เวลาเปิด-ปิด: 08:00 - 18:00 น.",
+        "evidence": "เมนูเด่น / ไฮไลต์: ถ่ายภาพอาคารไม้สีแดงริมน้ำ",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "โรงสีหับ โห้ หิ้น",
-      "relation": "NEARBY",
-      "target": "ท่าเรือโบราณ",
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "relation": "SERVES",
+      "target": "นิทรรศการประวัติศาสตร์ท่าเรือสงขลา",
       "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก (อาคารไม้สีแดงสดริมทะเลสาบสงขลา ท่าเรือโบราณ)",
+        "evidence": "เมนูเด่น / ไฮไลต์: นิทรรศการประวัติศาสตร์ท่าเรือสงขลา",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "บ้านจีน300ปี",
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "relation": "SERVES",
+      "target": "จุดชมวิวทะเลสาบสงขลา",
+      "properties": {
+        "evidence": "เมนูเด่น / ไฮไลต์: จุดชมวิวทะเลสาบสงขลา",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "บ้านจีน 300 ปี",
       "relation": "LOCATED_ON",
       "target": "ถนนนครนอก",
       "properties": {
@@ -731,9 +682,9 @@
       }
     },
     {
-      "source": "บ้านจีน300ปี",
+      "source": "บ้านจีน 300 ปี",
       "relation": "HISTORICAL_ERA",
-      "target": "1830 แรก",
+      "target": "รัชกาลที่ 3",
       "properties": {
         "evidence": "สร้างขึ้นในช่วงปีพ.ศ.2379ซึ่งเป็นช่วง 1830 แรกตั้งเมืองสงขลาเป็นต้น",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -741,51 +692,21 @@
       }
     },
     {
-      "source": "บ้านจีน300ปี",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนกจิก",
+      "source": "บ้านจีน 300 ปี",
+      "relation": "SERVES",
+      "target": "สถาปัตยกรรมเรือนแถวไม้จีนดั้งเดิม",
       "properties": {
-        "evidence": "ตั้งเมืองสงขลาเป็นต้นมารูปแบบ สถาปัตยกรรมจะมีส่วนหน้ าค้าขาย ด้าน Nong Chik Road",
+        "evidence": "เนื่องจากแปลงที่ดินยาวผู้ออกแบบ จึงได้ออกแบบให้มีช่องเปิดโล่งตรงกลาง ส่วนอาคารด้านหลังมักเป็นที่พักอาศัย",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "บ้านจีน300ปี",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "สถาปัตยกรรมเรือนแถวไม้จีนดั้งเดิม, ร่องรอยการค้าโบราณริมฝั่งทะเลสาบ",
+      "source": "บ้านจีน 300 ปี",
+      "relation": "SERVES",
+      "target": "ร่องรอยการค้าโบราณริมฝั่งทะเลสาบ",
       "properties": {
-        "evidence": "มีส่วนหน้ าค้าขาย ด้าน Nong Chik Road บนใช้เก็บของมีช่องส่งของ เล็กๆ และมี 30 ความยาวตามที่ดินประมาณ 30-40 เมตร",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านจีน300ปี",
-      "relation": "VISITED_ON",
-      "target": "ทุกวัน (จันทร์ - อาทิตย์)",
-      "properties": {
-        "evidence": "เปิดทุกวัน (จันทร์ - อาทิตย์)",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านจีน300ปี",
-      "relation": "NEARBY",
-      "target": "โรงสีแดง",
-      "properties": {
-        "evidence": "บ้านไม้เก่าสไตล์จีนฮกเกี้ยนโบราณ ใกล้กับโรงสีแดง",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านสงครามโลก",
-      "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล 2484",
-      "properties": {
-        "evidence": "บ้านหลังนี้ เป็นสถานที่ สำคัญจนถูกถ่ายภาพโดยเครื่องบินกองทัพ 1945",
+        "evidence": "เนื่องจากแปลงที่ดินยาวผู้ออกแบบ จึงได้ออกแบบให้มีช่องเปิดโล่งตรงกลาง ส่วนอาคารด้านหลังมักเป็นที่พักอาศัย",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -793,7 +714,7 @@
     {
       "source": "บ้านสงครามโลก",
       "relation": "LOCATED_ON",
-      "target": "ถนนนครใน (อาคารซากปรักหักพังประวัติศาสตร์จากระเบิดสงครามโลกครั้งที่ 2)",
+      "target": "ถนนนครใน",
       "properties": {
         "evidence": "ที่ตั้ง / ถนน: ถนนนครใน (อาคารซากปรักหักพังประวัติศาสตร์จากระเบิดสงครามโลกครั้งที่ 2)",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -802,10 +723,10 @@
     },
     {
       "source": "บ้านสงครามโลก",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนครนอกตัดถนนยะลา ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "relation": "HISTORICAL_ERA",
+      "target": "รัชกาลที่ 6",
       "properties": {
-        "evidence": "ที่อยู่: ถนนนครนอกตัดถนนยะลา ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+        "evidence": "คาดการณ์ว่าบ้านหลังนี้ เป็นสถานที่ สำคัญจนถูกถ่ายภาพโดยเครื่องบินกองทัพ 1945 อากาศอังกฤษก่อนจะบินมาทิ้งระเบิด 7 อาคารใหญ่ 3 ชั้น ในเมืองสงขลา 3 เมื่อวันที่ 17 กรกฎาคม พ.ศ. 2488",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -813,19 +734,9 @@
     {
       "source": "บ้านสงครามโลก",
       "relation": "OFFERS_ACTIVITY",
-      "target": "โครงสร้างตึกประวัติศาสตร์ถูกทิ้งระเบิด พ.ศ. 2484, จุดถ่ายภาพวินเทจ",
+      "target": "ถ่ายภาพวินเทจ",
       "properties": {
-        "evidence": "เมนูเด่น / ไฮไลท์: โครงสร้างตึกประวัติศาสตร์ถูกทิ้งระเบิด พ.ศ. 2484, จุดถ่ายภาพวินเทจ",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านสงครามโลก",
-      "relation": "VISITED_ON",
-      "target": "วันที่17 กรกฎาคม พ.ศ. 2488",
-      "properties": {
-        "evidence": "เมื่อวันที่17 กรกฎาคม พ.ศ. 2488",
+        "evidence": "น่าจะเป็นอีกหนึ่ง สถานที่เที่ยวทางประวัติศาสตร์ที่มีความน่าสนใจมาก ๆ แน่ ๆ แน่ ๆ โครงสร้างตึกประวัติศาสตร์ถูกทิ้งระเบิด พ.ศ. 2484, จุดถ่ายภาพวินเทจ",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -835,7 +746,7 @@
       "relation": "LOCATED_ON",
       "target": "ถนนนางงาม",
       "properties": {
-        "evidence": "ศาลเจ้าพ่อหลักเมือง ศาลเจ้าพ่อหลักเมืองสงขลา เป็น - อาคารทรงจีนตั้งอยู่บนถนนนางงาม",
+        "evidence": "เป็น อาคารทรงจีนตั้งอยู่บนถนนนางงาม",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -845,27 +756,17 @@
       "relation": "HISTORICAL_ERA",
       "target": "รัชกาลที่ 3",
       "properties": {
-        "evidence": "ภายใน ศาลหลักเมืองเป็นที่ประดิษฐานของเสา หลักเมืองสงขลา ซึ่ง พระบาทสมเด็จพระ นั่ งเกล้าเจ้าอยู่หัวรัชกาล ที่ 3 ได้ทรง โปรดเกล้าฯพระราชทานในโอกาสที่จะ ทำการสถาปนาเมืองสงขลาใหม่ที่บ่อยาง",
+        "evidence": "สร้างในสมัยพระยาวิเชียรคีรี(เถี้ยนเส้ ง) เจ้าเมืองสงขลา",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
       "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนางงาม",
+      "relation": "HISTORICAL_ERA",
+      "target": "รัชกาลที่ 6",
       "properties": {
-        "evidence": "ศาลเจ้าพ่อหลักเมือง ศาลเจ้าพ่อหลักเมืองสงขลา เป็น - อาคารทรงจีนตั้งอยู่บนถนนนางงาม",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
-      "relation": "NEARBY",
-      "target": "ร้านไอติมโอ่ง",
-      "properties": {
-        "evidence": "ตรงข้ามร้านไอติมโอ่ง",
+        "evidence": "สร้างในสมัยพระยาวิเชียรคีรี(เถี้ยนเส้ ง) เจ้าเมืองสงขลา",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -873,16 +774,26 @@
     {
       "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
       "relation": "OFFERS_ACTIVITY",
-      "target": "เสาหลักเมืองไม้ชัยพฤกษ์, สถาปัตยกรรมศาลเจ้าจีนโบราณ, สักการะเทพเจ้ากวนอูและเสี่ยงเซียมซี",
+      "target": "ถ่ายภาพสตรีทอาร์ท",
       "properties": {
-        "evidence": "ภายในศาลยังได้ทำการประดิษฐานเจ้า พ่อ หลักเมือง (เซ่ง ห๋อง เหล่า เอี๋ย) ซึ่ง เป็นเทพคุ้มครองเมืองตามคติจีนทำให้ ศาลเจ้าพ่อหลักเมืองสงขลาเป็นที่รวม ความศรัทธาของชาวจีนและชาวไทยไว้ใน ศาลเดียวกัน",
+        "evidence": "ภายใน ศาลหลักเมืองเป็นที่ประดิษฐานของเสา หลักเมืองสงขลา ซึ่ง พระบาทสมเด็จพระ นั่ งเกล้าเจ้าอยู่หัวรัชกาล ที่ 3 ได้ทรง โปรดเกล้าฯพระราชทานในโอกาสที่จะ ทำการสถาปนาเมืองสงขลาใหม่ที่บ่อยาง",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-      "relation": "CONNECTS_TO",
+      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "สักการะเทพเจ้ากวนอูและเสี่ยงเซียมซี",
+      "properties": {
+        "evidence": "ภายใน ศาลหลักเมืองเป็นที่ประดิษฐานของเสา หลักเมืองสงขลา ซึ่ง พระบาทสมเด็จพระ นั่ งเกล้าเจ้าอยู่หัวรัชกาล ที่ 3 ได้ทรง โปรดเกล้าฯพระราชทานในโอกาสที่จะ ทำการสถาปนาเมืองสงขลาใหม่ที่บ่อยาง",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สงขลาสตรีทอาร์ท",
+      "relation": "LOCATED_ON",
       "target": "ถนนนางงาม",
       "properties": {
         "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนนางงาม",
@@ -891,251 +802,171 @@
       }
     },
     {
-      "source": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-      "relation": "CONNECTS_TO",
+      "source": "สงขลาสตรีทอาร์ท",
+      "relation": "LOCATED_ON",
       "target": "ถนนนครนอก",
       "properties": {
-        "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนนางงาม ถนนนครนอก ถนนนครใน",
+        "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนนครนอก",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-      "relation": "CONNECTS_TO",
+      "source": "สงขลาสตรีทอาร์ท",
+      "relation": "LOCATED_ON",
       "target": "ถนนนครใน",
       "properties": {
-        "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนนางงาม ถนนนครนอก ถนนนครใน",
+        "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนนครใน",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
+      "source": "สงขลาสตรีทอาร์ท",
+      "relation": "LOCATED_ON",
+      "target": "ถนนเพชรคีรี",
       "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
+        "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนเพชรคีรี",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-      "relation": "CONNECTS_TO",
-      "target": "ภาพร้านน้ำชา",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-      "relation": "CONNECTS_TO",
-      "target": "ภาพร้านฟอกซีย่า",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-      "relation": "CONNECTS_TO",
-      "target": "ภาพรถลาก",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-      "relation": "CONNECTS_TO",
-      "target": "ภาพเรือประมง",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: ภาพสตรีทอาร์ตร้านน้ำชาฮับเซ่ง",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ภาพเด็กเล่นริมกำแพง",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนครนอก",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ภาพเด็กเล่นริมกำแพง",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนครใน",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก ถนนนครใน",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ภาพเด็กเล่นริมกำแพง",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนางงาม",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก ถนนนครใน ถนนนางงาม",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ภาพวิถีชีวิตชาวประมง",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนครนอก",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ภาพวิถีชีวิตชาวประมง",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนครใน",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก ถนนนครใน",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ภาพวิถีชีวิตชาวประมง",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนางงาม",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก ถนนนครใน ถนนนางงาม",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "รถรางชมเมืองสงขลา และแหลมสมิหลา",
-      "relation": "CONNECTS_TO",
+      "source": "สงขลาสตรีทอาร์ท",
+      "relation": "LOCATED_ON",
       "target": "ถนนจะนะ",
       "properties": {
-        "evidence": "ที่ตั้ง / ถนน: จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ (ถ.จะนะ)",
+        "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนจะนะ",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "รถรางชมเมืองสงขลา และแหลมสมิหลา",
-      "relation": "CONNECTS_TO",
-      "target": "แหลมสมิหลา",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ที่ตั้ง: หน้าพิพิธภัณฑ์พธำมะรงค์ ถนนจะนะ ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "รถรางชมเมืองสงขลา และแหลมสมิหลา",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนเมืองเก่า",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: นั่งชม 3 ถนนเมืองเก่า",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "รถรางชมเมืองสงขลา และแหลมสมิหลา",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนแหลมสมิหลา",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: แวะถ่ายรูปแหลมสมิหลา นางเงือกทอง",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "รถรางชมเมืองสงขลา และแหลมสมิหลา",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนแหลมสมิหลา",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: ชมประติมากรรมพญานาคพ่นน้ำ",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "รถรางชมเมืองสงขลา และแหลมสมิหลา",
-      "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล: รัชกาลที่ 10",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ที่ตั้ง: หน้าพิพิธภัณฑ์พธำมะรงค์ ถนนจะนะ ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "เขาตังกวน",
+      "source": "สงขลาสตรีทอาร์ท",
       "relation": "LOCATED_ON",
-      "target": "ถนนสุขุม เชิงเขาตังกวน",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนสุขุม เชิงเขาตังกวน (ยอดเขาใจกลางเมืองสงขลา มีลิฟต์โดยสารขึ้นสู่ยอดเขาและพระเจดีย์หลวง)",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "เขาตังกวน",
-      "relation": "SERVES",
-      "target": "พระเจดีย์หลวง",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: พระเจดีย์หลวงคู่บ้านคู่เมือง",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "เขาตังกวน",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "วิว 360 องศาเห็นทั้งทะเลอ่าวไทยและทะเลสาบสงขลา",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: วิว 360 องศาเห็นทั้งทะเลอ่าวไทยและทะเลสาบสงขลา",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "เขาตังกวน",
-      "relation": "HISTORICAL_ERA",
-      "target": "สมัย ร.5",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: ประภาคารโบราณสมัย ร.5",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "เขาตังกวน",
-      "relation": "CONNECTS_TO",
       "target": "ถนนสุขุม",
       "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนสุขุม เชิงเขาตังกวน (ยอดเขาใจกลางเมืองสงขลา มีลิฟต์โดยสารขึ้นสู่ยอดเขาและพระเจดีย์หลวง)",
+        "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนสุขุม",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ร้านเกียดฟั่ง",
+      "source": "สงขลาสตรีทอาร์ท",
       "relation": "LOCATED_ON",
-      "target": "ถนนนางงาม",
+      "target": "ถนนทะเลหลวง",
       "properties": {
-        "evidence": "ร้านเกียดฟั่ง ริมถนนนางงาม (เปิดมาตั้งแต่ พ.ศ. 2480)",
+        "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนทะเลหลวง",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สงขลาสตรีทอาร์ท",
+      "relation": "LOCATED_ON",
+      "target": "ถนนสะเดา",
+      "properties": {
+        "evidence": "ที่ตั้ง / ถนน: กระจายตามแนวถนนสะเดา",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สงขลาสตรีทอาร์ท",
+      "relation": "LOCATED_ON",
+      "target": "ย่านเมืองเก่าสงขลา",
+      "properties": {
+        "evidence": "ที่อยู่: ย่านเมืองเก่าสงขลา ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "เขาตังกวน",
+      "relation": "LOCATED_ON",
+      "target": "ถนนสุขุม",
+      "properties": {
+        "evidence": "ที่ตั้ง / ถนน: ถนนสุขุมเชิงเขาตังกวน (ยอดเขาใจกลางเมืองสงขลา มีลิฟต์โดยสารขึ้นสู่ยอดเขาและพระเจดีย์หลวง)",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "เขาตังกวน",
+      "relation": "HISTORICAL_ERA",
+      "target": "สมัยรัชกาลที่ 5",
+      "properties": {
+        "evidence": "มีพระเจดีย์หลวงคู่บ้านคู่เมือง",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "เขาตังกวน",
+      "relation": "SERVES",
+      "target": "ลิฟต์",
+      "properties": {
+        "evidence": "มีลิฟต์ยาวขึ้นไปบนยอดเขา",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "เขาตังกวน",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "มองเห็นเมืองสงขลาทั้งเมือง",
+      "properties": {
+        "evidence": "สามารถมองเห็นเมืองสงขลาทั้งเมือง ทั้งแม่น้ำ และชายหาดอีกด้วย",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "เขาตังกวน",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "มองเห็นทะเลอ่าวไทยและทะเลสาบสงขลา",
+      "properties": {
+        "evidence": "สามารถมองเห็นเมืองสงขลาทั้งเมือง ทั้งแม่น้ำ และชายหาดอีกด้วย",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "เขาตังกวน",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ประภาคารโบราณสมัย ร.5",
+      "properties": {
+        "evidence": "มีประภาคารโบราณสมัย ร.5",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "เขาตังกวน",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "นั่งรถรางชมเมือง",
+      "properties": {
+        "evidence": "จากโรงแรมสงขลาแต่แรก เดินไป สตรีทอาร์ท",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "เขาตังกวน",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ถ่ายภาพสตรีทอาร์ท",
+      "properties": {
+        "evidence": "จากโรงแรมสงขลาแต่แรก เดินไป สตรีทอาร์ท",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "เขาตังกวน",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "นั่งลิฟต์ขึ้น-ลง",
+      "properties": {
+        "evidence": "ค่าบริการ 30 บาท บนยอดเขาสามารถมองเห็นเมืองสงขลาทั้งเมือง ทั้งแม่น้ำ และชายหาดอีกด้วย",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1143,27 +974,7 @@
     {
       "source": "ร้านเกียดฟั่ง",
       "relation": "SERVES",
-      "target": "ข้าวสตูหมูเครื่องใน, หมูกรอบ, ข้าวหมูแดง, ซาลาเปาลูกใหญ่ไส้หมูสับ",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลท์: ข้าวสตูหมูเครื่องใน, หมูกรอบ, ข้าวหมูแดง, ซาลาเปาลูกใหญ่ไส้หมูสับ",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเกียดฟั่ง",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ซาลาเปาลูกใหญ่ไส้หมูสับ",
-      "properties": {
-        "evidence": "ซาลาเปาลูกใหญ่ไส้หมูสับ ไว้บริการด้วย",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเกียดฟั่ง",
-      "relation": "VISITED_ON",
-      "target": "พ.ศ. 2480",
+      "target": "ข้าวสตูหมู",
       "properties": {
         "evidence": "ร้านเกียดฟั่ง ข้าวสตูแบบ ดั้งเดิมของสงขลาเปิดขายมา ตั้งแต่ พ.ศ. 2480",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -1172,20 +983,10 @@
     },
     {
       "source": "ร้านเกียดฟั่ง",
-      "relation": "HISTORICAL_ERA",
-      "target": "รัชกาลที่ 9",
+      "relation": "SERVES",
+      "target": "ซาลาเปาลูกใหญ่",
       "properties": {
-        "evidence": "ร้านเกียดฟั่ง ริมถนนนางงาม (เปิดมาตั้งแต่ พ.ศ. 2480)",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเกียดฟั่ง",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนางงาม",
-      "properties": {
-        "evidence": "ร้านเกียดฟั่ง ริมถนนนางงาม (เปิดมาตั้งแต่ พ.ศ. 2480)",
+        "evidence": "ด้วยเครื่องเทศใส่ กะทิเสิร์ฟ พร้อมข้าวสวยร้อนๆในช่วงเข้า และกลังเที่ยงมีซาลาเปาลูกใหญ่ ไว้บริการด้วย",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1195,7 +996,7 @@
       "relation": "LOCATED_ON",
       "target": "ถนนนางงาม",
       "properties": {
-        "evidence": "ไอติมโอ่ง ร้านไอติมโอ่งโบราณ ถนนนางงาม สงขลา",
+        "evidence": "ที่ตั้ง / ถนน: ถนนนางงาม (ตั้งอยู่ตรงข้ามศาลเจ้าพ่อหลักเมืองสงขลา)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1203,29 +1004,9 @@
     {
       "source": "ร้านไอติมโอ่ง",
       "relation": "SERVES",
-      "target": "ไอติมไข่แข็ง, ไอติมทรงเครื่องใส่ไข่, ลูกชิ้นปลาทอด, เกี๊ยวทอด",
+      "target": "ไอติมโอ่ง",
       "properties": {
-        "evidence": "ร้านไอติมโอ่งโบราณ ร้านไอติมโอ่งสงขลามีไอติมโอ่ง 2 รสชาติ คือ รสกะทิ เเละรสชาติลิ้นจี่",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านไอติมโอ่ง",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ลูกชิ้นปลาทอด, เกี๊ยวทอด",
-      "properties": {
-        "evidence": "ร้านไอติมโอ่งโบราณ ร้านไอติมโอ่งสงขลามีไอติมโอ่ง 2 รสชาติ คือ รสกะทิ เเละรสชาติลิ้นจี่",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านไอติมโอ่ง",
-      "relation": "VISITED_ON",
-      "target": "ถนนนางงาม ซอย 2 ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
-      "properties": {
-        "evidence": "ที่อยู่: ถนนนางงาม ซอย 2 ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+        "evidence": "ร้านไอติมโอ่งโบราณ ร้านไอติมโอ่งโบราณสงขลามีไอติมโอ่ง 2 รสชาติ คือ รสกะทิ เเละรสชาติลิ้นจี่",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1233,19 +1014,19 @@
     {
       "source": "ร้านไอติมโอ่ง",
       "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล",
+      "target": "สมัยรัชกาลที่ 6",
       "properties": {
-        "evidence": "ร้านไอติมโอ่งโบราณ",
+        "evidence": "Nang Ngam สื บทอดกันมารุ่นสู่ รุ่นบนถนนนางงามย่าน เมืองเก่าสงขลา",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ถนนนางงาม",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนางงาม ซอย 2 ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+      "source": "ร้านไอติมโอ่ง",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ถ่ายภาพสตรีทอาร์ท",
       "properties": {
-        "evidence": "ที่อยู่: ถนนนางงาม ซอย 2 ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+        "evidence": "จาก โรงแรมสงขลาแต่แรก เดินเท้าไปจุดถ่ายรูปสงขลาสตรีทอาร์ท ประมาณ 300 เมตร (เดิน 4 นาที) และเดินไป โรงสีแดง หับโห้หิ้น ประมาณ 450 เมตร (เดิน 6 นาที)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1255,7 +1036,7 @@
       "relation": "LOCATED_ON",
       "target": "ถนนนางงาม",
       "properties": {
-        "evidence": "ร้านแต้เฮียงอิ๊ว อยู่คู่สงขลามาอย่างยาวนาน ที่ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม",
+        "evidence": "ที่ตั้ง / ถนน: ถนนนางงาม (ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1311,68 +1092,8 @@
       }
     },
     {
-      "source": "ร้านแต้เฮียงอิ๊ว",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ต้มยำแห้งปลากระพง",
-      "properties": {
-        "evidence": "อาหารขึ้นชื่อคือ ต้มยำแห้งปลากระพง",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านแต้เฮียงอิ๊ว",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "เป็ดพะโล้",
-      "properties": {
-        "evidence": "อาหารขึ้นชื่อคือ เป็ดพะโล้",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านแต้เฮียงอิ๊ว",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "กุ้งแม่น้ำทอดกระเทียม",
-      "properties": {
-        "evidence": "อาหารขึ้นชื่อคือ กุ้งแม่น้ำทอดกระเทียม",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านแต้เฮียงอิ๊ว",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "หมูสับต้มบ๊วย",
-      "properties": {
-        "evidence": "อาหารขึ้นชื่อคือ หมูสับต้มบ๊วย",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านแต้เฮียงอิ๊ว",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "เต้าหู้ราดหน้าปู",
-      "properties": {
-        "evidence": "อาหารขึ้นชื่อคือ เต้าหู้ราดหน้าปู",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านแต้เฮียงอิ๊ว",
-      "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล 9",
-      "properties": {
-        "evidence": "ร้านแต้เฮียงอิ๊ว เป็นร้านอาหารเก่า แก่ที่เปิดขายมายาวนานกว่า 85ปีแล้ว",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "สงขลาสเตชั่น (Songkhla Station)",
-      "relation": "CONNECTS_TO",
+      "source": "สงขลาสเตชั่น",
+      "relation": "LOCATED_ON",
       "target": "ถนนนครนอก",
       "properties": {
         "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก (อาคารตึกไม้โบราณ 2 ชั้น เยื้องโรงสีแดงหับโห้หิ้น ชั้นสองมีหอศิลป์)",
@@ -1381,267 +1102,187 @@
       }
     },
     {
-      "source": "สงขลาสเตชั่น (Songkhla Station)",
+      "source": "สงขลาสเตชั่น",
       "relation": "SERVES",
-      "target": "กาแฟสดสเปเชียลตี้, ชาไทยโบราณ, วาฟเฟิลโฮมเมด, นิทรรศการภาพถ่ายเมืองเก่า",
+      "target": "กาแฟ",
       "properties": {
-        "evidence": "เมนูเด่น / ไฮไลท์: กาแฟสดสเปเชียลตี้, ชาไทยโบราณ, วาฟเฟิลโฮมเมด, นิทรรศการภาพถ่ายเมืองเก่า",
+        "evidence": "ขายกาแฟ ชา และมีอาหาร ของทานเล่นด้วย",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "สงขลาสเตชั่น (Songkhla Station)",
-      "relation": "OFFERS_ACTIVITY",
+      "source": "สงขลาสเตชั่น",
+      "relation": "SERVES",
+      "target": "วาฟเฟิลโฮมเมด",
+      "properties": {
+        "evidence": "มีอาหาร ของทานเล่นด้วย",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สงขลาสเตชั่น",
+      "relation": "SERVES",
       "target": "นิทรรศการภาพถ่ายเมืองเก่า",
       "properties": {
-        "evidence": "เมนูเด่น / ไฮไลท์: กาแฟสดสเปเชียลตี้, ชาไทยโบราณ, วาฟเฟิลโฮมเมด, นิทรรศการภาพถ่ายเมืองเก่า",
+        "evidence": "ในแต่ละช่วง ก็จะมีนิทรรศการต่าง ๆ หมุนเวียนกันไป",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "สงขลาสเตชั่น (Songkhla Station)",
-      "relation": "LOCATED_ON",
-      "target": "ถนนนครนอก",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก (อาคารตึกไม้โบราณ 2 ชั้น เยื้องโรงสีแดงหับโห้หิ้น ชั้นสองมีหอศิลป์)",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "สงขลาสเตชั่น (Songkhla Station)",
-      "relation": "VISITED_ON",
-      "target": "จันทร์-ศุกร์ 09:30 - 18:00 น. / เสาร์-อาทิตย์ 08:00 - 19:00 น.",
-      "properties": {
-        "evidence": "เวลาเปิด-ปิด: จันทร์-ศุกร์ 09:30 - 18:00 น. / เสาร์-อาทิตย์ 08:00 - 19:00 น.",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "สงขลาสเตชั่น (Songkhla Station)",
-      "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล",
-      "properties": {
-        "evidence": "ไม่มีข้อมูลที่ชัดเจนในเนื้อหาที่ระบุยุคสมัยทางประวัติศาสตร์/รัชกาล",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเจ๊นิ",
-      "relation": "LOCATED_ON",
-      "target": "ถนนนครนอก",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก (สาขาโรงสีแดง ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ย่านเมืองเก่า)",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเจ๊นิ",
-      "relation": "SERVES",
-      "target": "ข้าวต้มปลากะพงสด, หมี่ซั่วแห้งรวมพล, ข้าวต้มกระดูกหมู, ลูกชิ้นปลาลวก",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลท์: ข้าวต้มปลากะพงสด, หมี่ซั่วแห้งรวมพล, ข้าวต้มกระดูกหมู, ลูกชิ้นปลาลวก",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเจ๊นิ",
+      "source": "สงขลาสเตชั่น",
       "relation": "OFFERS_ACTIVITY",
-      "target": "ข้าวต้มปลา",
+      "target": "ถ่ายภาพสตรีทอาร์ท",
       "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก (สาขาโรงสีแดง ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ย่านเมืองเก่า)",
+        "evidence": "จาก สงขลาสเตชั่น (Songkhla Station) เดินไป สตรีทอาร์ท",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ร้านเจ๊นิ",
-      "relation": "VISITED_ON",
-      "target": "ทุกวัน (จันทร์ - อาทิตย์)",
+      "source": "สงขลาสเตชั่น",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "นั่งรถรางชมเมือง",
       "properties": {
-        "evidence": "เวลาเปิด-ปิด: 09:00 - 17:00 น. เวลาเปิด-ปิด: 09:00 - 17:00 น. วันทำการ: เปิดทุกวัน (จันทร์ - อาทิตย์)",
+        "evidence": "ไม่มีในข้อมูลที่ให้มา",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ร้านเจ๊นิ",
+      "source": "สงขลาสเตชั่น",
       "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล",
+      "target": "ไม่มีในข้อมูลที่ให้มา",
       "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก (สาขาโรงสีแดง ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ย่านเมืองเก่า)",
+        "evidence": "ไม่มีในข้อมูลที่ให้มา",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ร้านเจ๊นิ",
+      "source": "สงขลาสเตชั่น",
       "relation": "CONNECTS_TO",
-      "target": "ถนนนครนอก",
-      "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก (สาขาโรงสีแดง ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ย่านเมืองเก่า)",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเจ๊นิ",
-      "relation": "NEARBY",
       "target": "โรงสีแดงหับโห้หิ้น",
       "properties": {
+        "evidence": "เยื้องโรงสีแดงหับโห้หิ้น ชั้นสองมีหอศิลป์",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สงขลาสเตชั่น",
+      "relation": "CONNECTS_TO",
+      "target": "หอศิลป์",
+      "properties": {
+        "evidence": "ชั้นสองมีหอศิลป์",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สงขลาสเตชั่น",
+      "relation": "CONNECTS_TO",
+      "target": "ถนนนครนอก",
+      "properties": {
+        "evidence": "ถนนนครนอก ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ร้านเจ๊นิ",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนครนอก",
+      "properties": {
         "evidence": "ที่ตั้ง / ถนน: ถนนนครนอก (สาขาโรงสีแดง ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ย่านเมืองเก่า)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "บ้านขนมไทยสองแสน",
-      "relation": "SERVES",
-      "target": "ขนมทองเอก",
-      "properties": {
-        "evidence": "บ้านขนมไทยสองแสน ขนมพื้นบ้านที่มีให้เลือกหลากหลาย รวมถึง ขนมทองเอก",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านขนมไทยสองแสน",
-      "relation": "SERVES",
-      "target": "ขนมสัมปันนี",
-      "properties": {
-        "evidence": "บ้านขนมไทยสองแสน ขนมพื้นบ้านที่มีให้เลือกหลากหลาย รวมถึง ขนมสัมปันนี",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านขนมไทยสองแสน",
-      "relation": "SERVES",
-      "target": "ขนมขี้มอด",
-      "properties": {
-        "evidence": "บ้านขนมไทยสองแสน ขนมพื้นบ้านที่มีให้เลือกหลากหลาย รวมถึง ขนมขี้มอด",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านขนมไทยสองแสน",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนนางงาม",
-      "properties": {
-        "evidence": "บ้านขนมไทยสองแสน อยู่ตรงข้ามร้านแต้เฮี้ยงอิ้ว ใกล้ศาลเจ้าพ่อหลักเมือง",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านขนมไทยสองแสน",
-      "relation": "NEARBY",
-      "target": "ศาลหลักเมืองสงขลา",
-      "properties": {
-        "evidence": "บ้านขนมไทยสองแสน อยู่ไม่ไกลจากศาลหลักเมืองสงขลา",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านขนมไทยสองแสน",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ขนมขี้มอด",
-      "properties": {
-        "evidence": "ที่ไม่เห็นนานแล้วตั้งแต่เด็กๆ คือ ขนมขี้มอด ที่ทำมาจากมะพร้าวคั่ว แป้ง ข้าวโพดและน้ำตาล",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านขนมไทยสองแสน",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ขนมทองเอก",
-      "properties": {
-        "evidence": "บ้านขนมไทยสองแสน ขนมพื้นบ้านที่มีให้เลือกหลากหลาย รวมถึง ขนมทองเอก",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านขนมไทยสองแสน",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ขนมสัมปันนี",
-      "properties": {
-        "evidence": "บ้านขนมไทยสองแสน ขนมพื้นบ้านที่มีให้เลือกหลากหลาย รวมถึง ขนมสัมปันนี",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "บ้านขนมไทยสองแสน",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ขนมขี้มอด",
-      "properties": {
-        "evidence": "ที่ไม่เห็นนานแล้วตั้งแต่เด็กๆ คือ ขนมขี้มอด ที่ทำมาจากมะพร้าวคั่ว แป้ง ข้าวโพดและน้ำตาล",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "โรงแรมมอนทาน่ า Montana Hotel",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนเพชรคีรี",
-      "properties": {
-        "evidence": "โรงแรมมอนทาน่ า Montana Hotel อยู่ตรงหัวมุมถนนเพชรคีรี",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "โรงแรมมอนทาน่ า Montana Hotel",
-      "relation": "NEARBY",
-      "target": "ถนนนางงาม",
-      "properties": {
-        "evidence": "เดินถึงถนนนางงามได้ง่ายจากโรงแรมมอนทาน่ า Montana Hotel",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ห้องพัก",
+      "source": "ร้านเจ๊นิ",
       "relation": "HISTORICAL_ERA",
-      "target": "ยุคสมัยทางประวัติศาสตร์/รัชกาล",
+      "target": "มากว่า 60 ปี",
       "properties": {
-        "evidence": "ห้องพักตกแต่งย้อนยุควิคตอเรียนผสมชิโนโปรตุกีส",
+        "evidence": "มากว่า 60 ปีสืบทอดมา 3 รุ่น",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ห้องพัก",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "บริการจักรยานปั่นเที่ยวฟรี",
+      "source": "ร้านเจ๊นิ",
+      "relation": "SERVES",
+      "target": "ข้าวต้มปลา",
       "properties": {
-        "evidence": "บริการจักรยานปั่นเที่ยวฟรี",
+        "evidence": "เมนูเด่น / ไฮไลต์: ข้าวต้มปลากะพงสด",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ห้องพัก",
-      "relation": "OFFERS_ACTIVITY",
-      "target": "ระเบียงชมวิวเมืองเก่า",
+      "source": "บ้านขนมไทยสองแสน",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนางงาม",
       "properties": {
-        "evidence": "ระเบียงชมวิวเมืองเก่า",
+        "evidence": "ที่ตั้ง / ถนน: ถนนนางงาม (อยู่ตรงข้ามร้านแต้เฮี้ยงอิ้ว ใกล้ศาลเจ้าพ่อหลักเมือง)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "ที่ตั้ง / ถนน",
+      "source": "บ้านขนมไทยสองแสน",
+      "relation": "SERVES",
+      "target": "ขนมทองเอก",
+      "properties": {
+        "evidence": "มีขนม หลากหลายให้เลือก รวมถึงขนมพื้น บ้านต่างๆ ขนมทองเอก",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "relation": "SERVES",
+      "target": "ขนมสัมปันนี",
+      "properties": {
+        "evidence": "มีขนม หลากหลายให้เลือก รวมถึงขนมพื้น บ้านต่างๆ ขนมสัมปันนี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "relation": "SERVES",
+      "target": "ขนมขี้มอด",
+      "properties": {
+        "evidence": "มีขนม หลากหลายให้เลือก รวมถึงขนมพื้น บ้านต่างๆ ขนมขี้มอด",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "relation": "SERVES",
+      "target": "สาเกเชื่อม",
+      "properties": {
+        "evidence": "มีขนม หลากหลายให้เลือก รวมถึงขนมพื้น บ้านต่างๆ สาเกเชื่อม",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "บ้านขนมไทยสองแสน",
+      "relation": "SERVES",
+      "target": "ข้าวฟ่างเปียกกะทิสด",
+      "properties": {
+        "evidence": "มีขนม หลากหลายให้เลือก รวมถึงขนมพื้น บ้านต่างๆ ข้าวฟ่างเปียกกะทิสด",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "โรงแรมคลับ ทรี Club Tree",
       "relation": "LOCATED_ON",
       "target": "ถนนเพชรคีรี",
       "properties": {
@@ -1651,121 +1292,112 @@
       }
     },
     {
-      "source": "ที่ตั้ง / ถนน",
+      "source": "โรงแรมมอนทาน่ า Montana Hotel",
       "relation": "LOCATED_ON",
-      "target": "ถนนนางงาม",
+      "target": "ถนนเพชรคีรี",
       "properties": {
-        "evidence": "ที่ตั้ง / ถนน: ถนนนางงาม (เดินถึงได้ง่าย)",
+        "evidence": "ที่ตั้ง / ถนน: ถนนเพชรคีรี (ย่านเมืองเก่า)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "โรงแรมสงขลาแต่แรก (ถนนเพชรคีรี/นครนอก)",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนเพชรคีรี/นครนอก",
+      "source": "โรงแรมสงขลาแต่แรก Songkhla TaeRaek",
+      "relation": "LOCATED_ON",
+      "target": "ถนนเพชรคีรี",
       "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
+        "evidence": "ที่ตั้ง / ถนน: ถนนเพชรคีรี (ย่านเมืองเก่า)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "โรงแรมสงขลาแต่แรก (ถนนเพชรคีรี/นครนอก)",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนเพชรคีรี/นครนอก",
+      "source": "โรงแรมสงขลาแต่แรก",
+      "relation": "NEARBY",
+      "target": "สงขลา สตรีทอาร์ท",
       "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
+        "evidence": "จาก โรงแรมสงขลาแต่แรก เดินเท้าไปจุดถ่ายรูปสงขลาสตรีทอาร์ท: ประมาณ 300 เมตร (เดิน 4 นาที)",
         "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
+        "extraction_method": "Automated_LLM_Relation_Extraction",
+        "distance_m": 300,
+        "walk_min": 4
       }
     },
     {
-      "source": "โรงแรมสงขลาแต่แรก (ถนนเพชรคีรี/นครนอก)",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนเพชรคีรี/นครนอก",
-      "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "โรงแรมสงขลาแต่แรก (ถนนเพชรคีรี/นครนอก)",
+      "source": "โรงแรมสงขลาแต่แรก",
       "relation": "NEARBY",
       "target": "โรงสีแดง หับโห้หิ้น",
       "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
+        "evidence": "จาก โรงแรมสงขลาแต่แรก เดินเท้าไปถ่ายภาพสตรีทอาร์ท: ประมาณ 450 เมตร (เดิน 6 นาที)",
         "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
+        "extraction_method": "Automated_LLM_Relation_Extraction",
+        "distance_m": 450,
+        "walk_min": 6
       }
     },
     {
-      "source": "โรงแรมสงขลาแต่แรก (ถนนเพชรคีรี/นครนอก)",
+      "source": "โรงแรมสงขลาแต่แรก",
       "relation": "NEARBY",
       "target": "ศาลเจ้าพ่อหลักเมืองสงขลา และร้านไอติมโอ่ง",
       "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
+        "evidence": "จาก โรงแรมสงขลาแต่แรก เดินเท้าไปถ่ายภาพสตรีทอาร์ท: ประมาณ 250 เมตร (เดิน 3 นาที)",
         "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
+        "extraction_method": "Automated_LLM_Relation_Extraction",
+        "distance_m": 250,
+        "walk_min": 3
       }
     },
     {
-      "source": "โรงแรมคลับทรี (ถนนทะเลหลวง)",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนทะเลหลวง",
-      "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "โรงแรมคลับทรี (ถนนทะเลหลวง)",
+      "source": "โรงแรมคลับทรี",
       "relation": "NEARBY",
       "target": "ย่านเมืองเก่า / สตรีทอาร์ท",
       "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
+        "evidence": "จาก โรงแรมคลับทรี เดินทางไปยังย่านเมืองเก่า / สตรีทอาร์ท: ประมาณ 1.2 กิโลเมตร (นั่งรถ 3 นาที หรือเดิน 15 นาที)",
         "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
+        "extraction_method": "Automated_LLM_Relation_Extraction",
+        "distance_m": 1200,
+        "walk_min": 3
       }
     },
     {
-      "source": "โรงแรมคลับทรี (ถนนทะเลหลวง)",
+      "source": "โรงแรมคลับทรี",
       "relation": "NEARBY",
       "target": "โรงสีแดง หับโห้หิ้น",
       "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
+        "evidence": "จาก โรงแรมคลับทรี เดินทางไปยังโรงสีแดง หับโห้หิ้น: ประมาณ 2.1 กิโลเมตร",
         "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
+        "extraction_method": "Automated_LLM_Relation_Extraction",
+        "distance_m": 2100
       }
     },
     {
-      "source": "โรงแรมมอนทาน่า (ถนนสะเดา)",
-      "relation": "CONNECTS_TO",
-      "target": "ถนนสะเดา",
-      "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "โรงแรมมอนทาน่า (ถนนสะเดา)",
+      "source": "โรงแรมมอนทาน่า",
       "relation": "NEARBY",
       "target": "ย่านเมืองเก่า / สตรีทอาร์ท",
       "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
+        "evidence": "จาก โรงแรมมอนทาน่า เดินทางไปยังย่านเมืองเก่า / สตรีทอาร์ท: ประมาณ 1.3 กิโลเมตร",
         "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
+        "extraction_method": "Automated_LLM_Relation_Extraction",
+        "distance_m": 1300
       }
     },
     {
-      "source": "โรงแรมมอนทาน่า (ถนนสะเดา)",
+      "source": "โรงแรมมอนทาน่า",
       "relation": "NEARBY",
       "target": "โรงสีแดง หับโห้หิ้น",
       "properties": {
-        "evidence": "ระยะทางและการเดินเท้าจากโรงแรมไปยังสถานที่ท่องเที่ยวย่านเมืองเก่าสงขลา",
+        "evidence": "จาก โรงแรมมอนทาน่า เดินทางไปยังโรงสีแดง หับโห้หิ้น: ประมาณ 1.4 กิโลเมตร",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction",
+        "distance_m": 1400
+      }
+    },
+    {
+      "source": "ตำรวจทางหลวง",
+      "relation": "HISTORICAL_ERA",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1773,9 +1405,49 @@
     {
       "source": "ตำรวจทางหลวง",
       "relation": "SERVES",
-      "target": "บริการฉุกเฉิน",
+      "target": "ไม่มี",
       "properties": {
-        "evidence": "เบอร์โทรศัพท์สำคัญและสายด่วนฉุกเฉินในจังหวัดสงขลา: ตำรวจทางหลวง: 1193",
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ตำรวจทางหลวง",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ตำรวจทางหลวง",
+      "relation": "CONNECTS_TO",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ตำรวจทางหลวง",
+      "relation": "NEARBY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ตำรวจท่องเที่ยวสงขลา",
+      "relation": "HISTORICAL_ERA",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1783,9 +1455,49 @@
     {
       "source": "ตำรวจท่องเที่ยวสงขลา",
       "relation": "SERVES",
-      "target": "บริการฉุกเฉิน",
+      "target": "ไม่มี",
       "properties": {
-        "evidence": "เบอร์โทรศัพท์สำคัญและสายด่วนฉุกเฉินในจังหวัดสงขลา: ตำรวจท่องเที่ยวสงขลา: 1155 หรือ 074-211228",
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ตำรวจท่องเที่ยวสงขลา",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ตำรวจท่องเที่ยวสงขลา",
+      "relation": "CONNECTS_TO",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "ตำรวจท่องเที่ยวสงขลา",
+      "relation": "NEARBY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สภ.เมืองสงขลา",
+      "relation": "HISTORICAL_ERA",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1793,9 +1505,49 @@
     {
       "source": "สภ.เมืองสงขลา",
       "relation": "SERVES",
-      "target": "บริการฉุกเฉิน",
+      "target": "ไม่มี",
       "properties": {
-        "evidence": "เบอร์โทรศัพท์สำคัญและสายด่วนฉุกเฉินในจังหวัดสงขลา: สภ.เมืองสงขลา: 074-311011 หรือ 191",
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สภ.เมืองสงขลา",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สภ.เมืองสงขลา",
+      "relation": "CONNECTS_TO",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "สภ.เมืองสงขลา",
+      "relation": "NEARBY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "กู้ชีพ-กู้ภัย เทศบาลนครสงขลา",
+      "relation": "HISTORICAL_ERA",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1803,9 +1555,49 @@
     {
       "source": "กู้ชีพ-กู้ภัย เทศบาลนครสงขลา",
       "relation": "SERVES",
-      "target": "บริการฉุกเฉิน",
+      "target": "ไม่มี",
       "properties": {
-        "evidence": "เบอร์โทรศัพท์สำคัญและสายด่วนฉุกเฉินในจังหวัดสงขลา: กู้ชีพ-กู้ภัย เทศบาลนครสงขลา: 074-311015 ต่อ 111",
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "กู้ชีพ-กู้ภัย เทศบาลนครสงขลา",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "กู้ชีพ-กู้ภัย เทศบาลนครสงขลา",
+      "relation": "CONNECTS_TO",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "กู้ชีพ-กู้ภัย เทศบาลนครสงขลา",
+      "relation": "NEARBY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "โรงพยาบาลสงขลา",
+      "relation": "HISTORICAL_ERA",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1813,9 +1605,49 @@
     {
       "source": "โรงพยาบาลสงขลา",
       "relation": "SERVES",
-      "target": "บริการสุขภาพ",
+      "target": "ไม่มี",
       "properties": {
-        "evidence": "เบอร์โทรศัพท์สำคัญและสายด่วนฉุกเฉินในจังหวัดสงขลา: โรงพยาบาลสงขลา: 074-338100",
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "โรงพยาบาลสงขลา",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "โรงพยาบาลสงขลา",
+      "relation": "CONNECTS_TO",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "โรงพยาบาลสงขลา",
+      "relation": "NEARBY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "โรงพยาบาลเมืองสงขลา",
+      "relation": "HISTORICAL_ERA",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1823,19 +1655,59 @@
     {
       "source": "โรงพยาบาลเมืองสงขลา",
       "relation": "SERVES",
-      "target": "บริการสุขภาพ",
+      "target": "ไม่มี",
       "properties": {
-        "evidence": "เบอร์โทรศัพท์สำคัญและสายด่วนฉุกเฉินในจังหวัดสงขลา: โรงพยาบาลเมืองสงขลา: 074-311494",
+        "evidence": "ไม่มี",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
     },
     {
-      "source": "การท่องเที่ยวแห่งประเทศไทย (ททท.) สำนักงานหาดใหญ่-สงขลา",
-      "relation": "SERVES",
-      "target": "บริการท่องเที่ยว",
+      "source": "โรงพยาบาลเมืองสงขลา",
+      "relation": "OFFERS_ACTIVITY",
+      "target": "ไม่มี",
       "properties": {
-        "evidence": "เบอร์โทรศัพท์สำคัญและสายด่วนฉุกเฉินในจังหวัดสงขลา: การท่องเที่ยวแห่งประเทศไทย (ททท.) สำนักงานหาดใหญ่-สงขลา: 074-231055",
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "โรงพยาบาลเมืองสงขลา",
+      "relation": "CONNECTS_TO",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "โรงพยาบาลเมืองสงขลา",
+      "relation": "NEARBY",
+      "target": "ไม่มี",
+      "properties": {
+        "evidence": "ไม่มี",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "แหลมสมิหลา",
+      "relation": "CONNECTS_TO",
+      "target": "นางเงือกทอง",
+      "properties": {
+        "evidence": "หาดทรายสีขาวยังมีจุดเด่นเป็นรูปปั้นนางเงือกทองสัมฤทธิ์",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "แหลมสมิหลา",
+      "relation": "NEARBY",
+      "target": "พิพิธภัณฑ์พธำมะรงค์",
+      "properties": {
+        "evidence": "ที่ตั้ง / ถนน: จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ (ถ.จะนะ)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }

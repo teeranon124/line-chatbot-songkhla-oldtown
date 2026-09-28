@@ -60,11 +60,11 @@ class RetrievalConfig:
     
     # Dynamic Top-k bounds
     min_top_k: int = 2
-    max_top_k: int = 5
-    default_top_k: int = 3
+    max_top_k: int = 7
+    default_top_k: int = 4
     
     # Max prompt context token budget
-    max_context_tokens: int = 1500
+    max_context_tokens: int = 2500
 
 
 @dataclass(frozen=True)

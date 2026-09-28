@@ -124,15 +124,18 @@ def build_knowledge_triples(force_reextract: bool = False):
         evidence = t.get("evidence", "")
 
         if subj and rel and obj:
+            edge_props = {
+                "evidence": evidence,
+                "extracted_by": "Ollama_Qwen2.5_3B",
+                "extraction_method": "Automated_LLM_Relation_Extraction"
+            }
+            if "properties" in t and isinstance(t["properties"], dict):
+                edge_props.update(t["properties"])
             formatted_triples.append({
                 "source": subj,
                 "relation": rel,
                 "target": obj,
-                "properties": {
-                    "evidence": evidence,
-                    "extracted_by": "Ollama_Qwen2.5_3B",
-                    "extraction_method": "Automated_LLM_Relation_Extraction"
-                }
+                "properties": edge_props
             })
 
     output_data = {
