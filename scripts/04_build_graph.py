@@ -76,9 +76,28 @@ def build_and_export_graph():
         rel = t["relation"]
         props = t.get("properties", {})
         
-        # Ensure target node exists
+        # Ensure source node exists
+        if not G.has_node(src):
+            src_label = "Street" if "ถนน" in src else "Place"
+            G.add_node(src, label=src_label)
+
+        # Infer ontology label for target node according to domain schema
         if not G.has_node(tgt):
-            G.add_node(tgt, label=t.get("target_type", "Concept"))
+            if rel == "LOCATED_ON" or "ถนน" in tgt or tgt in ["แหลมสมิหลา", "ย่านเมืองเก่าสงขลา"]:
+                tgt_label = "Street"
+            elif rel == "SERVES":
+                tgt_label = "Dish"
+            elif rel == "HISTORICAL_ERA" or "รัชกาล" in tgt:
+                tgt_label = "HistoricalEra"
+            elif rel == "VISITED_ON" or "วันที่" in tgt or "วันแรก" in tgt:
+                tgt_label = "TourDay"
+            elif rel == "OFFERS_ACTIVITY":
+                tgt_label = "Activity"
+            elif rel == "NEARBY":
+                tgt_label = "Place"
+            else:
+                tgt_label = "Concept"
+            G.add_node(tgt, label=tgt_label)
             
         G.add_edge(src, tgt, relation=rel, **props)
 

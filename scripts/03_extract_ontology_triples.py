@@ -58,6 +58,49 @@ def classify_price_tier(price_str: str, cat: str) -> str:
     return "ระดับมาตรฐาน"
 
 
+def normalize_node_name(raw_name: str) -> str:
+    import re
+    name = raw_name.strip()
+    clean = re.sub(r'\s+', '', name)
+    if 'แต้เฮียง' in clean or 'แต้เฮี้ยง' in clean:
+        return 'ร้านแต้เฮี้ยงอิ้ว'
+    if 'มอนทาน' in clean or 'montana' in clean.lower():
+        return 'โรงแรมมอนทาน่า'
+    if 'คลับทรี' in clean or 'clubtree' in clean.lower():
+        return 'โรงแรมคลับทรี'
+    if 'สงขลาแต่แรก' in clean or 'taeraek' in clean.lower():
+        return 'โรงแรมสงขลาแต่แรก'
+    if 'รถราง' in clean or 'singora' in clean.lower():
+        return 'รถรางชมเมืองสงขลา'
+    if 'เกียดฟั่ง' in clean or 'kiatfang' in clean.lower():
+        return 'ร้านเกียดฟั่ง'
+    if 'เจ๊นิ' in clean or 'jaeni' in clean.lower():
+        return 'ร้านเจ๊นิ'
+    if 'ไอติมโอ่ง' in clean or 'aitimoang' in clean.lower():
+        return 'ร้านไอติมโอ่ง'
+    if 'สองแสน' in clean:
+        return 'บ้านขนมไทยสองแสน'
+    if 'หับโห้หิ้น' in clean or 'โรงสีแดง' in clean:
+        return 'โรงสีแดง หับโห้หิ้น'
+    if 'สงขลาสเตชั่น' in clean or 'station' in clean.lower():
+        return 'สงขลาสเตชั่น'
+    if 'หอศิลป์' in clean:
+        return 'หอศิลป์สงขลา'
+    if 'จีน300' in clean:
+        return 'บ้านจีน 300 ปี'
+    if 'สงครามโลก' in clean:
+        return 'บ้านสงครามโลก'
+    if 'หลักเมือง' in clean:
+        return 'ศาลเจ้าพ่อหลักเมืองสงขลา'
+    if 'สตรีทอาร์ท' in clean or 'streetart' in clean.lower():
+        return 'สงขลาสตรีทอาร์ท'
+    if 'ตังกวน' in clean:
+        return 'เขาตังกวน'
+    if 'นครใน' in clean and 'ถนน' not in clean:
+        return 'บ้านนครใน'
+    return raw_name.strip()
+
+
 def build_knowledge_triples(force_reextract: bool = False):
     print("=" * 70)
     print("🚀 STEP 3: ONTOLOGY & AUTOMATED KNOWLEDGE GRAPH CONSTRUCTION")
@@ -93,11 +136,13 @@ def build_knowledge_triples(force_reextract: bool = False):
             label = "Place"
 
         tier = classify_price_tier(p["price_range"], cat)
+        canon_name = normalize_node_name(p["name"])
 
         nodes.append({
             "id": p["id"],
             "label": label,
-            "name": p["name"],
+            "name": canon_name,
+            "name_full": p["name"],
             "name_en": p["name_en"],
             "category": p["category"],
             "street": p["street"],
@@ -115,28 +160,41 @@ def build_knowledge_triples(force_reextract: bool = False):
             "anyflip_page": p.get("anyflip_page", 10)
         })
 
-    # 4. Integrate 147 LLM-extracted triples
+    # 4. Integrate LLM-extracted triples (Filter out garbage 'ไม่มี' and normalize names)
     formatted_triples = []
+    seen = set()
     for t in llm_triples:
-        subj = t.get("subject", "").strip()
+        raw_subj = t.get("subject", "").strip()
         rel = t.get("relation", "").strip().upper()
-        obj = t.get("object", "").strip()
+        raw_obj = t.get("object", "").strip()
         evidence = t.get("evidence", "")
 
-        if subj and rel and obj:
-            edge_props = {
-                "evidence": evidence,
-                "extracted_by": "Ollama_Qwen2.5_3B",
-                "extraction_method": "Automated_LLM_Relation_Extraction"
-            }
-            if "properties" in t and isinstance(t["properties"], dict):
-                edge_props.update(t["properties"])
-            formatted_triples.append({
-                "source": subj,
-                "relation": rel,
-                "target": obj,
-                "properties": edge_props
-            })
+        subj = normalize_node_name(raw_subj)
+        obj = normalize_node_name(raw_obj)
+
+        if not subj or not obj or subj == "ไม่มี" or obj == "ไม่มี" or subj == obj:
+            continue
+        if len(subj) < 2 or len(obj) < 2:
+            continue
+
+        sig = (subj, rel, obj)
+        if sig in seen:
+            continue
+        seen.add(sig)
+
+        edge_props = {
+            "evidence": evidence,
+            "extracted_by": "Ollama_Qwen2.5_3B",
+            "extraction_method": "Automated_LLM_Relation_Extraction"
+        }
+        if "properties" in t and isinstance(t["properties"], dict):
+            edge_props.update(t["properties"])
+        formatted_triples.append({
+            "source": subj,
+            "relation": rel,
+            "target": obj,
+            "properties": edge_props
+        })
 
     output_data = {
         "metadata": {
