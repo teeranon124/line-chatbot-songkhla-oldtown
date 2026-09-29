@@ -39,8 +39,8 @@ def build_indices():
         
     print(f"\n[STEP 1] Loaded {len(chunks)} combined chunks (AnyFlip + Scraped Facts).")
     
-    # Prepare texts for embedding & tokenization
-    texts = [c["content"] for c in chunks]
+    # Prepare texts for embedding & tokenization (include title and tags for complete semantic recall)
+    texts = [f"{c.get('title', '')}\n{' '.join(c.get('tags', []))}\n{c['content']}" for c in chunks]
     
     # 1. Build Dense FAISS Index
     print(f"\n[STEP 2] Loading Dense Embedding Model: {EMBED_MODEL_NAME}...")
