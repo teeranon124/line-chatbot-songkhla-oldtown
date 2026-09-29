@@ -172,6 +172,10 @@ def extract_dynamic_spatial_relations(places: List[Dict[str, Any]], catalog: Lis
 
                     # Check if target entity appears in clue text
                     if (len(c_root) >= 3 and c_root in clue) or (c_clean in clue):
+                        # Do not downgrade OPPOSITE_TO to generic NEARBY
+                        if rel_type == "NEARBY" and ((src, "OPPOSITE_TO", cand) in seen or (cand, "OPPOSITE_TO", src) in seen):
+                            continue
+
                         sig = (src, rel_type, cand)
                         if sig not in seen:
                             seen.add(sig)
@@ -185,8 +189,8 @@ def extract_dynamic_spatial_relations(places: List[Dict[str, Any]], catalog: Lis
                                 }
                             })
 
-                        # Physical Symmetry: OPPOSITE_TO is reciprocal in euclidean space
-                        if rel_type == "OPPOSITE_TO":
+                        # Physical Symmetry: OPPOSITE_TO and NEARBY are reciprocal in euclidean space
+                        if rel_type in ("OPPOSITE_TO", "NEARBY"):
                             recip_sig = (cand, rel_type, src)
                             if recip_sig not in seen:
                                 seen.add(recip_sig)

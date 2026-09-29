@@ -3,7 +3,7 @@
     "title": "Songkhla Old Town Knowledge Graph Triples (100% Automated Extraction)",
     "version": "2.1-fully-dynamic",
     "total_entities": 18,
-    "total_triples": 122,
+    "total_triples": 125,
     "extraction_pipeline": "Ollama Qwen2.5:3B + Dynamic NLP Spatial Linker",
     "source": "Raw PDF Chunks (21 chunks from Songkhla_Travel_Guide_AnyFlip.pdf)",
     "hardcoded": false
@@ -1613,12 +1613,12 @@
       }
     },
     {
-      "source": "บ้านขนมไทยสองแสน",
+      "source": "โรงสีแดง หับโห้หิ้น",
       "relation": "NEARBY",
-      "target": "ร้านแต้เฮี้ยงอิ้ว",
+      "target": "ร้านเจ๊นิ ข้าวต้มปลา",
       "properties": {
-        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'อยู่ตรงข้ามร้านแต้เฮี้ยงอิ้ว ใกล้ศาลเจ้าพ่อหลักเมือง'",
-        "extraction_method": "Dynamic_NLP_Clue_Extraction"
+        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'สาขาโรงสีแดง ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ย่านเมืองเก่า'",
+        "extraction_method": "Dynamic_Symmetric_Inference"
       }
     },
     {
@@ -1628,6 +1628,15 @@
       "properties": {
         "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'อาคารตึกไม้โบราณ 2 ชั้น เยื้องโรงสีแดงหับโห้หิ้น ชั้นสองมีหอศิลป์'",
         "extraction_method": "Dynamic_NLP_Clue_Extraction"
+      }
+    },
+    {
+      "source": "โรงสีแดง หับโห้หิ้น",
+      "relation": "NEARBY",
+      "target": "สงขลาสเตชั่น",
+      "properties": {
+        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'อาคารตึกไม้โบราณ 2 ชั้น เยื้องโรงสีแดงหับโห้หิ้น ชั้นสองมีหอศิลป์'",
+        "extraction_method": "Dynamic_Symmetric_Inference"
       }
     },
     {
@@ -1703,12 +1712,30 @@
       }
     },
     {
+      "source": "หาดชลาทัศน์",
+      "relation": "NEARBY",
+      "target": "โรงแรมคลับทรี",
+      "properties": {
+        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'โรงแรมสไตล์บูทีกโมเดิร์นโคโลเนียล ใกล้หาดชลาทัศน์และเมืองเก่า'",
+        "extraction_method": "Dynamic_Symmetric_Inference"
+      }
+    },
+    {
       "source": "โรงแรมมอนทาน่า สงขลา",
       "relation": "NEARBY",
       "target": "หาดชลาทัศน์",
       "properties": {
         "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'โรงแรมทำเลสะดวก ใกล้สนามกีฬาติณสูลานนท์และหาดชลาทัศน์'",
         "extraction_method": "Dynamic_NLP_Clue_Extraction"
+      }
+    },
+    {
+      "source": "หาดชลาทัศน์",
+      "relation": "NEARBY",
+      "target": "โรงแรมมอนทาน่า สงขลา",
+      "properties": {
+        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'โรงแรมทำเลสะดวก ใกล้สนามกีฬาติณสูลานนท์และหาดชลาทัศน์'",
+        "extraction_method": "Dynamic_Symmetric_Inference"
       }
     }
   ]
