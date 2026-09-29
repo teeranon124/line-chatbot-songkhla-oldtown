@@ -1,34 +1,107 @@
-# ==============================================================================
-# Git Ignore for Songkhla Old Town AI Assistant (finalproject)
-# ==============================================================================
-
-# Security & Secrets (CRITICAL: Never commit API keys or Channel Secrets!)
+# ============================================================
+# Secrets / Environment
+# ============================================================
 .env
-*.env
-*.env.local
+.env.*
+!.env.example
 
-# Python Bytecode and Cache
+# API keys / credentials
+*.key
+*.pem
+credentials.json
+secrets.json
+
+
+# ============================================================
+# Python
+# ============================================================
 __pycache__/
-*/__pycache__/
-*/*/__pycache__/
 *.py[cod]
 *$py.class
-*.pyd
-*.pyo
 
-# IDE & Editor Configurations
+.venv/
+venv/
+env/
+ENV/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.coverage
+htmlcov/
+
+
+# ============================================================
+# macOS
+# ============================================================
+.DS_Store
+.AppleDouble
+.LSOverride
+
+
+# ============================================================
+# IDE / Editors
+# ============================================================
 .vscode/
 .idea/
-*.sublime-workspace
-*.sublime-project
 
-# Operating System Files
-.DS_Store
-Thumbs.db
-desktop.ini
+*.swp
+*.swo
+*~
 
-# Logs & Temporary Execution Files
+
+# ============================================================
+# Logs / Runtime
+# ============================================================
 *.log
+logs/
+
+*.pid
 *.tmp
+tmp/
 temp/
-scratch/
+
+
+# ============================================================
+# Model / HuggingFace cache
+# ============================================================
+.cache/
+huggingface/
+models/
+
+*.safetensors
+*.gguf
+*.bin
+
+
+# ============================================================
+# Local database / Neo4j runtime
+# ============================================================
+neo4j/data/
+neo4j/logs/
+neo4j/import/
+neo4j/plugins/
+
+neo4j_db/
+
+
+# ============================================================
+# Cloudflare local config
+# ============================================================
+.cloudflare/
+cloudflared.log
+
+
+# ============================================================
+# Backups
+# ============================================================
+*.backup
+*.bak
+*.old
+
+
+# ============================================================
+# Misc
+# ============================================================
+Thumbs.db
