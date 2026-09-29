@@ -22,6 +22,8 @@ from .flex_templates import SongkhlaFlexTemplates
 
 
 class SongkhlaLineHandler:
+    LINE_TEXT_LIMIT = 5000
+
     def __init__(self, rag_engine: SongkhlaRAGEngine = None):
         self.rag_engine = rag_engine or SongkhlaRAGEngine()
         self.channel_secret = line_config.channel_secret
@@ -143,13 +145,35 @@ class SongkhlaLineHandler:
         if not answer or answer.startswith(("Ollama Error", "Local LLM Error", "Groq Error", "Cloud API Error")):
             return [TextSendMessage(text="ขออภัย ระบบขัดข้องชั่วคราว กรุณาลองใหม่อีกครั้ง")]
 
-        text_reply = TextSendMessage(text=answer)
+        final_answer = self._append_answer_metadata(answer, rag_res)
+        text_replies = [
+            TextSendMessage(text=part)
+            for part in self._split_line_text(final_answer)
+        ]
         no_information = any(marker in answer for marker in (
             "ไม่มีข้อมูล", "ไม่พบข้อมูล", "ข้อมูลไม่เพียงพอ", "ไม่ได้ระบุ", "ไม่สามารถยืนยัน"
         ))
         is_follow_up = rag_res.get("retrieval_query", user_text.strip()) != user_text.strip()
-        if no_information or is_follow_up:
-            return [text_reply]
+        if no_information:
+            return text_replies
+
+        allowed_places = rag_res.get("allowed_places") or []
+        if allowed_places:
+            place_by_name = {
+                place.get("name", "").split("(", 1)[0].strip(): place
+                for place in self.places
+            }
+            matched_places = [
+                place_by_name[name] for name in allowed_places if name in place_by_name
+            ]
+            if matched_places:
+                return [
+                    *text_replies,
+                    SongkhlaFlexTemplates.build_matched_places_carousel(matched_places),
+                ]
+
+        if is_follow_up:
+            return text_replies
 
         # Multi-Entity Resolution: Scan query and answer for places
         combined_text = f"{user_text} {answer}"
@@ -158,9 +182,79 @@ class SongkhlaLineHandler:
         # A specific place gets one place card; multi-place recommendations get a carousel.
         if matched_places:
             places_carousel = SongkhlaFlexTemplates.build_matched_places_carousel(matched_places)
-            return [text_reply, places_carousel]
+            return [*text_replies, places_carousel]
 
-        return [text_reply]
+        return text_replies
+
+    @staticmethod
+    def _format_source_pages(pages) -> str:
+        normalized = sorted({
+            page for value in (pages or [])
+            if (page := SongkhlaRAGEngine._normalize_source_page(value)) is not None
+        })
+        if not normalized:
+            return ""
+        return "แหล่งข้อมูลอ้างอิง: หน้า " + ", ".join(map(str, normalized))
+
+    @classmethod
+    def _append_answer_metadata(cls, answer: str, rag_res: dict) -> str:
+        """Append deterministic metadata after generation, never through the prompt."""
+        footer = []
+        source_line = cls._format_source_pages(rag_res.get("source_pages"))
+        if source_line:
+            footer.append(source_line)
+
+        provider_display = rag_res.get("provider_display")
+        if provider_display not in ("Local LLM", "Cloud LLM"):
+            if rag_res.get("llm_generated_final_answer"):
+                provider_display = SongkhlaRAGEngine.format_provider_label(
+                    rag_res.get("provider")
+                )
+            else:
+                provider_display = None
+        if provider_display:
+            footer.append(f"ประมวลผลโดย: {provider_display}")
+
+        clean_answer = str(answer).strip()
+        return clean_answer if not footer else clean_answer + "\n\n" + "\n".join(footer)
+
+    @classmethod
+    def _split_line_text(cls, text: str) -> List[str]:
+        """Split safely below LINE's 5,000-character text limit."""
+        raw_text = str(text)
+        footer_positions = [
+            position for marker in (
+                "\n\nแหล่งข้อมูลอ้างอิง:", "\n\nประมวลผลโดย:"
+            )
+            if (position := raw_text.find(marker)) >= 0
+        ]
+        footer = ""
+        if footer_positions:
+            footer_start = min(footer_positions)
+            remaining = raw_text[:footer_start].rstrip()
+            footer = raw_text[footer_start:].strip()
+        else:
+            remaining = raw_text
+        parts = []
+        while len(remaining) > cls.LINE_TEXT_LIMIT:
+            split_at = remaining.rfind("\n", 0, cls.LINE_TEXT_LIMIT + 1)
+            if split_at <= 0:
+                split_at = remaining.rfind(" ", 0, cls.LINE_TEXT_LIMIT + 1)
+            if split_at <= 0:
+                split_at = cls.LINE_TEXT_LIMIT
+            part = remaining[:split_at].rstrip()
+            if part:
+                parts.append(part)
+            remaining = remaining[split_at:].lstrip()
+        if remaining or not parts:
+            parts.append(remaining)
+        if footer:
+            combined = parts[-1].rstrip() + "\n\n" + footer
+            if len(combined) <= cls.LINE_TEXT_LIMIT:
+                parts[-1] = combined
+            else:
+                parts.append(footer)
+        return parts
 
     @staticmethod
     def _welcome_text() -> str:
