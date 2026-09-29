@@ -55,8 +55,8 @@ class RetrievalConfig:
     # RRF (Reciprocal Rank Fusion) parameters
     rrf_k: int = 60
     dense_weight: float = 0.45
-    sparse_weight: float = 0.30
-    graph_weight: float = 0.25
+    sparse_weight: float = 0.45
+    graph_weight: float = 0.10
     
     # Dynamic Top-k bounds
     min_top_k: int = 2
