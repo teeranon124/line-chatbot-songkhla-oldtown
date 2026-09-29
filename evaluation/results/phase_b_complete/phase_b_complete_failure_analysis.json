@@ -1,0 +1,414 @@
+{
+  "classification_rule": "Evidence-based labels derived only from observed exact-ID misses and frozen category; semantic causality remains human-reviewable.",
+  "retrieval": {
+    "dense": {
+      "ranking failure": {
+        "count": 2,
+        "examples": [
+          "PB003",
+          "PB010"
+        ]
+      },
+      "semantic miss": {
+        "count": 4,
+        "examples": [
+          "PB028",
+          "PB033",
+          "PB034",
+          "PB037"
+        ]
+      }
+    },
+    "sparse": {
+      "ranking failure": {
+        "count": 2,
+        "examples": [
+          "PB010",
+          "PB044"
+        ]
+      },
+      "vocabulary mismatch": {
+        "count": 1,
+        "examples": [
+          "PB036"
+        ]
+      }
+    },
+    "graph": {
+      "entity matching issue": {
+        "count": 12,
+        "examples": [
+          "PB007",
+          "PB027",
+          "PB028",
+          "PB031",
+          "PB033"
+        ]
+      },
+      "graph traversal/ontology limitation": {
+        "count": 3,
+        "examples": [
+          "PB029",
+          "PB030",
+          "PB046"
+        ]
+      }
+    },
+    "hybrid": {
+      "fusion ranking or Dynamic Top-K limitation": {
+        "count": 6,
+        "examples": [
+          "PB003",
+          "PB010",
+          "PB028",
+          "PB033",
+          "PB034"
+        ]
+      }
+    }
+  },
+  "llm": {
+    "expected phrase absent (human review required)": {
+      "count": 68,
+      "examples": [
+        "PB002:sparse",
+        "PB003:dense",
+        "PB003:hybrid",
+        "PB004:dense",
+        "PB004:sparse",
+        "PB004:graph",
+        "PB004:hybrid",
+        "PB005:graph"
+      ]
+    },
+    "refusal error": {
+      "count": 3,
+      "examples": [
+        "PB049:dense",
+        "PB049:sparse",
+        "PB049:hybrid"
+      ]
+    }
+  },
+  "graph_helps": [
+    {
+      "item_id": "PB005",
+      "question": "เบอร์โทรร้านแต้เฮี้ยงอิ้วคืออะไร?",
+      "dense_rank": 2,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB006",
+      "question": "โรงแรมสงขลาแต่แรกเช็กอินและเช็กเอาต์เวลาใด?",
+      "dense_rank": 4,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB013",
+      "question": "ร้านแต้เฮี้ยงอิ้วมีเมนูเด่นอะไรบ้าง?",
+      "dense_rank": 3,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB014",
+      "question": "สงขลาสเตชั่นมีอาหารหรือเครื่องดื่มเด่นอะไร?",
+      "dense_rank": 4,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB017",
+      "question": "มีร้านอาหารหรือขนมใดอยู่ถนนเดียวกับร้านไอติมโอ่งบ้าง?",
+      "dense_rank": 4,
+      "graph_rank": 1,
+      "hybrid_rank": 3,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB018",
+      "question": "สถานที่ใดบ้างอยู่ถนนนครนอกสายเดียวกับโรงสีแดง หับโห้หิ้น?",
+      "dense_rank": 4,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB021",
+      "question": "สงขลาสเตชั่นเชื่อมโยงกับสถานที่ท่องเที่ยวใดบ้าง?",
+      "dense_rank": 3,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB023",
+      "question": "โรงแรมสงขลาแต่แรกกับโรงแรมคลับทรี ที่ไหนมีราคาเริ่มต้นต่ำกว่า?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB024",
+      "question": "ระหว่างโรงสีแดงกับเขาตังกวน ที่ไหนเข้าชมฟรี?",
+      "dense_rank": 4,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB032",
+      "question": "แถวถนนนางงามอยากหาอะไรกินแบบคนท้องถิ่น มีร้านไหนน่าสนใจบ้าง?",
+      "dense_rank": 2,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB041",
+      "question": "ศาลเจ้าพ่อหลักเมืองสงขลาตั้งอยู่บนถนนใด และมีกิจกรรมทางความเชื่ออะไร?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB044",
+      "question": "จากโหนดสงขลาสเตชั่นมีเส้นเชื่อม CONNECTS_TO ไปยังสถานที่ใด?",
+      "dense_rank": 2,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    }
+  ],
+  "graph_hurts": [
+    {
+      "item_id": "PB019",
+      "question": "จากโรงแรมสงขลาแต่แรกเดินไปโรงสีแดงและร้านไอติมโอ่งประมาณกี่เมตร?",
+      "dense_rank": 1,
+      "graph_rank": 2,
+      "hybrid_rank": 3,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB036",
+      "question": "มีร้านขนมเย็นโบราณที่เสิร์ฟจากภาชนะดินเผาไหม?",
+      "dense_rank": 3,
+      "graph_rank": null,
+      "hybrid_rank": 4,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB040",
+      "question": "ร้านของฝากที่ขายขนมไทยชื่อมงคลอย่างทองเอกและสัมปันนีคือร้านอะไร?",
+      "dense_rank": 1,
+      "graph_rank": null,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB042",
+      "question": "โรงแรมสงขลาแต่แรกเชื่อมด้วยความสัมพันธ์ใกล้เคียงกับสถานที่ใดบ้าง?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 2,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB045",
+      "question": "ร้านอาหารใดอยู่ถนนนครนอกสายเดียวกับสงขลาสเตชั่น?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": false
+    }
+  ],
+  "graph_neutral": [
+    {
+      "item_id": "PB001",
+      "question": "ร้านไอติมโอ่งเปิดและปิดกี่โมง?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB002",
+      "question": "หอศิลป์สงขลาหยุดวันอะไร?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB003",
+      "question": "รถรางชมเมืองสงขลาให้บริการวันละกี่รอบ?",
+      "dense_rank": null,
+      "graph_rank": 1,
+      "hybrid_rank": null,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB004",
+      "question": "ค่าลิฟต์ขึ้นเขาตังกวนสำหรับผู้ใหญ่และเด็กราคาเท่าไร?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB008",
+      "question": "บ้านขนมไทยสองแสนหยุดวันไหน?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB009",
+      "question": "ร้านไอติมโอ่งตั้งอยู่บนถนนอะไร?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB010",
+      "question": "โรงสีแดง หับโห้หิ้นอยู่บนถนนสายใด?",
+      "dense_rank": null,
+      "graph_rank": 1,
+      "hybrid_rank": null,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB011",
+      "question": "บ้านนครในตั้งอยู่บนถนนอะไร?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB012",
+      "question": "บ้านจีน 300 ปีอยู่บนถนนสายใด?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB015",
+      "question": "ร้านเจ๊นิมีเมนูเด่นอะไร?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB016",
+      "question": "ที่ศาลเจ้าพ่อหลักเมืองสงขลาทำกิจกรรมอะไรได้?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB020",
+      "question": "จากโรงแรมคลับทรีไปสตรีทอาร์ทและโรงสีแดง เดินไกลประมาณเท่าไร?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB022",
+      "question": "ร้านไอติมโอ่งกับบ้านขนมไทยสองแสน ร้านไหนปิดช้ากว่า?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB025",
+      "question": "บ้านนครในกับบ้านจีน 300 ปีอยู่คนละถนนอะไรบ้าง?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB026",
+      "question": "ถ้ามีงบ 30 บาท ระหว่างร้านไอติมโอ่งกับร้านเกียดฟั่ง ร้านใดมีตัวเลือกในงบชัดเจนกว่า?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": true,
+      "hybrid_phrase_hit": true
+    },
+    {
+      "item_id": "PB043",
+      "question": "บนถนนนางงามมีร้านใดเชื่อมกับเมนูข้าวสตูและร้านใดเชื่อมกับต้มยำแห้งปลากระพง?",
+      "dense_rank": 1,
+      "graph_rank": 2,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB047",
+      "question": "บ้านนครในมีคุณค่าด้านสถาปัตยกรรมและของสะสมอะไรที่น่าสนใจ?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": false
+    },
+    {
+      "item_id": "PB048",
+      "question": "บ้านสงครามโลกสะท้อนประวัติศาสตร์ยุคใด และมีลักษณะภายนอกอย่างไร?",
+      "dense_rank": 1,
+      "graph_rank": 1,
+      "hybrid_rank": 1,
+      "dense_phrase_hit": false,
+      "hybrid_phrase_hit": false
+    }
+  ]
+}
