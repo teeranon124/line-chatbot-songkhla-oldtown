@@ -7,6 +7,7 @@ Features:
 - Sliding-window Multi-turn Chat Memory
 - Guardrails & Strict Grounding in AnyFlip + Scraped Facts
 """
+import json
 import re
 import time
 import requests
@@ -24,7 +25,10 @@ SYSTEM_PROMPT = """คุณคือ "น้องสิงขร" ผู้ช
 3. ห้ามใช้เครื่องหมาย Markdown เช่น เครื่องหมายดอกจัน ** หรือเครื่องหมาย # เด็ดขาด ให้ใช้ภาษาไทยธรรมดาที่เป็นธรรมชาติ
 4. ต้องตอบเป็นภาษาไทยล้วน 100% ห้ามมีตัวอักษรจีนหรือภาษาต่างประเทศปะปนเด็ดขาด (เช่น ห้ามใช้คำว่า 墙壁 ให้ใช้คำว่า กำแพงหรือผนัง)
 5. หากถามเรื่องของหวานหรือของกินเล่น ให้เลือกเฉพาะร้านของหวาน เช่น ร้านไอติมโอ่ง หรือบ้านขนมไทยสองแสน ห้ามนำร้านอาหารคาวมาตอบเป็นของหวาน
-6. อ้างอิงข้อมูลจากบริบทอย่างเคร่งครัด หากไม่มีข้อมูลให้ตอบตามตรงว่าไม่มีข้อมูล ห้ามกุเรื่องขึ้นมาเอง"""
+6. อ้างอิงข้อมูลจากบริบทอย่างเคร่งครัด หากไม่มีข้อมูลให้ตอบตามตรงว่าไม่มีข้อมูล ห้ามกุเรื่องขึ้นมาเอง
+7. เวลา ราคา ระยะทาง และตัวเลขทุกชนิด ต้องคัดตามหลักฐานตรงตัว ห้ามประมาณหรือเปลี่ยนตัวเลข
+8. กล่าวถึงเฉพาะสถานที่และความสัมพันธ์ที่ปรากฏในหลักฐาน ห้ามเพิ่มสถานที่หรือเชื่อมโยงข้อมูลเอง
+9. คำแนะนำต้องตรงทุกเงื่อนไขที่ผู้ใช้ระบุ เช่น ประเภทอาหาร งบประมาณ และพื้นที่ หากหลักฐานไม่ครบให้แจ้งว่าไม่มีข้อมูลเพียงพอ"""
 
 
 class SongkhlaRAGEngine:
@@ -39,6 +43,68 @@ class SongkhlaRAGEngine:
         self.ollama_base_url = models.ollama_base_url
         self.local_model = models.primary_local_llm
         self.sessions: Dict[str, List[Dict[str, str]]] = {}
+
+    def _get_known_place_names(self) -> List[str]:
+        """Load short canonical place names for resolving one-turn follow-ups."""
+        cached = getattr(self, "_known_place_names", None)
+        if cached is not None:
+            return cached
+
+        names = set()
+        try:
+            with open(paths.facts_path, "r", encoding="utf-8") as f:
+                for place in json.load(f):
+                    name = str(place.get("name", "")).strip()
+                    if name:
+                        names.add(name)
+                        names.add(name.split("(", 1)[0].strip())
+        except (OSError, ValueError, TypeError):
+            pass
+
+        self._known_place_names = sorted(
+            (name for name in names if name), key=len, reverse=True
+        )
+        return self._known_place_names
+
+    def resolve_retrieval_query(
+        self, query: str, history: List[Dict[str, str]]
+    ) -> str:
+        """Attach the immediately previous place to an ambiguous follow-up."""
+        clean_query = query.strip()
+        place_names = self._get_known_place_names()
+        if not history or not place_names:
+            return clean_query
+        if any(name in clean_query for name in place_names):
+            return clean_query
+
+        is_follow_up = bool(re.match(
+            r"^(แล้ว(?:ล่ะ|ละ)?|ส่วน|ที่นั่น|ที่นี่)\s*", clean_query
+        ))
+        if not is_follow_up:
+            return clean_query
+
+        previous_user = next(
+            (item.get("content", "") for item in reversed(history)
+             if item.get("role") == "user"),
+            ""
+        )
+        previous_assistant = next(
+            (item.get("content", "") for item in reversed(history)
+             if item.get("role") == "assistant"),
+            ""
+        )
+        referent = next(
+            (name for text in (previous_user, previous_assistant)
+             for name in place_names if name in text),
+            None
+        )
+        if not referent:
+            return clean_query
+
+        follow_up = re.sub(
+            r"^(แล้ว(?:ล่ะ|ละ)?|ส่วน|ที่นั่น|ที่นี่)\s*", "", clean_query
+        ).strip()
+        return f"{referent} {follow_up}" if follow_up else referent
 
     def route_model(self, query: str, context_chunks: List[Dict[str, Any]]) -> Tuple[str, str]:
         """
@@ -190,9 +256,12 @@ class SongkhlaRAGEngine:
         Executes end-to-end RAG generation.
         """
         start_time = time.time()
-        
+
+        history = self.sessions.get(user_id, [])[-4:]  # Last 2 turns
+        retrieval_query = self.resolve_retrieval_query(query, history)
+
         # 1. Retrieve Context
-        chunks = self.retriever.retrieve(query, top_k=top_k, mode=mode)
+        chunks = self.retriever.retrieve(retrieval_query, top_k=top_k, mode=mode)
         
         # 2. Build structured text + graph context for the selected LLM.
         context_str = self.build_context(chunks)
@@ -206,7 +275,6 @@ class SongkhlaRAGEngine:
             provider, model_name = self.route_model(query, chunks)
 
         # 4. Construct Prompt Messages with Session History
-        history = self.sessions.get(user_id, [])[-4:]  # Last 2 turns
         messages = [{"role": "system", "content": SYSTEM_PROMPT}]
         
         for h in history:
@@ -215,6 +283,7 @@ class SongkhlaRAGEngine:
         user_content = (
             f"ข้อมูลบริบทอ้างอิง:\n{context_str}\n\n"
             f"คำถามของนักท่องเที่ยว: {query}\n"
+            "ข้อกำชับ: ตอบจากหลักฐานบริบทด้านบนเท่านั้น และรักษาตัวเลขกับเงื่อนไขของผู้ใช้ให้ตรงทุกข้อ\n"
             f"คำตอบของน้องสิงขร:"
         )
         messages.append({"role": "user", "content": user_content})
@@ -263,6 +332,7 @@ class SongkhlaRAGEngine:
 
         return {
             "query": query,
+            "retrieval_query": retrieval_query,
             "answer": answer,
             "provider": provider,
             "model": model_name,

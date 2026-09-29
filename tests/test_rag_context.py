@@ -72,8 +72,10 @@ GRAPH_CHUNK = {
 class FakeRankedRetriever:
     def __init__(self, chunks):
         self.chunks = chunks
+        self.last_query = None
 
     def retrieve(self, query, top_k=None, mode="hybrid"):
+        self.last_query = query
         return self.chunks
 
 
@@ -203,6 +205,73 @@ class ContextContractTests(unittest.TestCase):
         self.assertIn("LOCATED_ON -> ถนนนางงาม", final_user_prompt)
         self.assertEqual(captured["model_name"], "fake-local")
         self.assertEqual(result["answer"], "คำตอบจำลอง")
+
+
+class FollowUpAndGroundingTests(unittest.TestCase):
+    def _generate_with_history(self, place_name, follow_up):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine._known_place_names = ["ร้านไอติมโอ่ง", "เขาตังกวน"]
+        engine.sessions["traveler"] = [
+            {"role": "user", "content": f"ขอข้อมูล{place_name}"},
+            {"role": "assistant", "content": f"ข้อมูลของ{place_name}"},
+        ]
+        engine.call_ollama = lambda messages, model_name: "คำตอบจำลอง"
+        result = engine.generate(
+            query=follow_up,
+            mode="hybrid",
+            target_llm="ollama",
+            user_id="traveler"
+        )
+        return engine, result
+
+    def test_follow_up_retains_aitim_oang_referent(self):
+        engine, result = self._generate_with_history(
+            "ร้านไอติมโอ่ง", "แล้วเปิดกี่โมง"
+        )
+
+        self.assertEqual(engine.retriever.last_query, "ร้านไอติมโอ่ง เปิดกี่โมง")
+        self.assertEqual(result["retrieval_query"], "ร้านไอติมโอ่ง เปิดกี่โมง")
+
+    def test_follow_up_retains_khao_tang_kuan_referent(self):
+        engine, result = self._generate_with_history(
+            "เขาตังกวน", "แล้วค่าเข้าเท่าไหร่"
+        )
+
+        self.assertEqual(engine.retriever.last_query, "เขาตังกวน ค่าเข้าเท่าไหร่")
+        self.assertEqual(result["retrieval_query"], "เขาตังกวน ค่าเข้าเท่าไหร่")
+
+    def test_exact_numeric_evidence_reaches_prompt_unchanged(self):
+        numeric_chunk = dict(TEXT_CHUNK)
+        numeric_chunk["content"] = (
+            "เปิด 10:00 - 18:30 น. ราคา 20 - 30 บาท "
+            "และอยู่ห่าง 250 เมตร"
+        )
+        engine = make_engine([numeric_chunk])
+        captured = {}
+
+        def fake_ollama(messages, model_name):
+            captured["prompt"] = messages[-1]["content"]
+            return "เปิด 10:00 - 18:30 น. ราคา 20 - 30 บาท ห่าง 250 เมตร"
+
+        engine.call_ollama = fake_ollama
+        engine.generate("ขอเวลา ราคา และระยะทาง", target_llm="ollama", user_id="")
+
+        for exact_value in ("10:00 - 18:30", "20 - 30 บาท", "250 เมตร"):
+            self.assertIn(exact_value, captured["prompt"])
+
+    def test_application_does_not_add_unsupported_place_to_prompt(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        captured = {}
+
+        def fake_ollama(messages, model_name):
+            captured["prompt"] = messages[-1]["content"]
+            return "ร้านไอติมโอ่งเปิด 10:00 - 18:30 น."
+
+        engine.call_ollama = fake_ollama
+        engine.generate("ร้านไอติมโอ่งเปิดกี่โมง", target_llm="ollama", user_id="")
+
+        self.assertNotIn("ร้านเจ๊นิ", captured["prompt"])
+        self.assertNotIn("เขาตังกวน", captured["prompt"])
 
 
 if __name__ == "__main__":
