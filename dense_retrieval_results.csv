@@ -1,0 +1,4 @@
+Strategy,Hit Rate (%),Avg Chunks/Query,Avg Latency (s)
+Static_Top5,100.0,5.0,0.268
+Threshold_0.6,25.0,0.75,0.0509
+Dynamic Top-K,100.0,4.25,0.0463

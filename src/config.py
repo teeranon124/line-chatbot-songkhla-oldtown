@@ -41,7 +41,7 @@ class ModelConfig:
     
     # Local LLM (Ollama)
     ollama_base_url: str = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-    primary_local_llm: str = os.getenv("DEFAULT_LOCAL_LLM", "qwen2.5:3b")
+    primary_local_llm: str = os.getenv("DEFAULT_LOCAL_LLM", "qwen2.5:7b")
     comparison_local_llm: str = os.getenv("COMPARISON_LOCAL_LLM", "llama3.2:3b")
     
     # Graph Database (Neo4j)
@@ -59,7 +59,7 @@ class RetrievalConfig:
     graph_weight: float = 0.25
     
     # Dynamic Top-k bounds
-    min_top_k: int = 2
+    min_top_k: int = 1
     max_top_k: int = 7
     default_top_k: int = 4
     

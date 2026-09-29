@@ -18,6 +18,7 @@ from linebot.models import (
     QuickReplyButton,
     MessageAction
 )
+import urllib.parse
 
 # Cloudflare / Public Images for authentic Songkhla Old Town
 PLACE_IMAGES = {
@@ -58,12 +59,15 @@ class SongkhlaFlexTemplates:
 
     @staticmethod
     def clean_maps_url(url_raw: str, default: str = "https://maps.google.com/?q=Songkhla+Old+Town") -> str:
-        """Ensures URL strictly conforms to HTTP/HTTPS scheme required by LINE."""
+        """Ensures URL strictly conforms to HTTP/HTTPS scheme and encodes Thai characters for LINE."""
         if not url_raw or not isinstance(url_raw, str):
             return default
+        
         url_clean = url_raw.strip()
         if url_clean.startswith("http://") or url_clean.startswith("https://"):
-            return url_clean
+            # เข้ารหัสตัวอักษรภาษาไทยใน URL ให้อยู่ในรูปแบบที่ LINE รองรับ (URL Encoded)
+            return urllib.parse.quote(url_clean, safe=":/?&=#+%@")
+            
         return default
 
     @staticmethod
@@ -316,7 +320,7 @@ class SongkhlaFlexTemplates:
         for p in places:
             pid = p.get("id", "")
             img_url = PLACE_IMAGES.get(pid, PLACE_IMAGES["default_banner"])
-            maps_url = p.get("google_maps_url", "https://maps.google.com/?q=Songkhla")
+            maps_url = SongkhlaFlexTemplates.clean_maps_url(p.get("google_maps_url"))
 
             bubble = {
                 "type": "bubble",
@@ -964,45 +968,45 @@ class SongkhlaFlexTemplates:
 
         if matched_place:
             pname = matched_place.get("name", "สถานที่").split("(")[0].strip()
-            maps_url = SongkhlaFlexTemplates.clean_maps_url(matched_place.get("google_maps_url"))
-            tel_uri = SongkhlaFlexTemplates.clean_tel_uri(matched_place.get("phone", ""), default="")
+            # maps_url = SongkhlaFlexTemplates.clean_maps_url(matched_place.get("google_maps_url"))
+            # tel_uri = SongkhlaFlexTemplates.clean_tel_uri(matched_place.get("phone", ""), default="")
             
-            # Button 1: Google Maps Navigation
-            footer_buttons.append({
-                "type": "button",
-                "style": "primary",
-                "color": "#0984e3",
-                "height": "sm",
-                "action": {
-                    "type": "uri",
-                    "label": f"📍 แผนที่ {pname[:8]}",
-                    "uri": maps_url
-                }
-            })
+            # # Button 1: Google Maps Navigation
+            # footer_buttons.append({
+            #     "type": "button",
+            #     "style": "primary",
+            #     "color": "#0984e3",
+            #     "height": "sm",
+            #     "action": {
+            #         "type": "uri",
+            #         "label": f"📍 แผนที่ {pname[:8]}",
+            #         "uri": maps_url
+            #     }
+            # })
             
-            # Button 2: Direct Call or Related Food
-            if tel_uri:
-                footer_buttons.append({
-                    "type": "button",
-                    "style": "secondary",
-                    "height": "sm",
-                    "action": {
-                        "type": "uri",
-                        "label": "📞 โทรติดต่อ",
-                        "uri": tel_uri
-                    }
-                })
-            else:
-                footer_buttons.append({
-                    "type": "button",
-                    "style": "secondary",
-                    "height": "sm",
-                    "action": {
-                        "type": "message",
-                        "label": "🍜 ร้านอาหารเด็ด",
-                        "text": "สำรวจร้านอาหารทั้งหมด"
-                    }
-                })
+            # # Button 2: Direct Call or Related Food
+            # if tel_uri:
+            #     footer_buttons.append({
+            #         "type": "button",
+            #         "style": "secondary",
+            #         "height": "sm",
+            #         "action": {
+            #             "type": "uri",
+            #             "label": "📞 โทรติดต่อ",
+            #             "uri": tel_uri
+            #         }
+            #     })
+            # else:
+            #     footer_buttons.append({
+            #         "type": "button",
+            #         "style": "secondary",
+            #         "height": "sm",
+            #         "action": {
+            #             "type": "message",
+            #             "label": "🍜 ร้านอาหารเด็ด",
+            #             "text": "สำรวจร้านอาหารทั้งหมด"
+            #         }
+            #     })
             
             custom_quick_replies = [
                 ("🍴 เมนูเด่นร้านนี้", f"เมนูเด่นของ {pname} มีอะไรบ้าง"),
