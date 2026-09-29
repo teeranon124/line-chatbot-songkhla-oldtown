@@ -1,0 +1,32 @@
+[
+  {
+    "model": "MiniLM-L12",
+    "dense_hit1": 0.4,
+    "dense_hit3": 0.8,
+    "dense_mrr": 0.6001754385964911,
+    "hybrid_hit1": 0.6666666666666666,
+    "hybrid_hit3": 0.9333333333333333,
+    "hybrid_mrr": 0.7851851851851851,
+    "delta_mrr": 0.18500974658869396
+  },
+  {
+    "model": "mE5-Base",
+    "dense_hit1": 0.9333333333333333,
+    "dense_hit3": 1.0,
+    "dense_mrr": 0.9666666666666667,
+    "hybrid_hit1": 0.8666666666666667,
+    "hybrid_hit3": 1.0,
+    "hybrid_mrr": 0.9222222222222222,
+    "delta_mrr": -0.04444444444444451
+  },
+  {
+    "model": "ConGen WangchanBERTa",
+    "dense_hit1": 0.5333333333333333,
+    "dense_hit3": 0.7333333333333333,
+    "dense_mrr": 0.672991822991823,
+    "hybrid_hit1": 0.6666666666666666,
+    "hybrid_hit3": 0.8666666666666667,
+    "hybrid_mrr": 0.7796296296296296,
+    "delta_mrr": 0.10663780663780653
+  }
+]
