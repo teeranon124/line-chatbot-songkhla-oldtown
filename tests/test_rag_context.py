@@ -719,6 +719,185 @@ class EvidenceRelevanceGuardrailTests(unittest.TestCase):
         self.assertIn("บ้านพรุ", messages[0].text)
 
 
+class AnswerMetadataTests(unittest.TestCase):
+    @staticmethod
+    def _line_text(result):
+        return SongkhlaLineHandler._append_answer_metadata(result["answer"], result)
+
+    def test_local_factual_response_has_real_page_and_local_provider(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda messages, model_name: (
+            "ร้านไอติมโอ่งเปิดเวลา 10:00 - 18:30 น.ครับ"
+        )
+        result = engine.generate(
+            "ร้านไอติมโอ่งเปิดกี่โมง", target_llm="ollama", user_id=""
+        )
+        text = self._line_text(result)
+        self.assertEqual(result["source_pages"], [24])
+        self.assertIn("แหล่งข้อมูลอ้างอิง: หน้า 24", text)
+        self.assertTrue(text.endswith("ประมวลผลโดย: Local LLM"))
+
+    def test_cloud_provider_label(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.groq_api_key = "configured-for-test"
+        engine.call_groq = lambda messages, model_name: "คำตอบจาก cloud เกี่ยวกับร้านไอติมโอ่ง"
+        result = engine.generate(
+            "ร้านไอติมโอ่งเปิดกี่โมง", target_llm="cloud", user_id=""
+        )
+        self.assertIn("ประมวลผลโดย: Cloud LLM", self._line_text(result))
+
+    def test_cloud_failover_displays_local_provider(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.groq_api_key = "configured-for-test"
+        engine.call_groq = lambda messages, model_name: "Cloud API Error: timeout"
+        engine.call_ollama = lambda messages, model_name: "คำตอบ local ร้านไอติมโอ่ง"
+        result = engine.generate(
+            "ร้านไอติมโอ่งเปิดกี่โมง", target_llm="cloud", user_id=""
+        )
+        self.assertEqual(result["provider"], "ollama (failover)")
+        self.assertIn("ประมวลผลโดย: Local LLM", self._line_text(result))
+
+    def test_duplicate_pages_are_deduplicated(self):
+        pages = SongkhlaRAGEngine.extract_source_pages(
+            [dict(TEXT_CHUNK), dict(TEXT_CHUNK), dict(TEXT_CHUNK)],
+            ["ร้านไอติมโอ่ง"],
+        )
+        footer = SongkhlaLineHandler._format_source_pages(pages)
+        self.assertEqual(footer, "แหล่งข้อมูลอ้างอิง: หน้า 24")
+        self.assertEqual(footer.count("24"), 1)
+
+    def test_multiple_pages_are_sorted(self):
+        second = {
+            "chunk_id": "chunk_009",
+            "title": "บ้านจีน 300 ปี",
+            "source_page": 26,
+            "content": "ข้อมูลบ้านจีน 300 ปี",
+        }
+        pages = SongkhlaRAGEngine.extract_source_pages(
+            [dict(TEXT_CHUNK), second], ["ร้านไอติมโอ่ง", "บ้านจีน 300 ปี"]
+        )
+        self.assertEqual(pages, [24, 26])
+        self.assertEqual(
+            SongkhlaLineHandler._format_source_pages(pages),
+            "แหล่งข้อมูลอ้างอิง: หน้า 24, 26",
+        )
+
+    def test_missing_page_is_not_fabricated(self):
+        chunk = dict(TEXT_CHUNK)
+        chunk.pop("source_page")
+        chunk["metadata"] = {"unrelated": 99}
+        pages = SongkhlaRAGEngine.extract_source_pages(
+            [chunk], ["ร้านไอติมโอ่ง"]
+        )
+        text = SongkhlaLineHandler._append_answer_metadata(
+            "คำตอบ", {
+                "source_pages": pages,
+                "provider": "ollama",
+                "llm_generated_final_answer": True,
+            }
+        )
+        self.assertNotIn("แหล่งข้อมูลอ้างอิง", text)
+        self.assertIn("ประมวลผลโดย: Local LLM", text)
+
+    def test_irrelevant_top_k_pages_are_excluded(self):
+        unrelated = [
+            {
+                "chunk_id": "chunk_027",
+                "title": "ร้านเจ๊นิ",
+                "source_page": 27,
+                "content": "ข้อมูลร้านเจ๊นิ",
+            },
+            {
+                "chunk_id": "chunk_030",
+                "title": "บ้านขนมไทย",
+                "source_page": 30,
+                "content": "ข้อมูลบ้านขนมไทย",
+            },
+        ]
+        engine = make_engine([dict(TEXT_CHUNK), *unrelated])
+        engine.call_ollama = lambda messages, model_name: (
+            "ร้านไอติมโอ่งเปิดเวลา 10:00 - 18:30 น.ครับ"
+        )
+        result = engine.generate(
+            "ร้านไอติมโอ่งเปิดกี่โมง", target_llm="ollama", user_id=""
+        )
+        self.assertEqual(result["source_pages"], [24])
+
+    def test_direct_entity_page_wins_over_passing_itinerary_mention(self):
+        itinerary = {
+            "chunk_id": "chunk_002",
+            "title": "โปรแกรมเที่ยวสงขลา 2 วัน",
+            "source_page": 5,
+            "content": "10.00 น. ขึ้นเขาตังกวน",
+        }
+        direct = {
+            "chunk_id": "chunk_012",
+            "title": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้า)",
+            "source_page": 21,
+            "content": "ค่าลิฟต์ ผู้ใหญ่ 30 บาท เด็ก 20 บาท",
+        }
+        pages = SongkhlaRAGEngine.extract_source_pages(
+            [itinerary, direct], ["เขาตังกวน"]
+        )
+        self.assertEqual(pages, [21])
+
+    def test_graph_page_metadata_is_used_when_reliable(self):
+        graph = dict(GRAPH_CHUNK)
+        graph["metadata"] = {"page_number": "24"}
+        pages = SongkhlaRAGEngine.extract_source_pages(
+            [graph], ["ร้านไอติมโอ่ง"]
+        )
+        self.assertEqual(pages, [24])
+
+    def test_follow_up_keeps_referent_and_page(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.sessions["traveler"] = [
+            {"role": "user", "content": "ร้านไอติมโอ่งเปิดกี่โมง"},
+            {"role": "assistant", "content": "เปิด 10:00 - 18:30 น."},
+        ]
+        engine.call_ollama = lambda messages, model_name: "ราคา 20 - 30 บาทครับ"
+        result = engine.generate(
+            "แล้วราคาเท่าไหร่", target_llm="ollama", user_id="traveler"
+        )
+        self.assertIn("ร้านไอติมโอ่ง", result["retrieval_query"])
+        self.assertEqual(result["source_pages"], [24])
+        self.assertIn("ประมวลผลโดย: Local LLM", self._line_text(result))
+
+    def test_static_response_has_no_fake_provider(self):
+        text = SongkhlaLineHandler._append_answer_metadata(
+            "ข้อความต้อนรับ", {
+                "provider": "deterministic_static",
+                "source_pages": [],
+                "llm_generated_final_answer": False,
+            }
+        )
+        self.assertEqual(text, "ข้อความต้อนรับ")
+
+    def test_guardrail_has_no_fabricated_metadata(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda *args: self.fail("LLM must not be called")
+        result = engine.generate("ไปบ้านพรุไปยังไง", user_id="")
+        text = self._line_text(result)
+        self.assertEqual(result["source_pages"], [])
+        self.assertNotIn("แหล่งข้อมูลอ้างอิง", text)
+        self.assertNotIn("ประมวลผลโดย", text)
+
+    def test_line_split_keeps_footer_once_on_last_part(self):
+        answer = "ก" * 9970
+        final = SongkhlaLineHandler._append_answer_metadata(
+            answer, {
+                "source_pages": [24],
+                "provider": "ollama",
+                "llm_generated_final_answer": True,
+            }
+        )
+        parts = SongkhlaLineHandler._split_line_text(final)
+        self.assertTrue(all(0 < len(part) <= 5000 for part in parts))
+        self.assertNotIn("แหล่งข้อมูลอ้างอิง", "".join(parts[:-1]))
+        self.assertEqual(parts[-1].count("แหล่งข้อมูลอ้างอิง"), 1)
+        self.assertEqual(parts[-1].count("ประมวลผลโดย"), 1)
+
+
 class RoutingObservabilityTests(unittest.TestCase):
     def test_local_route_is_logged_to_terminal(self):
         engine = make_engine([dict(TEXT_CHUNK)])

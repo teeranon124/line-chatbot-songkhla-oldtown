@@ -659,7 +659,114 @@ class SongkhlaRAGEngine:
             "guardrail_status": status,
             "guardrail_reason": reason,
             "resolved_entities": entities,
+            "source_pages": [],
+            "provider_display": None,
+            "llm_generated_final_answer": False,
         }
+
+    @staticmethod
+    def _normalize_source_page(value):
+        """Return a trustworthy positive integer page or None."""
+        if isinstance(value, bool):
+            return None
+        if isinstance(value, int):
+            return value if value > 0 else None
+        if isinstance(value, float) and value.is_integer():
+            page = int(value)
+            return page if page > 0 else None
+        if isinstance(value, str) and re.fullmatch(r"\s*\d+\s*", value):
+            page = int(value.strip())
+            return page if page > 0 else None
+        return None
+
+    @classmethod
+    def _source_page_from_evidence(cls, evidence: Dict[str, Any]):
+        """Read only explicit page fields; never infer pages from IDs or titles."""
+        if not isinstance(evidence, dict):
+            return None
+        for field in ("source_page", "page_number", "page"):
+            page = cls._normalize_source_page(evidence.get(field))
+            if page is not None:
+                return page
+        metadata = evidence.get("metadata")
+        if isinstance(metadata, dict):
+            for field in ("source_page", "page_number", "page"):
+                page = cls._normalize_source_page(metadata.get(field))
+                if page is not None:
+                    return page
+        return None
+
+    @staticmethod
+    def _evidence_mentions_entity(evidence: Dict[str, Any], entity: str) -> bool:
+        if not isinstance(evidence, dict) or not entity:
+            return False
+        canonical = entity.split("(", 1)[0].strip().lower()
+        if not canonical:
+            return False
+        searchable = json.dumps(evidence, ensure_ascii=False).lower()
+        return canonical in searchable
+
+    @staticmethod
+    def _evidence_directly_names_entity(evidence: Dict[str, Any], entity: str) -> bool:
+        """Identify evidence whose own title is for the entity, not a passing mention."""
+        if not isinstance(evidence, dict) or not entity:
+            return False
+        canonical = entity.split("(", 1)[0].strip().lower()
+        title = str(evidence.get("title") or "").lower()
+        return bool(canonical and canonical in title)
+
+    @classmethod
+    def extract_source_pages(
+        cls, chunks: List[Dict[str, Any]], relevant_entities: List[str]
+    ) -> List[int]:
+        """Extract sorted pages only from evidence tied to resolved answer entities."""
+        entities = list(dict.fromkeys(
+            str(entity).split("(", 1)[0].strip()
+            for entity in relevant_entities
+            if str(entity).strip()
+        ))
+        if not entities:
+            return []
+
+        pages = set()
+        for entity in entities:
+            matching = [
+                chunk for chunk in chunks
+                if cls._evidence_mentions_entity(chunk, entity)
+            ]
+            direct = [
+                chunk for chunk in matching
+                if cls._evidence_directly_names_entity(chunk, entity)
+            ]
+            # For multi-entity answers, passing mentions in itinerary/nearby
+            # chunks are too broad to cite. A single-entity answer may fall
+            # back only when no directly titled evidence exists.
+            selected = direct or (matching if len(entities) == 1 else [])
+            for chunk in selected:
+                page = cls._source_page_from_evidence(chunk)
+                if page is not None:
+                    pages.add(page)
+                graph_evidence = chunk.get("graph_evidence", [])
+                if not isinstance(graph_evidence, list):
+                    continue
+                for item in graph_evidence:
+                    if not isinstance(item, dict):
+                        continue
+                    if cls._evidence_mentions_entity(item, entity):
+                        graph_page = cls._source_page_from_evidence(item)
+                        if graph_page is not None:
+                            pages.add(graph_page)
+        return sorted(pages)
+
+    @staticmethod
+    def format_provider_label(provider: str):
+        """Map the backend that actually produced the final answer to a public label."""
+        normalized = str(provider or "").strip().lower()
+        if normalized.startswith("ollama") or normalized == "local":
+            return "Local LLM"
+        if normalized.startswith("groq") or normalized == "cloud":
+            return "Cloud LLM"
+        return None
 
     @staticmethod
     def _is_route_question(query: str) -> bool:
@@ -1306,6 +1413,7 @@ class SongkhlaRAGEngine:
         messages.append({"role": "user", "content": user_content})
 
         # 5. Call Selected LLM with Automatic Failover
+        final_answer_from_llm = True
         if provider == "groq" and self.groq_api_key:
             answer = self.call_groq(messages, model_name)
             if (answer.startswith("Groq Error") or answer.startswith("Cloud API Error")):
@@ -1356,6 +1464,7 @@ class SongkhlaRAGEngine:
         answer = clean_ans.strip()
         if self._is_route_question(query) and self._has_self_relation_claim(answer):
             answer = "ข้อมูลหลักฐานไม่เพียงพอที่จะยืนยันลำดับเส้นทางครับ"
+            final_answer_from_llm = False
         if route_plan:
             answer_places = self._extract_place_entities(answer)
             allowed_places = route_plan["allowed_places"]
@@ -1381,6 +1490,7 @@ class SongkhlaRAGEngine:
             # Route text is already fully grounded and tourist-friendly. Always
             # use it verbatim so generation cannot append unsupported notes.
             answer = route_plan["answer"]
+            final_answer_from_llm = False
         if distance_plan:
             answer_places = self._extract_place_entities(answer)
             allowed_places = distance_plan["allowed_places"]
@@ -1393,6 +1503,7 @@ class SongkhlaRAGEngine:
             )
             if has_unrelated_place or misses_place or misses_distance:
                 answer = distance_plan["answer"]
+                final_answer_from_llm = False
         if any(marker in answer for marker in (
             "ยังไม่พบข้อมูล", "ไม่มีข้อมูล", "ข้อมูลไม่เพียงพอ",
             "ไม่สามารถยืนยัน", "หลักฐานไม่เพียงพอ", "ไม่ได้ระบุ",
@@ -1403,6 +1514,7 @@ class SongkhlaRAGEngine:
                     subjects["known"][0], requested_attribute
                 )
             answer = fact_answer or self._collapse_unsupported_answer(answer)
+            final_answer_from_llm = False
 
         latency = time.time() - start_time
 
@@ -1416,6 +1528,20 @@ class SongkhlaRAGEngine:
             if len(self.sessions[user_id]) > 6:
                 self.sessions[user_id] = self.sessions[user_id][-6:]
 
+        allowed_places = (
+            route_plan["allowed_places"] if route_plan
+            else distance_plan["allowed_places"] if distance_plan else []
+        )
+        resolved_entities = (
+            subjects["known"] or self._extract_place_entities(retrieval_query)
+        )
+        answer_entities = self._extract_place_entities(answer)
+        citation_entities = allowed_places or answer_entities or resolved_entities
+        source_pages = self.extract_source_pages(chunks, citation_entities)
+        provider_display = (
+            self.format_provider_label(provider) if final_answer_from_llm else None
+        )
+
         return {
             "query": query,
             "retrieval_query": retrieval_query,
@@ -1426,15 +1552,13 @@ class SongkhlaRAGEngine:
             "chunks_count": len(chunks),
             "sources": [c.get("title") for c in chunks],
             "mode": mode,
-            "allowed_places": (
-                route_plan["allowed_places"] if route_plan
-                else distance_plan["allowed_places"] if distance_plan else []
-            ),
+            "allowed_places": allowed_places,
             "route_plan": route_plan,
             "distance_plan": distance_plan,
             "guardrail_status": "PASS",
             "guardrail_reason": "supported_or_discovery",
-            "resolved_entities": (
-                subjects["known"] or self._extract_place_entities(retrieval_query)
-            ),
+            "resolved_entities": resolved_entities,
+            "source_pages": source_pages,
+            "provider_display": provider_display,
+            "llm_generated_final_answer": final_answer_from_llm,
         }
