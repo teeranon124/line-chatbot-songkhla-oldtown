@@ -27,6 +27,7 @@ OLLAMA_URL = "http://localhost:11434/api/chat"
 
 MODELS = [
     {"name": "qwen2.5:3b", "params": "3.1B", "vram_gb": 1.9, "vendor": "Alibaba / Open"},
+    {"name": "llama3.2:3b", "params": "3.2B", "vram_gb": 2.0, "vendor": "Meta"},
     {"name": "gemma2:2b", "params": "2.6B", "vram_gb": 1.6, "vendor": "Google"},
     {"name": "llama3.2:1b", "params": "1.2B", "vram_gb": 1.3, "vendor": "Meta"},
     {"name": "smollm2:1.7b", "params": "1.7B", "vram_gb": 1.8, "vendor": "Hugging Face"},

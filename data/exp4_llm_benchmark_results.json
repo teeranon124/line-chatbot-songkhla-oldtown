@@ -3,34 +3,34 @@
     "params": "3.1B",
     "vram_gb": 1.9,
     "vendor": "Alibaba / Open",
-    "faithfulness_pct": 80.0,
-    "hallucination_pct": 20.0,
+    "faithfulness_pct": 60.0,
+    "hallucination_pct": 40.0,
     "prompt_adherence_pct": 100.0,
     "markdown_leakage_pct": 0.0,
     "greeting_clutter_pct": 0.0,
     "chinese_leakage_pct": 0.0,
-    "avg_latency_sec": 3.51,
-    "tokens_per_sec": 15.1,
+    "avg_latency_sec": 3.59,
+    "tokens_per_sec": 14.8,
     "details": [
       {
-        "text": "ร้านไอติมโอ่งและร้านเกียดฟั่งเป็นตัวเลือกสำหรับของหวานหรือของกินเล่นบนถนนนางงามค่ะ",
-        "num_lines": 1,
-        "has_markdown": false,
-        "has_greeting": false,
-        "has_chinese": false,
-        "is_faithful": true,
-        "prompt_adherence_pct": 100,
-        "latency_sec": 5.89
-      },
-      {
-        "text": "เบอร์ติดต่อบ้านนครในไม่ได้ให้บริการ แต่สามารถเข้าชมฟรีได้ทุกวัน",
+        "text": "ร้านไอติมโอ่งเป็นตัวเลือกสำหรับของหวาน ที่ร้านแต้เฮี้ยงอิ๋วมีอาหารจีนโบราณ และร้านเกียดฟั่งขายอาหารไทยโบราณ",
         "num_lines": 1,
         "has_markdown": false,
         "has_greeting": false,
         "has_chinese": false,
         "is_faithful": false,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.59
+        "latency_sec": 6.29
+      },
+      {
+        "text": "เบอร์ติดต่อบ้านนครใน 074-227555",
+        "num_lines": 1,
+        "has_markdown": false,
+        "has_greeting": false,
+        "has_chinese": false,
+        "is_faithful": false,
+        "prompt_adherence_pct": 100,
+        "latency_sec": 2.43
       },
       {
         "text": "โรงสีแดง หับ โห้ หิ้น สร้างขึ้นในสมัยรัชกาลที่ 6 ไม่ใช่สมัยรัชกาลที่ 1",
@@ -40,7 +40,7 @@
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.89
+        "latency_sec": 2.97
       },
       {
         "text": "โรงสีแดง หับ โห้ หิ้น เป็นศูนย์การเรียนรู้เมืองเก่าสงขลาที่ถูกก่อตั้งในปี พ.ศ. 2457 ซึ่งแปลว่าความสามัคคี ความกลมเกลียว และความเจริญรุ่งเรือง.",
@@ -50,7 +50,7 @@
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 3.38
+        "latency_sec": 3.4
       },
       {
         "text": "ศาลเจ้าพ่อหลักเมืองสงขลาตั้งอยู่บนถนนนางงาม, ฝั่งตรงข้ามมีร้านไอติมโอ่ง",
@@ -60,7 +60,72 @@
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.81
+        "latency_sec": 2.85
+      }
+    ]
+  },
+  "llama3.2:3b": {
+    "params": "3.2B",
+    "vram_gb": 2.0,
+    "vendor": "Meta",
+    "faithfulness_pct": 80.0,
+    "hallucination_pct": 20.0,
+    "prompt_adherence_pct": 100.0,
+    "markdown_leakage_pct": 0.0,
+    "greeting_clutter_pct": 0.0,
+    "chinese_leakage_pct": 0.0,
+    "avg_latency_sec": 3.17,
+    "tokens_per_sec": 9.3,
+    "details": [
+      {
+        "text": "มีร้านไอติมโอ่งบนถนนนางงาม",
+        "num_lines": 1,
+        "has_markdown": false,
+        "has_greeting": false,
+        "has_chinese": false,
+        "is_faithful": true,
+        "prompt_adherence_pct": 100,
+        "latency_sec": 5.14
+      },
+      {
+        "text": "เบอร์โทรศัพท์สำหรับติดต่อของบ้านนครในคือ 077-221-111",
+        "num_lines": 1,
+        "has_markdown": false,
+        "has_greeting": false,
+        "has_chinese": false,
+        "is_faithful": false,
+        "prompt_adherence_pct": 100,
+        "latency_sec": 2.45
+      },
+      {
+        "text": "ไม่ใช่",
+        "num_lines": 1,
+        "has_markdown": false,
+        "has_greeting": false,
+        "has_chinese": false,
+        "is_faithful": true,
+        "prompt_adherence_pct": 100,
+        "latency_sec": 2.26
+      },
+      {
+        "text": "โรงสีแดง หับ โห้ หิ้น ก่อตั้งในปี พ.ศ. 2457 โดยกลุ่มผู้มีจิตสำนึกและความปรารถนาที่จะสร้างความสามัคคีและความเจริญรุ่งเรืองของชาวเมืองเก่าสงขลา",
+        "num_lines": 1,
+        "has_markdown": false,
+        "has_greeting": false,
+        "has_chinese": false,
+        "is_faithful": true,
+        "prompt_adherence_pct": 100,
+        "latency_sec": 3.27
+      },
+      {
+        "text": "ศาลเจ้าพ่อหลักเมืองสงขลาอยู่บนถนนนางงาม และฝั่งตรงข้ามมีร้านไอติมโอ่ง",
+        "num_lines": 1,
+        "has_markdown": false,
+        "has_greeting": false,
+        "has_chinese": false,
+        "is_faithful": true,
+        "prompt_adherence_pct": 100,
+        "latency_sec": 2.76
       }
     ]
   },
@@ -74,8 +139,8 @@
     "markdown_leakage_pct": 0.0,
     "greeting_clutter_pct": 0.0,
     "chinese_leakage_pct": 0.0,
-    "avg_latency_sec": 4.12,
-    "tokens_per_sec": 6.4,
+    "avg_latency_sec": 3.33,
+    "tokens_per_sec": 10.5,
     "details": [
       {
         "text": "ร้านไอติมโอ่ง ร้านไอติมโบราณชื่อดังบนถนนนางงาม",
@@ -85,17 +150,17 @@
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 10.11
+        "latency_sec": 5.58
       },
       {
-        "text": "บ้านนครใน: 08-1881-1111",
+        "text": "บ้านนครใน: 08-1888-7777",
         "num_lines": 1,
         "has_markdown": false,
         "has_greeting": false,
         "has_chinese": false,
         "is_faithful": false,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.42
+        "latency_sec": 2.45
       },
       {
         "text": "ไม่ correct",
@@ -105,17 +170,17 @@
         "has_chinese": false,
         "is_faithful": false,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.4
+        "latency_sec": 2.43
       },
       {
-        "text": "โรงสีแดง หับ โห้ หิ้น ก่อตั้งขึ้นใน พ.ศ. 2457 โดยคนรุ่นหลังจากนั้นเป็นศูนย์การเรียนรู้เมืองเก่าสงขลา",
+        "text": "โรงสีแดง หับ โห้ หิ้น ก่อตั้งขึ้นใน พ.ศ. 2457 โดยมีชื่อว่า \"โรงสีแดง\"  ชื่อนี้มาจากสีของโรงสีที่เป็นสีแดง  ชื่อ \"หับ โห้ หิ้น\" เป็นภาษาฮกเกี้ยน แปลว่า ความสามัคคี ความกลมเกลียว และความเจริญรุ่งเรือง",
         "num_lines": 1,
         "has_markdown": false,
         "has_greeting": false,
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.95
+        "latency_sec": 3.48
       },
       {
         "text": "ศาลเจ้าพ่อหลักเมืองสงขลาอยู่บนถนนนางงาม \nฝั่งตรงข้ามมีร้านไอติมโอ่ง",
@@ -125,7 +190,7 @@
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.71
+        "latency_sec": 2.7
       }
     ]
   },
@@ -139,8 +204,8 @@
     "markdown_leakage_pct": 0.0,
     "greeting_clutter_pct": 0.0,
     "chinese_leakage_pct": 0.0,
-    "avg_latency_sec": 3.1,
-    "tokens_per_sec": 16.1,
+    "avg_latency_sec": 3.22,
+    "tokens_per_sec": 16.4,
     "details": [
       {
         "text": "ร้านไอติมโอ่ง: ร้านของหวานชื่อดังบนถนนนางงาม เสิร์ฟไอศกรีมโบราณใส่โอ่งดินเผา",
@@ -150,7 +215,7 @@
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 5.03
+        "latency_sec": 5.56
       },
       {
         "text": "เบอร์โทรศัพท์ติดต่อของบ้านนครใน พิพิธภัณฑ์เอกชนบนถนนนครนอก คือ 02- 282 8888",
@@ -170,17 +235,17 @@
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.46
+        "latency_sec": 2.45
       },
       {
-        "text": "โรงสีแดง หับ โห้ หิ้น มีประวัติความเป็นมาอย่างยาวนาน มีเป็นศูนย์การเรียนรู้เมืองเก่าสงขลา ตั้งในปี พ.ศ. 2457 โดยมีเป้าหมายในการสร้างสภาพแวดล้อมที่เป็นประโยชน์ต่อผู้คน และช่วยให้เมืองเก่าสงขลาเติบโตและพัฒนาอย่างต่อเนื่อง",
+        "text": "โรงสีแดง หับ โห้ หิ้น มีประวัติความเป็นมาอย่างยาวนาน มีเป็นศูนย์การเรียนรู้เมืองเก่าสงขลา ตั้งในปี พ.ศ. 2457 โดยมีเป้าหมายในการสร้างสิ่งอำนวยความสะดวกสำหรับเด็กๆ และเยาวชนทั่วไป โดยมีเป้าหมายในการให้เด็กๆ มีโอกาสในการเรียนรู้และพัฒนาทักษะทางวิชาชีพอย่างมีประสิทธิภาพ",
         "num_lines": 1,
         "has_markdown": false,
         "has_greeting": false,
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 3.12
+        "latency_sec": 3.22
       },
       {
         "text": "ศาลเจ้าพ่อหลักเมืองสงขลาอยู่บนถนนนางงาม และฝั่งตรงข้ามมีร้านไอติมโอ่ง",
@@ -204,8 +269,8 @@
     "markdown_leakage_pct": 0.0,
     "greeting_clutter_pct": 0.0,
     "chinese_leakage_pct": 0.0,
-    "avg_latency_sec": 4.74,
-    "tokens_per_sec": 27.0,
+    "avg_latency_sec": 5.77,
+    "tokens_per_sec": 22.2,
     "details": [
       {
         "text": "คำถามที่มีความคิดเหล่านี้มีความคิดเหล่านี้มีความคิดเหล่านี้มีความคิด",
@@ -215,40 +280,20 @@
         "has_chinese": false,
         "is_faithful": false,
         "prompt_adherence_pct": 100,
-        "latency_sec": 8.13
+        "latency_sec": 13.17
       },
       {
-        "text": "สำหรับข้อมูลที่มีความน่าจัดในบ้านนครในหน่อยครับ\n1. สำหรับการสัมมันสำหรั",
-        "num_lines": 2,
-        "has_markdown": false,
-        "has_greeting": false,
-        "has_chinese": false,
-        "is_faithful": false,
-        "prompt_adherence_pct": 100,
-        "latency_sec": 3.78
-      },
-      {
-        "text": "สำหรับผู้ช่วยอัจฉริยะนำเที่ยวเมื่อ 2023 จะมีความเป็นสิทธิที่สำคัญที่",
+        "text": "คำถามที่มีความคิดเหล่านี้มีความคิดเหล่านี้มีความคิดเหล่านี้มีความคิด",
         "num_lines": 1,
         "has_markdown": false,
         "has_greeting": false,
         "has_chinese": false,
         "is_faithful": false,
         "prompt_adherence_pct": 100,
-        "latency_sec": 3.91
+        "latency_sec": 3.82
       },
       {
-        "text": "สั้น กระชับ ตรงประเด็น คำถาม: โรงสีแดง หับ โห้ หิ้น มีประวัติความเป็นมาอ",
-        "num_lines": 1,
-        "has_markdown": false,
-        "has_greeting": false,
-        "has_chinese": false,
-        "is_faithful": true,
-        "prompt_adherence_pct": 100,
-        "latency_sec": 3.94
-      },
-      {
-        "text": "สำหรับการสร้างหวานหรือของหวานสงขลาดีของศาลเจ้าพ่อหลักเมืองสงขลาอยู่ถนน",
+        "text": "คำถามที่มีความคิดเหล่านี้มีความคิดเหล่านี้มีความคิดเหล่านี้มีความคิด",
         "num_lines": 1,
         "has_markdown": false,
         "has_greeting": false,
@@ -256,6 +301,26 @@
         "is_faithful": false,
         "prompt_adherence_pct": 100,
         "latency_sec": 3.96
+      },
+      {
+        "text": "สำหรับผู้ช่วยอัจฉริยะนำเที่ยวเก่าสงขลา จะสับสนทั้งหมดการสับสนทั้งหม",
+        "num_lines": 1,
+        "has_markdown": false,
+        "has_greeting": false,
+        "has_chinese": false,
+        "is_faithful": true,
+        "prompt_adherence_pct": 100,
+        "latency_sec": 3.91
+      },
+      {
+        "text": "สำหรับการสังเกตุการณ์ของศาลเจ้าพ่อหลักเมืองสงขลาที่มีความสำคัญของผู้",
+        "num_lines": 1,
+        "has_markdown": false,
+        "has_greeting": false,
+        "has_chinese": false,
+        "is_faithful": false,
+        "prompt_adherence_pct": 100,
+        "latency_sec": 3.99
       }
     ]
   },
@@ -269,18 +334,18 @@
     "markdown_leakage_pct": 0.0,
     "greeting_clutter_pct": 0.0,
     "chinese_leakage_pct": 0.0,
-    "avg_latency_sec": 3.65,
-    "tokens_per_sec": 18.0,
+    "avg_latency_sec": 2.72,
+    "tokens_per_sec": 24.1,
     "details": [
       {
-        "text": "ร้านไอติมโอ่ง: ร้านของหวานชื่อดังบนถนนนางงาม ที่มีไอศกรีมโบราณใส่โอ่งดินเผา\nร้านแต้เฮี้ยงอิ๋ว: ร้านอาหารจีนแต้จิ๋วโบราณ เมนูเด่นคือ ข้าวต้มปลากะพง และหมูบะเต็ง\nร้านเกียดฟั่ง: ร้านอาหารเก่าแก่ ขายข้าวสตูหมูบะเต็",
+        "text": "ร้านไอติมโอ่ง: ร้านของหวานชื่อดังบนถนนนางงาม ฟื้นฟูไอศกรีมโบราณใส่โอ่งดินเผา\nร้านแต้เฮี้ยงอิ๋ว: ร้านอาหารจีนแต้จิ๋วโบราณ เมนูเด่นคือ ข้าวต้มปลากะพง และหมูบะเต็ง\nร้านเกียดฟั่ง: ร้านอาหารเก่าแก่ ขายข้าวสตูหมูบะ",
         "num_lines": 3,
         "has_markdown": false,
         "has_greeting": false,
         "has_chinese": false,
         "is_faithful": false,
         "prompt_adherence_pct": 100,
-        "latency_sec": 8.72
+        "latency_sec": 4.15
       },
       {
         "text": "ขอเบอร์โทรศัพท์ติดต่อของบ้านนครใน: 031-1234567",
@@ -290,7 +355,7 @@
         "has_chinese": false,
         "is_faithful": false,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.33
+        "latency_sec": 2.22
       },
       {
         "text": "ไม่",
@@ -300,17 +365,17 @@
         "has_chinese": false,
         "is_faithful": false,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.17
+        "latency_sec": 2.12
       },
       {
-        "text": "โรงสีแดง หับ โห้ หิ้น มีประวัติความเป็นมาอย่างไร คือ โรงสีแดง หับ โห้ หิ้น เป็นศูนย์การเรียนรู้เมืองเก่าสงขลา ที่มีประวัติความเป็นมาอย่างยาวนาน ตั้งแต่พ.ศ. 2457 จนถึงปัจจุบัน ซึ่งเป็นศูนย์การเรียนร",
+        "text": "โรงสีแดง หับ โห้ หิ้น มีประวัติความเป็นมาอย่างไร? คำตอบ: โรงสีแดง หับ โห้ หิ้น เป็นศูนย์การเรียนรู้เมืองเก่าสงขลา ที่มีประวัติความเป็นมาที่ยาวนาน ตั้งแต่พ.ศ. 2457 ถึงปัจจุบัน ซึ่งเป็นศูนย์การเรียนร",
         "num_lines": 1,
         "has_markdown": false,
         "has_greeting": false,
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.71
+        "latency_sec": 2.77
       },
       {
         "text": "ศาลเจ้าพ่อหลักเมืองสงขลาอยู่ถนนนางงาม ฝั่งตรงข้ามมีร้านไอติมโอ่ง",
@@ -320,7 +385,7 @@
         "has_chinese": false,
         "is_faithful": true,
         "prompt_adherence_pct": 100,
-        "latency_sec": 2.34
+        "latency_sec": 2.36
       }
     ]
   }

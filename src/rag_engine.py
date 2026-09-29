@@ -24,8 +24,11 @@ SYSTEM_PROMPT = """คุณคือ "น้องสิงขร" ผู้ช
 3. ห้ามใช้เครื่องหมาย Markdown เช่น เครื่องหมายดอกจัน ** หรือเครื่องหมาย # เด็ดขาด ให้ใช้ภาษาไทยธรรมดาที่เป็นธรรมชาติ
 4. ต้องตอบเป็นภาษาไทยล้วน 100% ห้ามมีตัวอักษรจีนหรือภาษาต่างประเทศปะปนเด็ดขาด (เช่น ห้ามใช้คำว่า 墙壁 ให้ใช้คำว่า กำแพงหรือผนัง)
 5. หากถามเรื่องของหวานหรือของกินเล่น ให้เลือกเฉพาะร้านของหวาน เช่น ร้านไอติมโอ่ง หรือบ้านขนมไทยสองแสน ห้ามนำร้านอาหารคาวมาตอบเป็นของหวาน
-6. กฎเหล็กป้องกันภาพหลอน (Anti-Hallucination Guardrail): อ้างอิงข้อมูลจากบริบทอย่างเคร่งครัด 100% ห้ามกุเรื่องขึ้นมาเองเด็ดขาด
-   - หากถามหาข้อมูลที่ไม่ได้ระบุไว้ในบริบท (โดยเฉพาะ "เบอร์โทรศัพท์", "เวลาเปิดปิด", หรือ "ราคา") ให้ตอบตรงๆ ทันทีว่า "ขออภัยครับ ในข้อมูลไม่มีการระบุ..." ห้ามสุ่มเดาหรือสร้างตัวเลขขึ้นมาเองเด็ดขาด"""
+6. กฎเหล็กป้องกันภาพหลอนรอบด้าน (Universal Anti-Hallucination Guardrails): อ้างอิงข้อมูลจากบริบทอย่างเคร่งครัด 100% ห้ามกุเรื่องขึ้นมาเองเด็ดขาด
+   - [เบอร์โทรศัพท์]: ห้ามสุ่มหรือแต่งเบอร์โทรศัพท์เด็ดขาด หากไม่มีให้ตอบว่า "ไม่มีการระบุเบอร์โทรศัพท์ติดต่อ"
+   - [เวลาเปิด-ปิด]: ห้ามเดาเวลาเปิดปิดเด็ดขาด หากไม่มีตัวเลขเวลาในบริบท ให้ตอบว่า "ไม่มีการระบุเวลาเปิด-ปิดที่แน่นอน"
+   - [ราคา/ค่าเข้าชม]: ห้ามกุตัวเลขราคาเองเด็ดขาด หากเข้าชมฟรีให้ระบุว่าฟรี หากไม่มีราคาให้ตอบว่า "ไม่มีข้อมูลราคา"
+   - [ตำแหน่งถนน]: ต้องระบุชื่อถนนให้ตรงตามบริบท ห้ามสลับหรือเดาชื่อถนนเด็ดขาด"""
 
 
 class SongkhlaRAGEngine:
@@ -111,6 +114,68 @@ class SongkhlaRAGEngine:
         except Exception as e:
             return f"Cloud API Error: {e}"
 
+    def verify_and_ground_answer(self, query: str, answer: str, context_str: str) -> str:
+        """
+        Universal Multi-Dimensional Anti-Hallucination Guardrail:
+        1. Phone Number Verification (Regex cross-check against context)
+        2. Operating Hours & Times Verification (Time digits against context)
+        3. Pricing & Fees Verification (Price digits against context)
+        4. Location & Street Consistency Validation (Knowledge Graph Ground Truth)
+        """
+        clean_context = context_str.replace(" ", "")
+
+        # 1. Phone Numbers Guardrail
+        phone_matches = re.findall(r'\b0\d{1,2}[-\s]?\d{3,4}[-\s]?\d{3,4}\b', answer)
+        if phone_matches:
+            clean_ctx_digits = re.sub(r'[-\s]', '', clean_context)
+            for phone in phone_matches:
+                clean_phone = re.sub(r'[-\s]', '', phone)
+                if clean_phone not in clean_ctx_digits:
+                    if any(k in query for k in ["เบอร์", "โทร", "ติดต่อ"]):
+                        return "ขออภัยครับ ในฐานข้อมูลยังไม่มีการระบุเบอร์โทรศัพท์ติดต่อของสถานที่ดังกล่าว"
+                    answer = re.sub(re.escape(phone), "[ไม่มีข้อมูลเบอร์]", answer)
+
+        # 2. Operating Hours & Times Guardrail
+        if any(k in query for k in ["เวลา", "กี่โมง", "เปิดกี่โมง", "ปิดกี่โมง", "เปิดปิด", "เวลาเปิด"]):
+            time_matches = re.findall(r'\b\d{1,2}[:.]\d{2}\s*(น\.|น|โมง)?\b', answer)
+            if time_matches:
+                ctx_has_time = any(tm in clean_context for tm in time_matches) or any(t in clean_context for t in ["เวลา", "เปิด", "ปิด"])
+                if not ctx_has_time:
+                    return "ขออภัยครับ ในฐานข้อมูลยังไม่ได้ระบุเวลาเปิด-ปิดที่แน่นอน แนะนำตรวจสอบกับทางสถานที่โดยตรงครับ"
+
+        # 3. Pricing & Admission Fees Guardrail
+        if any(k in query for k in ["ราคา", "ค่าเข้า", "กี่บาท", "เท่าไหร่", "ค่าบัตร"]):
+            price_matches = re.findall(r'\b\d{1,4}\s*(บาท|฿)\b', answer)
+            if price_matches:
+                ctx_has_price = any(pm in clean_context for pm in price_matches) or ("ฟรี" in clean_context and "ฟรี" in answer)
+                if not ctx_has_price:
+                    if "ฟรี" in clean_context:
+                        return "สถานที่นี้เปิดให้เข้าชมฟรี ไม่มีค่าใช้จ่ายครับ"
+                    return "ขออภัยครับ ในฐานข้อมูลยังไม่ได้ระบุราคาหรือค่าเข้าชมที่แน่ชัด แนะนำสอบถามหน้าร้านครับ"
+
+        # 4. Street / Location Knowledge Graph Ground-Truth Validation
+        known_locations = {
+            "แต้เฮี้ยงอิ๋ว": "ถนนนางงาม",
+            "เกียดฟั่ง": "ถนนนางงาม",
+            "ไอติมโอ่ง": "ถนนนางงาม",
+            "ศาลเจ้าพ่อหลักเมือง": "ถนนนางงาม",
+            "บ้านขนมไทยสองแสน": "ถนนนางงาม",
+            "หับ โห้ หิ้น": "ถนนนครนอก",
+            "โรงสีแดง": "ถนนนครนอก",
+            "บ้านนครใน": "ถนนนครนอก",
+            "มัสยิดบ้านบน": "ถนนพัทลุง",
+            "กำแพงเมืองสงขลา": "ถนนจะนะ"
+        }
+        streets = ["ถนนนางงาม", "ถนนนครนอก", "ถนนนครใน", "ถนนพัทลุง", "ถนนจะนะ"]
+        for entity, correct_street in known_locations.items():
+            if entity in answer:
+                for s in streets:
+                    if s in answer and s != correct_street:
+                        # Auto-correct street drift using Graph Topology
+                        answer = answer.replace(s, correct_street)
+
+        return answer
+
     def generate(
         self,
         query: str,
@@ -161,7 +226,6 @@ class SongkhlaRAGEngine:
         if provider == "groq" and self.groq_api_key:
             answer = self.call_groq(messages, model_name)
             if (answer.startswith("Groq Error") or answer.startswith("Cloud API Error")):
-                # Automatic failover to local Ollama
                 fallback_ans = self.call_ollama(messages, self.local_model)
                 if not (fallback_ans.startswith("Ollama Error") or fallback_ans.startswith("Local LLM Error")):
                     answer = fallback_ans
@@ -170,7 +234,6 @@ class SongkhlaRAGEngine:
         else:
             answer = self.call_ollama(messages, model_name)
             if (answer.startswith("Ollama Error") or answer.startswith("Local LLM Error")) and self.groq_api_key:
-                # Automatic failover to Groq API
                 fallback_ans = self.call_groq(messages, self.groq_model)
                 if not (fallback_ans.startswith("Groq Error") or fallback_ans.startswith("Cloud API Error")):
                     answer = fallback_ans
@@ -186,20 +249,8 @@ class SongkhlaRAGEngine:
         clean_ans = clean_ans.replace("墙壁", "กำแพง")
         clean_ans = re.sub(r'[\u4e00-\u9fff]+', '', clean_ans)
 
-        # 5.1 Deterministic Anti-Hallucination Guardrail (Post-generation Fact Verification)
-        phone_matches = re.findall(r'\b0\d{1,2}[-\s]?\d{3,4}[-\s]?\d{3,4}\b', clean_ans)
-        if phone_matches:
-            clean_context = re.sub(r'[-\s]', '', context_str)
-            for phone in phone_matches:
-                clean_phone = re.sub(r'[-\s]', '', phone)
-                if clean_phone not in clean_context:
-                    # Intercept hallucinated phone number
-                    if any(k in query for k in ["เบอร์", "โทร", "ติดต่อ"]):
-                        clean_ans = "ขออภัยครับ ในฐานข้อมูลยังไม่มีการระบุเบอร์โทรศัพท์ติดต่อของสถานที่ดังกล่าว"
-                        break
-                    else:
-                        clean_ans = re.sub(re.escape(phone), "[ไม่มีข้อมูลเบอร์]", clean_ans)
-
+        # 5.1 Universal Deterministic Anti-Hallucination Guardrail (Fact Verification)
+        clean_ans = self.verify_and_ground_answer(query, clean_ans, context_str)
         answer = clean_ans.strip()
 
         latency = time.time() - start_time
