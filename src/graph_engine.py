@@ -9,6 +9,7 @@ import socket
 import pickle
 from typing import List, Dict, Any
 import networkx as nx
+from pythainlp.tokenize import word_tokenize
 
 from .config import paths, models
 
@@ -58,39 +59,84 @@ class SongkhlaGraphEngine:
         if not self.G or self.G.number_of_nodes() == 0:
             return []
 
-        matched_nodes = []
         q_lower = query.lower()
+        q_tokens = [w for w in word_tokenize(q_lower, engine="newmm") if len(w.strip()) > 1]
 
-        # 1. Node name and alias matching with score prioritization
+        # Domain concept semantic mapping to properties & categories
+        concept_map = {
+            "ของหวาน": ["ของหวาน", "ขนม", "ไอติม", "ไอศกรีม", "คลายร้อน", "เย็น", "หวาน", "ไข่แข็ง", "ของฝาก"],
+            "อาหารคาว": ["อาหารคาว", "อาหาร", "กิน", "ข้าว", "เช้า", "เที่ยง", "สตู", "หมูกรอบ", "ซาลาเปา", "ข้าวต้ม", "กับข้าว"],
+            "คาเฟ่": ["กาแฟ", "คาเฟ่", "ชา", "ชิล", "พักเหนื่อย", "แอร์", "เครื่องดื่ม"],
+            "ศิลปะ": ["ศิลปะ", "นิทรรศการ", "ภาพวาด", "ภาพเขียน", "แกลเลอรี", "ภาพถ่าย", "สตรีทอาร์ท", "street art"],
+            "จุดชมวิว": ["ชมวิว", "วิว", "มุมสูง", "กระเช้า", "ลิฟต์", "ทะเล", "เขาตังกวน"],
+            "ประวัติศาสตร์": ["ประวัติศาสตร์", "โบราณ", "เก่าแก่", "300 ปี", "สงครามโลก", "รัชกาล", "โรงสีแดง", "หับโห้หิ้น"]
+        }
+
+        node_scores = {}
         for n, data in self.G.nodes(data=True):
+            s = 0.0
             n_str = str(n).lower()
-            name_en = str(data.get("name_en", "")).lower()
             cat = str(data.get("category", "")).lower()
             street = str(data.get("street", "")).lower()
-            
-            # Exact match gets highest priority
+            clue = str(data.get("landmark_clue", "")).lower()
+            name_en = str(data.get("name_en", "")).lower()
+
+            # 1. Direct name / alias matching
             if n_str == q_lower:
-                matched_nodes.append((n, data, 3.0))
+                s += 5.0
             elif n_str in q_lower:
-                matched_nodes.append((n, data, 2.5))
-            elif any(word in q_lower for word in n_str.split() if len(word) > 2):
-                matched_nodes.append((n, data, 2.0))
+                s += 3.5
+            elif any(tok in n_str for tok in q_tokens if len(tok) >= 3):
+                s += 2.2
             elif name_en and name_en in q_lower:
-                matched_nodes.append((n, data, 1.8))
-            elif street and street in q_lower:
-                matched_nodes.append((n, data, 1.5))
-            elif cat and cat in q_lower:
-                matched_nodes.append((n, data, 1.0))
+                s += 2.0
 
-        # Deduplicate and sort by relevance score
-        seen = set()
-        unique_matched = []
-        for n, data, score in sorted(matched_nodes, key=lambda x: x[2], reverse=True):
-            if n not in seen:
-                seen.add(n)
-                unique_matched.append((n, data, score))
+            # 2. Properties & Landmark Clue matching
+            if clue and any(tok in clue for tok in q_tokens if len(tok) >= 3):
+                s += 2.5
+            if street and street in q_lower:
+                s += 2.0
 
-        top_nodes = unique_matched[:top_k]
+            # 3. Concept / Category matching
+            for concept, kw_list in concept_map.items():
+                if any(kw in q_lower for kw in kw_list):
+                    if any(kw in cat for kw in kw_list):
+                        s += 2.8
+                    if any(kw in clue for kw in kw_list):
+                        s += 2.2
+
+            # 4. Outgoing relations (SERVES, HISTORICAL_ERA, OFFERS_ACTIVITY)
+            for _, target, edata in self.G.out_edges(n, data=True):
+                t_str = str(target).lower()
+                rel = edata.get("relation", "")
+                if t_str in q_lower or any(tok in t_str for tok in q_tokens if len(tok) >= 3):
+                    if rel in ["SERVES", "FAMOUS_FOR"]:
+                        s += 3.0
+                    elif rel in ["HISTORICAL_ERA", "FOUNDED_IN"]:
+                        s += 2.5
+                    elif rel in ["NEARBY", "OPPOSITE_TO"]:
+                        s += 2.2
+                    else:
+                        s += 1.8
+
+            if s > 0:
+                node_scores[n] = s
+
+        # 5. Spreading activation along graph topology (1-hop propagation)
+        propagated = dict(node_scores)
+        for n, score in node_scores.items():
+            # Propagate to out-neighbors
+            for _, target, edata in self.G.out_edges(n, data=True):
+                if target in self.G:
+                    propagated[target] = propagated.get(target, 0.0) + score * 0.35
+            # Propagate to in-neighbors (e.g. Street -> Place)
+            for source, _, edata in self.G.in_edges(n, data=True):
+                if source in self.G:
+                    propagated[source] = propagated.get(source, 0.0) + score * 0.35
+
+        # Sort and select top_k nodes
+        top_nodes = sorted(propagated.items(), key=lambda x: x[1], reverse=True)[:top_k]
+        top_nodes = [(n, self.G.nodes[n], score) for n, score in top_nodes]
 
         results = []
         for n, data, score in top_nodes:

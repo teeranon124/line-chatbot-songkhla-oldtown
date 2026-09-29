@@ -155,11 +155,11 @@ class HybridRetriever:
             k = top_k if top_k is not None else retrieval.default_top_k
             return self.graph.search_subgraph(query, top_k=k)
 
-        # 4. Tri-Hybrid with Reciprocal Rank Fusion (RRF)
+        # 4. Dual-Track Hybrid with Reciprocal Rank Fusion (RRF)
+        # Track 1: Text Retrieval Fusion (Dense 0.50 + Sparse 0.50)
         rrf_k = retrieval.rrf_k
-        w_dense = retrieval.dense_weight
-        w_sparse = retrieval.sparse_weight
-        w_graph = retrieval.graph_weight
+        w_dense = 0.50
+        w_sparse = 0.50
 
         fused_scores = {}
         chunk_map = {}
@@ -184,30 +184,7 @@ class HybridRetriever:
                 chunk_map[key] = chunk
                 fused_scores[key] = fused_scores.get(key, 0.0) + w_sparse / (rrf_k + rank + 1)
 
-        # Build mapping from place_id to chunk
-        place_to_chunk = {}
-        for c in self.chunks:
-            pid = c.get("place_id")
-            if pid:
-                place_to_chunk[pid] = c
-
-        # Graph candidates
-        graph_hits = self.graph.search_subgraph(query, top_k=pool_k)
-        for rank, g_chunk in enumerate(graph_hits):
-            raw_id = g_chunk.get("chunk_id", "").replace("graph_", "")
-            matched_chunk = place_to_chunk.get(raw_id)
-            if matched_chunk:
-                key = matched_chunk["chunk_id"]
-                if key not in chunk_map:
-                    chunk_map[key] = dict(matched_chunk)
-                # Augment text chunk with Knowledge Graph relational evidence
-                chunk_map[key]["graph_subgraph"] = g_chunk.get("content", "")
-            else:
-                key = g_chunk["chunk_id"]
-                chunk_map[key] = g_chunk
-            fused_scores[key] = fused_scores.get(key, 0.0) + w_graph / (rrf_k + rank + 1)
-
-        # Sort by fused score
+        # Sort text chunks by fused score
         sorted_keys = sorted(fused_scores.keys(), key=lambda k: fused_scores[k], reverse=True)
         ranked_scores = [fused_scores[k] for k in sorted_keys]
 
@@ -219,4 +196,20 @@ class HybridRetriever:
         )
 
         final_chunks = [chunk_map[k] for k in sorted_keys[:effective_k]]
+
+        # Track 2: Dedicated Knowledge Graph Relational Enrichment (No collision)
+        graph_hits = self.graph.search_subgraph(query, top_k=2)
+        place_to_chunk = {c.get("place_id"): c for c in self.chunks if c.get("place_id")}
+        for g in graph_hits:
+            raw_id = g.get("chunk_id", "").replace("graph_", "")
+            matched = False
+            for fc in final_chunks:
+                if fc.get("place_id") == raw_id:
+                    fc["graph_subgraph"] = g.get("content", "")
+                    matched = True
+                    break
+            # If not matched to existing text chunk, append graph evidence
+            if not matched and top_k is None:
+                final_chunks.append(g)
+
         return final_chunks

@@ -18,11 +18,11 @@
     },
     "graph": {
       "name": "Graph Only (NetworkX)",
-      "hit1_count": 6,
-      "hit1_pct": 40.0,
-      "hit3_count": 6,
-      "hit3_pct": 40.0,
-      "mrr": 0.4
+      "hit1_count": 4,
+      "hit1_pct": 26.7,
+      "hit3_count": 11,
+      "hit3_pct": 73.3,
+      "mrr": 0.4889
     },
     "hybrid": {
       "name": "Hybrid RAG (Tri-RRF k=60)",
@@ -30,7 +30,7 @@
       "hit1_pct": 80.0,
       "hit3_count": 14,
       "hit3_pct": 93.3,
-      "mrr": 0.8556
+      "mrr": 0.8667
     }
   },
   "category_summary": {
@@ -53,11 +53,11 @@
       },
       "graph": {
         "name": "Graph Only (NetworkX)",
-        "hit1_count": 3,
-        "hit1_pct": 60.0,
+        "hit1_count": 2,
+        "hit1_pct": 40.0,
         "hit3_count": 3,
         "hit3_pct": 60.0,
-        "mrr": 0.6
+        "mrr": 0.5
       },
       "hybrid": {
         "name": "Hybrid RAG (Tri-RRF k=60)",
@@ -87,11 +87,11 @@
       },
       "graph": {
         "name": "Graph Only (NetworkX)",
-        "hit1_count": 0,
-        "hit1_pct": 0.0,
-        "hit3_count": 0,
-        "hit3_pct": 0.0,
-        "mrr": 0.0
+        "hit1_count": 2,
+        "hit1_pct": 40.0,
+        "hit3_count": 5,
+        "hit3_pct": 100.0,
+        "mrr": 0.7
       },
       "hybrid": {
         "name": "Hybrid RAG (Tri-RRF k=60)",
@@ -121,11 +121,11 @@
       },
       "graph": {
         "name": "Graph Only (NetworkX)",
-        "hit1_count": 3,
-        "hit1_pct": 60.0,
+        "hit1_count": 0,
+        "hit1_pct": 0.0,
         "hit3_count": 3,
         "hit3_pct": 60.0,
-        "mrr": 0.6
+        "mrr": 0.2667
       },
       "hybrid": {
         "name": "Hybrid RAG (Tri-RRF k=60)",
@@ -133,7 +133,7 @@
         "hit1_pct": 60.0,
         "hit3_count": 5,
         "hit3_pct": 100.0,
-        "mrr": 0.7667
+        "mrr": 0.8
       }
     }
   },
@@ -152,7 +152,7 @@
       ],
       "retrieval": {
         "sparse": {
-          "latency_ms": 563.4,
+          "latency_ms": 555.27,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -179,7 +179,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 221.29,
+          "latency_ms": 205.21,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -206,17 +206,17 @@
           ]
         },
         "graph": {
-          "latency_ms": 1.01,
-          "hit_rank": 1,
-          "hit1": true,
-          "hit3": true,
-          "reciprocal_rank": 1.0,
+          "latency_ms": 1.97,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "graph_tae_hiang_iu",
-              "title": "[Graph Subgraph] ร้านแต้เฮี้ยงอิ้ว",
-              "matched": true
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท",
+              "matched": false
             },
             {
               "rank": 2,
@@ -233,7 +233,7 @@
           ]
         },
         "hybrid": {
-          "latency_ms": 8.95,
+          "latency_ms": 10.02,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -253,8 +253,8 @@
             },
             {
               "rank": 3,
-              "chunk_id": "chunk_014",
-              "title": "ร้านไอติมโอ่ง (AnyFlip หน้า 24)",
+              "chunk_id": "chunk_018",
+              "title": "บ้านขนมไทยสองแสน (AnyFlip หน้า 29)",
               "matched": false
             }
           ]
@@ -276,7 +276,7 @@
       ],
       "retrieval": {
         "sparse": {
-          "latency_ms": 0.0,
+          "latency_ms": 0.82,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -303,7 +303,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 8.0,
+          "latency_ms": 8.56,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -330,34 +330,34 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
-          "hit_rank": 0,
+          "latency_ms": 1.0,
+          "hit_rank": 2,
           "hit1": false,
-          "hit3": false,
-          "reciprocal_rank": 0.0,
+          "hit3": true,
+          "reciprocal_rank": 0.5,
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "graph_ข้าวสตู",
-              "title": "[Graph Subgraph] ข้าวสตู",
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท",
               "matched": false
             },
             {
               "rank": 2,
-              "chunk_id": "graph_ซาลาเปา",
-              "title": "[Graph Subgraph] ซาลาเปา",
-              "matched": false
+              "chunk_id": "graph_kiat_fang",
+              "title": "[Graph Subgraph] ร้านเกียดฟั่ง",
+              "matched": true
             },
             {
               "rank": 3,
-              "chunk_id": "graph_ข้าวสตูหมู",
-              "title": "[Graph Subgraph] ข้าวสตูหมู",
+              "chunk_id": "graph_ถนนนางงาม",
+              "title": "[Graph Subgraph] ถนนนางงาม",
               "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 9.0,
+          "latency_ms": 9.99,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -427,7 +427,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 8.0,
+          "latency_ms": 9.02,
           "hit_rank": 0,
           "hit1": false,
           "hit3": false,
@@ -454,7 +454,7 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
+          "latency_ms": 1.01,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -474,14 +474,14 @@
             },
             {
               "rank": 3,
-              "chunk_id": "graph_hotel_montana",
-              "title": "[Graph Subgraph] โรงแรมมอนทาน่า สงขลา",
+              "chunk_id": "graph_songkhla_station",
+              "title": "[Graph Subgraph] สงขลาสเตชั่น",
               "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 8.0,
+          "latency_ms": 8.5,
           "hit_rank": 0,
           "hit1": false,
           "hit3": false,
@@ -489,20 +489,20 @@
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "chunk_010",
-              "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
-              "matched": false
-            },
-            {
-              "rank": 2,
               "chunk_id": "chunk_020",
               "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
               "matched": false
             },
             {
-              "rank": 3,
+              "rank": 2,
               "chunk_id": "chunk_007",
               "title": "บ้านจีน 300 ปี (AnyFlip หน้า 15)",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
               "matched": false
             }
           ]
@@ -524,7 +524,7 @@
       ],
       "retrieval": {
         "sparse": {
-          "latency_ms": 1.33,
+          "latency_ms": 1.0,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -551,7 +551,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 12.19,
+          "latency_ms": 8.0,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -578,7 +578,7 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
+          "latency_ms": 1.01,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -592,20 +592,20 @@
             },
             {
               "rank": 2,
-              "chunk_id": "graph_ขนมทองเอก",
-              "title": "[Graph Subgraph] ขนมทองเอก",
+              "chunk_id": "graph_jae_ni",
+              "title": "[Graph Subgraph] ร้านเจ๊นิ ข้าวต้มปลา",
               "matched": false
             },
             {
               "rank": 3,
-              "chunk_id": "graph_ขนมสัมปันนี",
-              "title": "[Graph Subgraph] ขนมสัมปันนี",
+              "chunk_id": "graph_ขนมทองเอก",
+              "title": "[Graph Subgraph] ขนมทองเอก",
               "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 8.77,
+          "latency_ms": 10.49,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -676,7 +676,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 7.96,
+          "latency_ms": 9.52,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -703,7 +703,7 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
+          "latency_ms": 1.0,
           "hit_rank": 0,
           "hit1": false,
           "hit3": false,
@@ -717,14 +717,20 @@
             },
             {
               "rank": 2,
-              "chunk_id": "graph_hotel_montana",
-              "title": "[Graph Subgraph] โรงแรมมอนทาน่า สงขลา",
+              "chunk_id": "graph_songkhla_station",
+              "title": "[Graph Subgraph] สงขลาสเตชั่น",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_hub_ho_hin",
+              "title": "[Graph Subgraph] โรงสีแดง หับโห้หิ้น",
               "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 8.87,
+          "latency_ms": 15.12,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -738,14 +744,14 @@
             },
             {
               "rank": 2,
-              "chunk_id": "chunk_010",
-              "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
+              "chunk_id": "chunk_012",
+              "title": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้า) (AnyFlip หน้า 21)",
               "matched": false
             },
             {
               "rank": 3,
-              "chunk_id": "chunk_012",
-              "title": "เขาตังกวน (ลิฟต์กระเช้าไฟฟ้า) (AnyFlip หน้า 21)",
+              "chunk_id": "chunk_016",
+              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
               "matched": false
             }
           ]
@@ -769,7 +775,7 @@
       ],
       "retrieval": {
         "sparse": {
-          "latency_ms": 1.01,
+          "latency_ms": 0.0,
           "hit_rank": 0,
           "hit1": false,
           "hit3": false,
@@ -796,7 +802,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 7.0,
+          "latency_ms": 9.08,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -823,15 +829,34 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
-          "hit_rank": 0,
+          "latency_ms": 1.0,
+          "hit_rank": 2,
           "hit1": false,
-          "hit3": false,
-          "reciprocal_rank": 0.0,
-          "top_items": []
+          "hit3": true,
+          "reciprocal_rank": 0.5,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_baan_nakorn_in",
+              "title": "[Graph Subgraph] บ้านนครใน",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_khanom_thai_song_saen",
+              "title": "[Graph Subgraph] บ้านขนมไทยสองแสน",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_ถนนนางงาม",
+              "title": "[Graph Subgraph] ถนนนางงาม",
+              "matched": false
+            }
+          ]
         },
         "hybrid": {
-          "latency_ms": 8.51,
+          "latency_ms": 9.92,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -903,7 +928,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 12.01,
+          "latency_ms": 9.72,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -930,15 +955,34 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
-          "hit_rank": 0,
+          "latency_ms": 1.01,
+          "hit_rank": 2,
           "hit1": false,
-          "hit3": false,
-          "reciprocal_rank": 0.0,
-          "top_items": []
+          "hit3": true,
+          "reciprocal_rank": 0.5,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_songkhla_station",
+              "title": "[Graph Subgraph] สงขลาสเตชั่น",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_ถนนนครนอก",
+              "title": "[Graph Subgraph] ถนนนครนอก",
+              "matched": false
+            }
+          ]
         },
         "hybrid": {
-          "latency_ms": 13.0,
+          "latency_ms": 10.01,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1008,7 +1052,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 12.51,
+          "latency_ms": 9.0,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1035,22 +1079,34 @@
           ]
         },
         "graph": {
-          "latency_ms": 1.45,
-          "hit_rank": 0,
-          "hit1": false,
-          "hit3": false,
-          "reciprocal_rank": 0.0,
+          "latency_ms": 0.99,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "graph_ลิฟต์",
-              "title": "[Graph Subgraph] ลิฟต์",
+              "chunk_id": "graph_khao_tang_kuan",
+              "title": "[Graph Subgraph] เขาตังกวน",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_songkhla_station",
+              "title": "[Graph Subgraph] สงขลาสเตชั่น",
               "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 7.55,
+          "latency_ms": 10.63,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1146,22 +1202,34 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
-          "hit_rank": 0,
+          "latency_ms": 1.99,
+          "hit_rank": 2,
           "hit1": false,
-          "hit3": false,
-          "reciprocal_rank": 0.0,
+          "hit3": true,
+          "reciprocal_rank": 0.5,
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "graph_กาแฟ",
-              "title": "[Graph Subgraph] กาแฟ",
+              "chunk_id": "graph_hub_ho_hin",
+              "title": "[Graph Subgraph] โรงสีแดง หับโห้หิ้น",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_songkhla_station",
+              "title": "[Graph Subgraph] สงขลาสเตชั่น",
+              "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_ถนนนครนอก",
+              "title": "[Graph Subgraph] ถนนนครนอก",
               "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 7.99,
+          "latency_ms": 10.68,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1231,7 +1299,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 7.43,
+          "latency_ms": 10.01,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1258,22 +1326,34 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
-          "hit_rank": 0,
-          "hit1": false,
-          "hit3": false,
-          "reciprocal_rank": 0.0,
+          "latency_ms": 1.0,
+          "hit_rank": 1,
+          "hit1": true,
+          "hit3": true,
+          "reciprocal_rank": 1.0,
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "graph_ซาลาเปา",
-              "title": "[Graph Subgraph] ซาลาเปา",
+              "chunk_id": "graph_kiat_fang",
+              "title": "[Graph Subgraph] ร้านเกียดฟั่ง",
+              "matched": true
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_tae_hiang_iu",
+              "title": "[Graph Subgraph] ร้านแต้เฮี้ยงอิ้ว",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_baan_nakorn_in",
+              "title": "[Graph Subgraph] บ้านนครใน",
               "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 9.0,
+          "latency_ms": 14.99,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1345,7 +1425,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 9.16,
+          "latency_ms": 8.0,
           "hit_rank": 2,
           "hit1": false,
           "hit3": true,
@@ -1372,15 +1452,34 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
-          "hit_rank": 0,
+          "latency_ms": 1.0,
+          "hit_rank": 3,
           "hit1": false,
-          "hit3": false,
-          "reciprocal_rank": 0.0,
-          "top_items": []
+          "hit3": true,
+          "reciprocal_rank": 0.3333333333333333,
+          "top_items": [
+            {
+              "rank": 1,
+              "chunk_id": "graph_ถนนนางงาม",
+              "title": "[Graph Subgraph] ถนนนางงาม",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_khanom_thai_song_saen",
+              "title": "[Graph Subgraph] บ้านขนมไทยสองแสน",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_aitim_oang",
+              "title": "[Graph Subgraph] ร้านไอติมโอ่ง",
+              "matched": true
+            }
+          ]
         },
         "hybrid": {
-          "latency_ms": 8.0,
+          "latency_ms": 11.0,
           "hit_rank": 2,
           "hit1": false,
           "hit3": true,
@@ -1455,7 +1554,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 7.01,
+          "latency_ms": 8.48,
           "hit_rank": 2,
           "hit1": false,
           "hit3": true,
@@ -1482,34 +1581,34 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
-          "hit_rank": 1,
-          "hit1": true,
+          "latency_ms": 2.01,
+          "hit_rank": 2,
+          "hit1": false,
           "hit3": true,
-          "reciprocal_rank": 1.0,
+          "reciprocal_rank": 0.5,
           "top_items": [
             {
               "rank": 1,
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท",
+              "matched": false
+            },
+            {
+              "rank": 2,
               "chunk_id": "graph_ถนนนางงาม",
               "title": "[Graph Subgraph] ถนนนางงาม",
               "matched": true
             },
             {
-              "rank": 2,
-              "chunk_id": "graph_aitim_oang",
-              "title": "[Graph Subgraph] ร้านไอติมโอ่ง",
-              "matched": true
-            },
-            {
               "rank": 3,
-              "chunk_id": "graph_kiat_fang",
-              "title": "[Graph Subgraph] ร้านเกียดฟั่ง",
-              "matched": true
+              "chunk_id": "graph_ถนนนครนอก",
+              "title": "[Graph Subgraph] ถนนนครนอก",
+              "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 8.03,
+          "latency_ms": 10.81,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1523,14 +1622,14 @@
             },
             {
               "rank": 2,
-              "chunk_id": "chunk_015",
-              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
-              "matched": true
+              "chunk_id": "chunk_017",
+              "title": "ร้านเจ๊นิ ข้าวต้มปลา (AnyFlip หน้า 28)",
+              "matched": false
             },
             {
               "rank": 3,
-              "chunk_id": "chunk_013",
-              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "chunk_id": "chunk_015",
+              "title": "ร้านแต้เฮี้ยงอิ้ว (AnyFlip หน้า 25)",
               "matched": true
             }
           ]
@@ -1581,7 +1680,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 7.99,
+          "latency_ms": 9.53,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1608,34 +1707,34 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
-          "hit_rank": 1,
-          "hit1": true,
-          "hit3": true,
-          "reciprocal_rank": 1.0,
+          "latency_ms": 1.0,
+          "hit_rank": 0,
+          "hit1": false,
+          "hit3": false,
+          "reciprocal_rank": 0.0,
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "graph_hotel_songkhla_taeraek",
-              "title": "[Graph Subgraph] โรงแรมสงขลาแต่แรก",
-              "matched": true
-            },
-            {
-              "rank": 2,
               "chunk_id": "graph_songkhla_street_art",
               "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท",
               "matched": false
             },
             {
+              "rank": 2,
+              "chunk_id": "graph_songkhla_station",
+              "title": "[Graph Subgraph] สงขลาสเตชั่น",
+              "matched": false
+            },
+            {
               "rank": 3,
-              "chunk_id": "graph_hotel_montana",
-              "title": "[Graph Subgraph] โรงแรมมอนทาน่า สงขลา",
+              "chunk_id": "graph_hub_ho_hin",
+              "title": "[Graph Subgraph] โรงสีแดง หับโห้หิ้น",
               "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 7.51,
+          "latency_ms": 11.99,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1643,21 +1742,21 @@
           "top_items": [
             {
               "rank": 1,
+              "chunk_id": "chunk_020",
+              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
+              "matched": true
+            },
+            {
+              "rank": 2,
               "chunk_id": "chunk_010",
               "title": "สงขลาสตรีทอาร์ท (Street Art) (AnyFlip หน้า 18)",
               "matched": true
             },
             {
-              "rank": 2,
-              "chunk_id": "chunk_019",
-              "title": "โรงแรมที่พักในย่านเมืองเก่าสงขลา (AnyFlip หน้า 31)",
-              "matched": true
-            },
-            {
               "rank": 3,
-              "chunk_id": "chunk_020",
-              "title": "ระยะทางและการเดินทางระหว่างโรงแรมกับสถานที่ท่องเที่ยว",
-              "matched": true
+              "chunk_id": "chunk_001",
+              "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
+              "matched": false
             }
           ]
         }
@@ -1705,7 +1804,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 8.6,
+          "latency_ms": 10.15,
           "hit_rank": 2,
           "hit1": false,
           "hit3": true,
@@ -1732,7 +1831,7 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
+          "latency_ms": 1.01,
           "hit_rank": 0,
           "hit1": false,
           "hit3": false,
@@ -1740,36 +1839,48 @@
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "graph_kiat_fang",
-              "title": "[Graph Subgraph] ร้านเกียดฟั่ง",
+              "chunk_id": "graph_รัชกาลที่ 6",
+              "title": "[Graph Subgraph] รัชกาลที่ 6",
+              "matched": false
+            },
+            {
+              "rank": 2,
+              "chunk_id": "graph_ถนนนครนอก",
+              "title": "[Graph Subgraph] ถนนนครนอก",
+              "matched": false
+            },
+            {
+              "rank": 3,
+              "chunk_id": "graph_ถนนนางงาม",
+              "title": "[Graph Subgraph] ถนนนางงาม",
               "matched": false
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 8.0,
-          "hit_rank": 3,
+          "latency_ms": 11.0,
+          "hit_rank": 2,
           "hit1": false,
           "hit3": true,
-          "reciprocal_rank": 0.3333333333333333,
+          "reciprocal_rank": 0.5,
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "chunk_013",
-              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
-              "matched": false
-            },
-            {
-              "rank": 2,
               "chunk_id": "chunk_002",
               "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 2 (รถราง สมิหลา เขาตังกวน และของฝาก)",
               "matched": false
             },
             {
-              "rank": 3,
+              "rank": 2,
               "chunk_id": "chunk_001",
               "title": "โปรแกรมเที่ยวสงขลา 2 วัน 1 คืน: วันที่ 1 (เที่ยวรอบเมืองเก่า)",
               "matched": true
+            },
+            {
+              "rank": 3,
+              "chunk_id": "chunk_013",
+              "title": "ร้านเกียดฟั่ง (ข้าวสตูสงขลา) (AnyFlip หน้า 23)",
+              "matched": false
             }
           ]
         }
@@ -1820,7 +1931,7 @@
           ]
         },
         "dense": {
-          "latency_ms": 8.53,
+          "latency_ms": 9.0,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1847,17 +1958,17 @@
           ]
         },
         "graph": {
-          "latency_ms": 0.0,
-          "hit_rank": 1,
-          "hit1": true,
+          "latency_ms": 2.0,
+          "hit_rank": 2,
+          "hit1": false,
           "hit3": true,
-          "reciprocal_rank": 1.0,
+          "reciprocal_rank": 0.5,
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "graph_ถนนนครนอก",
-              "title": "[Graph Subgraph] ถนนนครนอก",
-              "matched": true
+              "chunk_id": "graph_songkhla_street_art",
+              "title": "[Graph Subgraph] สงขลา สตรีทอาร์ท",
+              "matched": false
             },
             {
               "rank": 2,
@@ -1867,14 +1978,14 @@
             },
             {
               "rank": 3,
-              "chunk_id": "graph_jae_ni",
-              "title": "[Graph Subgraph] ร้านเจ๊นิ ข้าวต้มปลา",
-              "matched": false
+              "chunk_id": "graph_ถนนนครนอก",
+              "title": "[Graph Subgraph] ถนนนครนอก",
+              "matched": true
             }
           ]
         },
         "hybrid": {
-          "latency_ms": 9.34,
+          "latency_ms": 10.0,
           "hit_rank": 1,
           "hit1": true,
           "hit3": true,
@@ -1882,20 +1993,20 @@
           "top_items": [
             {
               "rank": 1,
-              "chunk_id": "chunk_007",
-              "title": "บ้านจีน 300 ปี (AnyFlip หน้า 15)",
+              "chunk_id": "chunk_003",
+              "title": "ประวัติศาสตร์และกำเนิดย่านเมืองเก่าสงขลา (3 ถนนประวัติศาสตร์)",
               "matched": true
             },
             {
               "rank": 2,
-              "chunk_id": "chunk_017",
-              "title": "ร้านเจ๊นิ ข้าวต้มปลา (AnyFlip หน้า 28)",
+              "chunk_id": "chunk_004",
+              "title": "หอศิลป์สงขลา (AnyFlip หน้า 10)",
               "matched": true
             },
             {
               "rank": 3,
-              "chunk_id": "chunk_016",
-              "title": "สงขลาสเตชั่น (Songkhla Station) (AnyFlip หน้า 27)",
+              "chunk_id": "chunk_007",
+              "title": "บ้านจีน 300 ปี (AnyFlip หน้า 15)",
               "matched": true
             }
           ]
