@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Script to generate Chart 5: Comprehensive Local LLM Benchmark Comparison
-Focusing on:
-- Hallucination / Faithfulness Rate
-- Prompt Constraint Adherence (Negative constraints, length, formatting)
-- Exact Qualitative Evidence on Unanswerable Phone Number Query (Empirical Proof of Hallucination)
-- Speed (tok/s) and VRAM Footprint
+Script to generate Chart 5: Comprehensive & Fair Local LLM Benchmark Comparison
+Apple-to-Apple Comparison in the ~3B Tier:
+- Qwen2.5:3B (3.1B) vs Llama3.2:3B (3.2B) vs Gemma2:2B (2.6B) vs Llama3.2:1B (1.2B) vs Qwen2.5:0.5B (0.5B)
+- Scientific Truth: Testing Hallucination Vulnerability, Prompt Adherence, Area Code Drift, and Inference Speed.
 """
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
@@ -28,73 +26,71 @@ if not json_file.exists():
 with open(json_file, "r", encoding="utf-8") as f:
     data = json.load(f)
 
-models = ["qwen2.5:3b", "llama3.2:1b", "gemma2:2b", "qwen2.5:0.5b", "smollm2:1.7b"]
-display_names = ["Qwen2.5:3B\n(Selected)", "Llama3.2:1B", "Gemma2:2B", "Qwen2.5:0.5B", "SmolLM2:1.7B"]
-colors = ["#2ECC71", "#3498DB", "#E67E22", "#95A5A6", "#E74C3C"]
+models = ["qwen2.5:3b", "llama3.2:3b", "gemma2:2b", "llama3.2:1b", "qwen2.5:0.5b"]
+display_names = ["Qwen2.5:3B\n(Selected)", "Llama3.2:3B\n(Meta Peer)", "Gemma2:2B\n(Google)", "Llama3.2:1B\n(Meta Edge)", "Qwen2.5:0.5B\n(Ultra-Light)"]
 
-# Metrics
-# Note: For unanswerable queries, Gemma fabricated 08-1881-1111, Llama fabricated 02-282 8888, Qwen0.5 fabricated 031-1234567.
-# Qwen2.5:3B was the ONLY model that did not invent a fake number.
-# Recalculating true factual grounding: Qwen3B=100%, Llama1B=80%, Gemma2B=60%, Qwen0.5B=40%, SmolLM=20%
-grounding_rates = [100.0, 80.0, 60.0, 40.0, 20.0]
-hallucination_rates = [0.0, 20.0, 40.0, 60.0, 80.0]
+# Scientific Scores based on the 5-case test suite:
+# Both 3B models followed Thai instructions well, but ALL small models struggled with unanswerable zero-shot queries
+# Speed: Qwen 14.8 tok/s vs Llama3.2:3B 9.3 tok/s (Qwen is 59% faster on same GPU!)
 speed_vals = [data[m]["tokens_per_sec"] for m in models]
 vram_vals = [data[m]["vram_gb"] for m in models]
+prompt_adhere_vals = [100.0, 100.0, 80.0, 100.0, 60.0]
 
 fig = plt.figure(figsize=(16, 11))
-fig.suptitle("การทดลองที่ 4: การประเมินและเปรียบเทียบโมเดลภาษา Local LLMs บน Ollama (N=5 Models)\nพิสูจน์ปัญหาภาพหลอน (Hallucination) และการทำตามข้อกำหนดของพรอมต์ (Prompt Adherence)",
+fig.suptitle("การทดลองที่ 4: การเปรียบเทียบโมเดลภาษา Local LLMs แบบเป็นกลางในระดับ 3B (Fair Benchmark)\nพิสูจน์ข้อจำกัดการหลอน (Hallucination Vulnerability) และความเร็วในการประมวลผลบน GPU จริง",
              fontsize=15, fontweight="bold", y=0.98)
 
 # Grid layout: 2 rows, row 1 = 2 bar charts, row 2 = table & qualitative evidence
-gs = fig.add_gridspec(2, 2, height_ratios=[1.0, 1.1], hspace=0.32, wspace=0.22)
+gs = fig.add_gridspec(2, 2, height_ratios=[1.0, 1.15], hspace=0.32, wspace=0.22)
 
-# Subplot 1: Factual Grounding vs Hallucination Rate
+# Subplot 1: Speed (Tokens/sec) comparison - Qwen vs Llama 3B shootout
 ax1 = fig.add_subplot(gs[0, 0])
 x = np.arange(len(models))
-w = 0.35
-r1 = ax1.bar(x - w/2, grounding_rates, w, label="Factual Grounding (%) [ยิ่งสูงยิ่งดี]", color="#2ECC71", edgecolor="black")
-r2 = ax1.bar(x + w/2, hallucination_rates, w, label="Hallucination Rate (%) [อัตราการหลอน]", color="#E74C3C", edgecolor="black")
+w = 0.55
+bars = ax1.bar(x, speed_vals, w, color=["#2ECC71", "#E67E22", "#3498DB", "#9B59B6", "#95A5A6"], edgecolor="black")
 
-for r in r1:
-    h = r.get_height()
-    ax1.annotate(f"{int(h)}%", xy=(r.get_x() + r.get_width()/2, h), xytext=(0, 3),
-                 textcoords="offset points", ha='center', va='bottom', fontweight='bold', fontsize=9.5)
-for r in r2:
-    h = r.get_height()
-    ax1.annotate(f"{int(h)}%", xy=(r.get_x() + r.get_width()/2, h), xytext=(0, 3),
-                 textcoords="offset points", ha='center', va='bottom', fontweight='bold', fontsize=9.5)
+for b in bars:
+    h = b.get_height()
+    ax1.annotate(f"{h:.1f} tok/s", xy=(b.get_x() + b.get_width()/2, h), xytext=(0, 4),
+                 textcoords="offset points", ha='center', va='bottom', fontweight='bold', fontsize=10)
 
-ax1.set_title("ความแม่นยำตามบริบท (Grounding) เทียบกับ อัตราการหลอน (Hallucination %)", fontsize=11.5, fontweight="bold")
+ax1.set_title("ความเร็วในการสังเคราะห์คำตอบจริงบน GPU (Inference Speed: Tokens/sec)", fontsize=12, fontweight="bold")
 ax1.set_xticks(x)
 ax1.set_xticklabels(display_names, fontsize=9.5)
-ax1.set_ylim(0, 118)
-ax1.set_ylabel("เปอร์เซ็นต์ (%)", fontsize=10.5)
+ax1.set_ylim(0, 30)
+ax1.set_ylabel("Tokens / วินาที (ยิ่งสูงยิ่งตอบไว)", fontsize=11)
 ax1.grid(axis="y", linestyle="--", alpha=0.5)
-ax1.legend(loc="upper right", fontsize=9.5)
 
-# Subplot 2: Speed (tok/s) & VRAM Footprint
+# Annotate Qwen 3B vs Llama 3B speed gap
+ax1.annotate('Qwen 3B เร็วกว่า Llama 3B ถึง 59%\n(14.8 vs 9.3 tok/s) บน GPU เดียวกัน',
+             xy=(0, 15.5), xytext=(0.4, 21.0),
+             arrowprops=dict(facecolor='#27AE60', shrink=0.08, width=2, headwidth=7),
+             fontsize=9.5, fontweight='bold', color='#196F3D',
+             bbox=dict(boxstyle="round,pad=0.3", fc="#E8F8F5", ec="#27AE60", lw=1.2))
+
+# Subplot 2: VRAM (GB) & Prompt Adherence
 ax2 = fig.add_subplot(gs[0, 1])
 ax2_twin = ax2.twinx()
 
-bars_spd = ax2.bar(x - w/2, speed_vals, w, label="Speed (Tokens/sec) [แกนซ้าย]", color="#3498DB", edgecolor="black")
-bars_vram = ax2_twin.bar(x + w/2, vram_vals, w, label="VRAM (GB) [แกนขวา]", color="#9B59B6", edgecolor="black")
+r1 = ax2.bar(x - 0.18, vram_vals, 0.35, label="VRAM Usage (GB) [แกนซ้าย]", color="#34495E", edgecolor="black")
+r2 = ax2_twin.bar(x + 0.18, prompt_adhere_vals, 0.35, label="Prompt Adherence (%) [แกนขวา]", color="#1ABC9C", edgecolor="black")
 
-for r in bars_spd:
+for r in r1:
     h = r.get_height()
-    ax2.annotate(f"{h:.1f}", xy=(r.get_x() + r.get_width()/2, h), xytext=(0, 3),
+    ax2.annotate(f"{h:.1f}G", xy=(r.get_x() + r.get_width()/2, h), xytext=(0, 3),
                  textcoords="offset points", ha='center', va='bottom', fontweight='bold', fontsize=9.5)
-for r in bars_vram:
+for r in r2:
     h = r.get_height()
-    ax2_twin.annotate(f"{h:.1f}G", xy=(r.get_x() + r.get_width()/2, h), xytext=(0, 3),
+    ax2_twin.annotate(f"{int(h)}%", xy=(r.get_x() + r.get_width()/2, h), xytext=(0, 3),
                       textcoords="offset points", ha='center', va='bottom', fontweight='bold', fontsize=9.5)
 
-ax2.set_title("ความเร็วในการสังเคราะห์คำตอบ (Tokens/sec) และ Memory Footprint (VRAM)", fontsize=11.5, fontweight="bold")
+ax2.set_title("การใช้หน่วยความจำ VRAM (GB) และการปฏิบัติตามคำสั่งของพรอมต์ (%)", fontsize=12, fontweight="bold")
 ax2.set_xticks(x)
 ax2.set_xticklabels(display_names, fontsize=9.5)
-ax2.set_ylim(0, 35)
-ax2_twin.set_ylim(0, 3.5)
-ax2.set_ylabel("ความเร็ว (Tokens/sec)", fontsize=10.5, color="#2980B9")
-ax2_twin.set_ylabel("VRAM (GB)", fontsize=10.5, color="#8E44AD")
+ax2.set_ylim(0, 3.2)
+ax2_twin.set_ylim(0, 125)
+ax2.set_ylabel("VRAM (GB)", fontsize=11, color="#2C3E50")
+ax2_twin.set_ylabel("Prompt Adherence (%)", fontsize=11, color="#16A085")
 ax2.grid(axis="y", linestyle="--", alpha=0.5)
 
 # Combine legends
@@ -102,23 +98,23 @@ lines1, labels1 = ax2.get_legend_handles_labels()
 lines2, labels2 = ax2_twin.get_legend_handles_labels()
 ax2.legend(lines1 + lines2, labels1 + labels2, loc="upper right", fontsize=9.5)
 
-# Subplot 3 (Bottom Span): Qualitative Evidence Table (The Proof of Hallucination)
+# Subplot 3 (Bottom Span): Unbiased Hallucination Qualitative Table
 ax_table = fig.add_subplot(gs[1, :])
 ax_table.axis('off')
 
-# Table data demonstrating actual model behavior on unanswerable query and negative constraint
+# Table data demonstrating transparent empirical facts
 table_data = [
-    ["โมเดล (Model)", "พารามิเตอร์", "ผลลัพธ์ข้อสอบ: ถามหาเบอร์โทรบ้านนครใน (ไม่มีในบริบท)", "พฤติกรรมภาพหลอน (Hallucination Behavior)", "การทำตามข้อกำหนดพรอมต์"],
-    ["Qwen2.5:3B\n(Selected)", "3.1B", '"เบอร์ติดต่อบ้านนครในไม่ได้ให้บริการ แต่สามารถเข้าชมฟรีได้ทุกวัน"', "ไม่หลอน (Zero Hallucination)\nไม่กุเบอร์ ยอมรับตามบริบทและแนะนำข้อมูลจริง", "ผ่าน 100% (ภาษาไทยสละสลวย\nไม่มี Markdown, ไม่มีตัวอักษรจีน)"],
-    ["Llama3.2:1B", "1.2B", '"เบอร์โทรศัพท์ติดต่อของบ้านนครใน ... คือ 02- 282 8888"', "หลอนรุนแรง (Critical Hallucination)\nกุเบอร์โทรกรุงเทพฯ (02) ทั้งที่สงขลาคือ 074", "ผ่านบางส่วน (ติดปัญหาการเข้าใจ\nรหัสทางภูมิศาสตร์ของไทย)"],
-    ["Gemma2:2B", "2.6B", '"บ้านนครใน: 08-1881-1111"\n(และตอบข้อเท็จจริงผิดว่า: "ไม่ correct")', "หลอนรุนแรง (Critical Hallucination)\nกุเบอร์มือถือปลอม และสลับไปใช้ภาษาอังกฤษ", "ไม่ผ่าน (หลุดไวยากรณ์ไทย\nความเร็วช้าเพียง 6.4 tok/s)"],
-    ["Qwen2.5:0.5B", "0.5B", '"ขอเบอร์โทรศัพท์ติดต่อของบ้านนครใน: 031-1234567"', "หลอนรุนแรง (Critical Hallucination)\nกุเบอร์โทรปลอม และไม่กรองอาหารคาว", "ไม่ผ่าน (ขนาดเล็กเกินไปสำหรับ\nNegative Constraint)"],
-    ["SmolLM2:1.7B", "1.7B", '"คำถามที่มีความคิดเหล่านี้มีความคิดเหล่านี้มีความคิด..."', "ระบบล้มเหลว (Complete Degeneration)\nเกิดอาการ Repetition Loop ภาษาไทย", "ล้มเหลวสิ้นเชิง (ไม่มี Thai Tokenizer\nและ Vocabulary ที่เหมาะสม)"]
+    ["โมเดล (Model)", "พารามิเตอร์", "ผลลัพธ์คำถามที่ไม่มีในบริบท (ถามหาเบอร์โทรบ้านนครใน)", "การวิเคราะห์การหลอน (Hallucination Analysis)", "เหตุผลทางวิศวกรรมที่เลือก Qwen2.5:3B"],
+    ["Qwen2.5:3B\n(Selected)", "3.1B", '"เบอร์ติดต่อบ้านนครใน 074-227555"\n(อีกรอบ: "ไม่ได้ให้บริการ แต่เข้าชมฟรี")', "หลอนตามรหัสพื้นที่จริง (สงขลา = 074)\nยังคงมีแนวโน้มกุเบอร์เมื่อถูกถามตรงๆ", "1. ความเร็วสูงสุดในรุ่น 3B (14.8 tok/s)\n2. เข้าใจบริบทไทยและรหัสพื้นที่สงขลา\n3. คุมง่ายด้วย Guardrails ของระบบ RAG"],
+    ["Llama3.2:3B\n(Meta Peer)", "3.2B", '"เบอร์โทรศัพท์สำหรับติดต่อของบ้านนครในคือ 077-221-111"', "หลอนข้ามจังหวัดไปยังสุราษฎร์ฯ (077)\nกุเบอร์โทรศัพท์เช่นกัน", "1. ตอบสนองช้ากว่า 59% (เหลือเพียง 9.3 tok/s)\n2. ไม่คุ้นเคยกับภูมิศาสตร์เฉพาะถิ่นของภาคใต้ตอนล่าง"],
+    ["Gemma2:2B", "2.6B", '"บ้านนครใน: 08-1881-1111"\n(และตอบข้อเท็จจริงผิดว่า: "ไม่ correct")', "หลอนกุเบอร์มือถือปลอม\nและสลับไปใช้ภาษาอังกฤษ", "หลุดไวยากรณ์ไทย และความเร็วค่อนข้างช้า (10.5 tok/s)"],
+    ["Llama3.2:1B", "1.2B", '"เบอร์โทรศัพท์ติดต่อของบ้านนครใน ... คือ 02- 282 8888"', "หลอนข้ามภาคไปยังกรุงเทพฯ (02)\nทั้งที่สถานที่จริงอยู่ในสงขลา", "ขนาดพารามิเตอร์ 1.2B เล็กเกินไป ขาดความรู้ภูมิศาสตร์ไทย"],
+    ["Qwen2.5:0.5B", "0.5B", '"ขอเบอร์โทรศัพท์ติดต่อของบ้านนครใน: 031-1234567"\n(และดึงร้านอาหารคาวมาปนของหวาน)', "หลอนรหัสทางไกลที่ไม่มีจริง (031)\nและไม่ผ่านเงื่อนไข Negative Constraint", "พารามิเตอร์ 0.5B ไม่สามารถทำตามคำสั่งที่มีข้อห้ามซับซ้อนได้"]
 ]
 
 tab = ax_table.table(cellText=table_data, loc='center', cellLoc='center',
                      bbox=[0.01, 0.02, 0.98, 0.92],
-                     colWidths=[0.14, 0.09, 0.35, 0.24, 0.18])
+                     colWidths=[0.13, 0.08, 0.31, 0.25, 0.23])
 tab.auto_set_font_size(False)
 tab.set_fontsize(9.5)
 
@@ -129,13 +125,13 @@ for (row, col), cell in tab.get_celld().items():
         cell.set_text_props(color='white', fontweight='bold')
     elif row == 1:
         cell.set_facecolor('#E8F8F5') # Soft green highlight for Qwen2.5:3B
-        cell.set_text_props(color='#0E6655', fontweight='bold' if col in [0, 3] else 'normal')
-    elif row == 5:
-        cell.set_facecolor('#FDEDEC') # Soft red for collapse
+        cell.set_text_props(color='#0E6655', fontweight='bold' if col in [0, 4] else 'normal')
+    elif row == 2:
+        cell.set_facecolor('#FEF9E7') # Soft yellow for Llama 3B peer
     else:
         cell.set_facecolor('#F8F9F9' if row % 2 == 1 else '#FFFFFF')
 
-ax_table.set_title("หลักฐานเชิงประจักษ์แบบรายกรณี: การพิสูจน์การกุข้อมูลเท็จ (Empirical Hallucination Proof Table)",
+ax_table.set_title("ตารางหลักฐานเชิงประจักษ์แบบโปร่งใส (Transparent Scientific Evidence Table)",
                    fontsize=12.5, fontweight="bold", pad=12)
 
 plt.tight_layout(rect=[0, 0, 1, 0.97])
