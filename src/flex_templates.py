@@ -1056,45 +1056,45 @@ class SongkhlaFlexTemplates:
 
         if matched_place:
             pname = matched_place.get("name", "สถานที่").split("(")[0].strip()
-            maps_url = SongkhlaFlexTemplates.clean_maps_url(matched_place.get("google_maps_url"))
-            tel_uri = SongkhlaFlexTemplates.clean_tel_uri(matched_place.get("phone", ""), default="")
+            # maps_url = SongkhlaFlexTemplates.clean_maps_url(matched_place.get("google_maps_url"))
+            # tel_uri = SongkhlaFlexTemplates.clean_tel_uri(matched_place.get("phone", ""), default="")
             
-            # Button 1: Google Maps Navigation
-            footer_buttons.append({
-                "type": "button",
-                "style": "primary",
-                "color": "#0984e3",
-                "height": "sm",
-                "action": {
-                    "type": "uri",
-                    "label": f"📍 แผนที่ {pname[:8]}",
-                    "uri": maps_url
-                }
-            })
+            # # Button 1: Google Maps Navigation
+            # footer_buttons.append({
+            #     "type": "button",
+            #     "style": "primary",
+            #     "color": "#0984e3",
+            #     "height": "sm",
+            #     "action": {
+            #         "type": "uri",
+            #         "label": f"📍 แผนที่ {pname[:8]}",
+            #         "uri": maps_url
+            #     }
+            # })
             
-            # Button 2: Direct Call or Related Food
-            if tel_uri:
-                footer_buttons.append({
-                    "type": "button",
-                    "style": "secondary",
-                    "height": "sm",
-                    "action": {
-                        "type": "uri",
-                        "label": "📞 โทรติดต่อ",
-                        "uri": tel_uri
-                    }
-                })
-            else:
-                footer_buttons.append({
-                    "type": "button",
-                    "style": "secondary",
-                    "height": "sm",
-                    "action": {
-                        "type": "message",
-                        "label": "🍜 ร้านอาหารเด็ด",
-                        "text": "สำรวจร้านอาหารทั้งหมด"
-                    }
-                })
+            # # Button 2: Direct Call or Related Food
+            # if tel_uri:
+            #     footer_buttons.append({
+            #         "type": "button",
+            #         "style": "secondary",
+            #         "height": "sm",
+            #         "action": {
+            #             "type": "uri",
+            #             "label": "📞 โทรติดต่อ",
+            #             "uri": tel_uri
+            #         }
+            #     })
+            # else:
+            #     footer_buttons.append({
+            #         "type": "button",
+            #         "style": "secondary",
+            #         "height": "sm",
+            #         "action": {
+            #             "type": "message",
+            #             "label": "🍜 ร้านอาหารเด็ด",
+            #             "text": "สำรวจร้านอาหารทั้งหมด"
+            #         }
+            #     })
             
             custom_quick_replies = [
                 ("🍴 เมนูเด่นร้านนี้", f"เมนูเด่นของ {pname} มีอะไรบ้าง"),
