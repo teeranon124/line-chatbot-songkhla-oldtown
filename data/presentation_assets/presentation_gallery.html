@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Songkhla GraphRAG - Evidence & Presentation Gallery (Person 2: Teeranon)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0B0F19;
+            --card-bg: #131B2E;
+            --card-border: #1E293B;
+            --accent: #38BDF8;
+            --accent-glow: rgba(56, 189, 248, 0.25);
+            --text-main: #F8FAFC;
+            --text-sub: #94A3B8;
+            --green: #10B981;
+            --purple: #8B5CF6;
+            --pink: #EC4899;
+            --amber: #F59E0B;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            padding: 24px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0) 100%);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            margin-bottom: 36px;
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: var(--text-sub);
+            font-size: 1.05rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 12px 30px var(--accent-glow);
+        }
+        .img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            background-color: #070A10;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .card:hover .img-wrapper img {
+            transform: scale(1.04);
+        }
+        .zoom-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(11, 15, 25, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .card:hover .zoom-overlay {
+            opacity: 1;
+        }
+        .zoom-btn {
+            background: var(--accent);
+            color: #0B0F19;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .step-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .c-1 { color: #38BDF8; }
+        .c-2 { color: #10B981; }
+        .c-3 { color: #8B5CF6; }
+        .c-4 { color: #EC4899; }
+        .c-5 { color: #F59E0B; }
+        .c-6 { color: #06B6D4; }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #FFFFFF;
+        }
+        .card-desc {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            margin-bottom: 14px;
+            flex-grow: 1;
+        }
+        .metric-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            color: #E2E8F0;
+        }
+        .metric-pill strong {
+            color: var(--accent);
+        }
+
+        /* Modal Lightbox */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(3, 7, 18, 0.94);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            max-width: 95vw;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 1px solid var(--accent);
+            object-fit: contain;
+        }
+        .modal-caption {
+            margin-top: 16px;
+            color: #FFFFFF;
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        .modal-desc {
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            margin-top: 4px;
+            max-width: 800px;
+            text-align: center;
+        }
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 28px;
+            color: #FFFFFF;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover {
+            background: #EF4444;
+            transform: scale(1.1);
+        }
+        .action-bar {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .open-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #2563EB;
+            color: #FFFFFF;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 12px;
+            transition: background 0.2s;
+        }
+        .open-btn:hover { background: #1D4ED8; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <span class="badge">PRESENTER: TEERANON THONGSEEDUM (6710110196)</span>
+        <h1>คลังหลักฐานเชิงประจักษ์ (Empirical Evidence Gallery)</h1>
+        <p class="subtitle">คลิกที่การ์ดเพื่อเปิดดูรูปภาพขนาดเต็มแบบคมชัด 300 DPI ใช้ประกอบการพูดได้ทันที</p>
+    </header>
+
+    <div class="grid">
+        <!-- Chart 1 -->
+        <div class="card" onclick="openModal('chart1_embedding_benchmark.png', 'Chart 1: Embedding Benchmark (Fragmentation & Latency)', 'Multilingual MiniLM แตกคำไทยเฉลี่ย 7.8 tokens ต่อคำ ขณะที่ WangchanBERTa แตกเพียง 2.3 tokens ต่อคำ รักษาความหมายชื่อเฉพาะสงขลาได้ดีกว่า')">
+            <div class="img-wrapper">
+                <img src="chart1_embedding_benchmark.png" alt="Chart 1">
+                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+            </div>
+            <div class="card-body">
+                <div class="step-num c-1">STEP 1: EMBEDDING BENCHMARK</div>
+                <div class="card-title">1. Token Fragmentation Rate</div>
+                <div class="card-desc">พิสูจน์ว่าทำไม WangchanBERTa ถึงเหมาะกับภาษาไทยเมืองเก่าสงขลามากกว่า Multilingual ทั่วไป</div>
+                <div class="metric-pill">ผลลัพธ์: <strong>Wangchan 2.3</strong> vs <strong>MiniLM 7.8</strong> tokens/word</div>
+            </div>
+        </div>
+
+        <!-- Chart 2 -->
+        <div class="card" onclick="openModal('chart2_retrieval_ablation_categories.png', 'Chart 2: Retrieval Ablation by Categories', 'เปรียบเทียบ Hit@1, Hit@3, MRR แยก 3 หมวด (Exact Names, Semantic QA, Spatial Multi-hop) บน 15 คำถามทดสอบ')">
+            <div class="img-wrapper">
+                <img src="chart2_retrieval_ablation_categories.png" alt="Chart 2">
+                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+            </div>
+            <div class="card-body">
+                <div class="step-num c-2">STEP 2: RETRIEVAL ABLATION</div>
+                <div class="card-title">2. Ablation แยก 3 หมวดคำถาม</div>
+                <div class="card-desc">ชี้ให้เห็นจุดบอดของระบบเดี่ยว: BM25 แพ้ Multi-hop, Dense แพ้ชื่อเฉพาะ, Graph เก่งความเชื่อมโยง</div>
+                <div class="metric-pill">Hybrid RRF: <strong>MRR 0.956</strong> (ชนะเดี่ยวทุกหมวด)</div>
+            </div>
+        </div>
+
+        <!-- Chart 3 -->
+        <div class="card" onclick="openModal('chart3_overall_performance_table.png', 'Chart 3: Overall Performance Scorecard Table', 'ตารางสรุปคะแนนประสิทธิภาพเปรียบเทียบ BM25, Dense FAISS, Graph, และ Hybrid RAG')">
+            <div class="img-wrapper">
+                <img src="chart3_overall_performance_table.png" alt="Chart 3">
+                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+            </div>
+            <div class="card-body">
+                <div class="step-num c-3">STEP 2: RETRIEVAL SCORECARD</div>
+                <div class="card-title">3. ตารางสรุปคะแนนรวม</div>
+                <div class="card-desc">ตารางเชิงวิศวกรรมสรุป Hit@1, Hit@3 และ MRR รวมทั้ง 15 ข้อทดสอบอย่างเป็นกลาง</div>
+                <div class="metric-pill">Overall Hit@3: <strong>100.0%</strong> | Hit@1: <strong>93.3%</strong></div>
+            </div>
+        </div>
+
+        <!-- Chart 4 -->
+        <div class="card" onclick="openModal('chart4_terminal_execution_proof.png', 'Chart 4: Terminal Execution Proof (Live RRF Computation)', 'บันทึกภาพหน้าจอ Terminal ขณะรันคำนวณสูตร Reciprocal Rank Fusion k=60 จากโค้ดจริง')">
+            <div class="img-wrapper">
+                <img src="chart4_terminal_execution_proof.png" alt="Chart 4">
+                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+            </div>
+            <div class="card-body">
+                <div class="step-num c-4">STEP 2: REAL EXECUTION PROOF</div>
+                <div class="card-title">4. หลักฐานรันจริงใน Terminal</div>
+                <div class="card-desc">ภาพบันทึกคอนโซลแสดงการหลอมคะแนน RRF (k=60) ระหว่าง BM25, Dense และ Graph จากโค้ดจริง</div>
+                <div class="metric-pill">Algorithm: <strong>RRF k=60</strong> (Dynamic Ranked Fusion)</div>
+            </div>
+        </div>
+
+        <!-- Chart 5 -->
+        <div class="card" onclick="openModal('chart5_llm_benchmark_comparison.png', 'Chart 5: Local LLM Benchmark Comparison (3B Shootout)', 'เปรียบเทียบ 5 โมเดลบน GPU เดียวกัน (Throughput, VRAM, Phone Hallucination Analysis)')">
+            <div class="img-wrapper">
+                <img src="chart5_llm_benchmark_comparison.png" alt="Chart 5">
+                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+            </div>
+            <div class="card-body">
+                <div class="step-num c-5">STEP 3: LOCAL LLM SHOOTOUT</div>
+                <div class="card-title">5. ประเมินโมเดลตอบคำถาม (3B)</div>
+                <div class="card-desc">ทดสอบความเร็ว, แรมการ์ดจอ, และอัตราการหลอนเบอร์โทรศัพท์ระหว่าง Qwen2.5, Llama3.2 และ Gemma2</div>
+                <div class="metric-pill">Qwen2.5:3B: <strong>14.8 tok/s</strong> (+59% vs Llama3.2)</div>
+            </div>
+        </div>
+
+        <!-- Chart 6 -->
+        <div class="card" onclick="openModal('chart6_guardrail_verification_proof.png', 'Chart 6: Universal Multi-Dimensional Anti-Hallucination Guardrail Proof', 'ผลลัพธ์การ Intercept และแก้ไขความหลอน 4 มิติ (เบอร์โทร, เวลาทำการ, ค่าเข้าชม, และความถูกต้องของถนน)')">
+            <div class="img-wrapper">
+                <img src="chart6_guardrail_verification_proof.png" alt="Chart 6">
+                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+            </div>
+            <div class="card-body">
+                <div class="step-num c-6">STEP 4: UNIVERSAL GUARDRAIL ENGINE</div>
+                <div class="card-title">6. สถาปัตยกรรมคุมความหลอน 4 มิติ</div>
+                <div class="card-desc">ภาพเปรียบเทียบ Before vs After การดักจับเบอร์มั่ว, เวลาเดา, ราคาปลอม และใช้ Graph ดึงถนนให้ถูกต้อง</div>
+                <div class="metric-pill">Intercept Status: <strong>100% Intercepted & Grounded</strong></div>
+            </div>
+        </div>
+
+        <!-- Knowledge Graph -->
+        <div class="card" onclick="openModal('../songkhla_graph_overview.png', 'Knowledge Graph Overview (114 Nodes, 273 Edges)', 'โครงข่ายกราฟความรู้เมืองเก่าสงขลา เชื่อมโยงสถานที่ ถนน วัฒนธรรม อาหาร และเรื่องราวประวัติศาสตร์')">
+            <div class="img-wrapper">
+                <img src="../songkhla_graph_overview.png" alt="Knowledge Graph Overview">
+                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+            </div>
+            <div class="card-body">
+                <div class="step-num c-2">TOPOLOGY GROUNDING</div>
+                <div class="card-title">7. Knowledge Graph Network</div>
+                <div class="card-desc">โครงข่ายความรู้เมืองเก่าสงขลาที่ใช้ตรวจสอบและกำกับทิศทางความถูกต้องเชิงพื้นที่</div>
+                <div class="metric-pill">Graph Scale: <strong>114 Nodes | 273 Edges</strong></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lightbox Modal -->
+<div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="modal-close" onclick="closeModal()">&times;</span>
+    <img id="modalImg" class="modal-content" src="" alt="Full view" onclick="event.stopPropagation()">
+    <div id="modalCaption" class="modal-caption"></div>
+    <div id="modalDesc" class="modal-desc"></div>
+    <div class="action-bar" onclick="event.stopPropagation()">
+        <a id="downloadLink" class="open-btn" href="" target="_blank">↗️ เปิดไฟล์รูปต้นฉบับแยกหน้าต่าง</a>
+    </div>
+</div>
+
+<script>
+    function openModal(imgSrc, caption, desc) {
+        document.getElementById('modalImg').src = imgSrc;
+        document.getElementById('modalCaption').innerText = caption;
+        document.getElementById('modalDesc').innerText = desc;
+        document.getElementById('downloadLink').href = imgSrc;
+        document.getElementById('imageModal').classList.add('active');
+    }
+
+    function closeModal() {
+        document.getElementById('imageModal').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+</script>
+
+</body>
+</html>
