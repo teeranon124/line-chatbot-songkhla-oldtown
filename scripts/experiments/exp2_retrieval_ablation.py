@@ -169,6 +169,50 @@ BENCHMARK_15_QUERIES = [
         "expected_chunks": ["chunk_015"],
         "expected_entities": ["แต้เฮี้ยงอิ้ว", "tae_hiang_iu"],
         "description": "การสืบค้นย้อนกลับหลายช่วง (Multi-hop Reverse Traversal: Dish -> Shop -> Street & Opposite)"
+    },
+    # =========================================================================
+    # Category 4: Typo, Misspelling & Phonetic Noise (Robustness Test)
+    # Target: Noisy user queries with Teochew transliteration and Thai typos
+    # =========================================================================
+    {
+        "id": 16,
+        "category": "Typo / Misspelling (Noise)",
+        "query": "ร้านแต้เฮียงอิ๋ว เมนูแนะนำราคาเท่าไหร่",
+        "expected_chunks": ["chunk_015"],
+        "expected_entities": ["แต้เฮี้ยงอิ้ว", "tae_hiang_iu"],
+        "description": "คำสะกดผิดเสียงวรรณยุกต์ 'แต้เฮียงอิ๋ว' (คำที่ถูกต้องคือ แต้เฮี้ยงอิ้ว)"
+    },
+    {
+        "id": 17,
+        "category": "Typo / Misspelling (Noise)",
+        "query": "ร้านเกียตฝั่ง อยู่ตรงไหนและเปิดกี่โมง",
+        "expected_chunks": ["chunk_013"],
+        "expected_entities": ["เกียดฟั่ง", "kiat_fang"],
+        "description": "คำสะกดผิดตัวสะกด 'เกียตฝั่ง' (คำที่ถูกต้องคือ เกียดฟั่ง)"
+    },
+    {
+        "id": 18,
+        "category": "Typo / Misspelling (Noise)",
+        "query": "ประวัติความเป็นมาของ ฮับโฮ่หิ้น",
+        "expected_chunks": ["chunk_006"],
+        "expected_entities": ["หับโห้หิ้น", "hub_ho_hin", "โรงสีแดง"],
+        "description": "คำสะกดผิดพยัญชนะต้นและวรรณยุกต์ 'ฮับโฮ่หิ้น' (คำที่ถูกต้องคือ หับโห้หิ้น)"
+    },
+    {
+        "id": 19,
+        "category": "Typo / Misspelling (Noise)",
+        "query": "ร้านไอติมโอง อยู่แถวไหน",
+        "expected_chunks": ["chunk_014"],
+        "expected_entities": ["ไอติมโอ่ง", "aitim_oang"],
+        "description": "คำสะกดตกวรรณยุกต์เอก 'ไอติมโอง' (คำที่ถูกต้องคือ ไอติมโอ่ง)"
+    },
+    {
+        "id": 20,
+        "category": "Typo / Misspelling (Noise)",
+        "query": "ร้านสองแสนน ขายอะไรบ้าง",
+        "expected_chunks": ["chunk_018"],
+        "expected_entities": ["สองแสน", "khanom_thai_song_saen", "บ้านขนมไทยสองแสน"],
+        "description": "พิมพ์ตัวอักษรเบิ้ลเกิน 'สองแสนน' (คำที่ถูกต้องคือ สองแสน)"
     }
 ]
 
@@ -220,7 +264,8 @@ def run_experiment():
     categories = [
         "Named Entity (BM25)",
         "Paraphrase / Semantic (Dense)",
-        "Spatial / Multi-hop (Graph)"
+        "Spatial / Multi-hop (Graph)",
+        "Typo / Misspelling (Noise)"
     ]
 
     # Metrics container
@@ -336,13 +381,13 @@ def run_experiment():
 
     # Print Overall Table
     print("\n" + "=" * 80)
-    print("📊 OVERALL EXPERIMENTAL RESULTS (N=15)")
+    print(f"📊 OVERALL EXPERIMENTAL RESULTS (N={total_n})")
     print("=" * 80)
     print(f"{'Retrieval Mode':<28} | {'Hit@1 (%)':<10} | {'Hit@3 (%)':<10} | {'MRR':<8}")
     print("-" * 65)
     for m in modes:
         ov = overall_summary[m]
-        print(f"{ov['name']:<28} | {ov['hit1_pct']:>5.1f}% ({ov['hit1_count']}/15) | {ov['hit3_pct']:>5.1f}% ({ov['hit3_count']}/15) | {ov['mrr']:.4f}")
+        print(f"{ov['name']:<28} | {ov['hit1_pct']:>5.1f}% ({ov['hit1_count']}/{total_n}) | {ov['hit3_pct']:>5.1f}% ({ov['hit3_count']}/{total_n}) | {ov['mrr']:.4f}")
 
     # Print Category Table
     print("\n" + "=" * 80)

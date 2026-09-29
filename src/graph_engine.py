@@ -77,6 +77,29 @@ class SongkhlaGraphEngine:
             elif data.get('id') and len(data['id']) >= 4 and data['id'].lower() in q_lower:
                 seed_nodes.append((n, data))
 
+        # 1.1 Fuzzy Entity Resolution for Typos & Phonetic Variations (Sliding-window Levenshtein)
+        if len(seed_nodes) == 0:
+            import difflib
+            import re
+            for n, data in self.G.nodes(data=True):
+                n_str = str(n).strip()
+                cand_clean = re.sub(r'^(ร้าน|โรงแรม|ถนน|บ้านขนมไทย|โรงสีแดง|พิพิธภัณฑ์)', '', n_str).strip()
+                if len(cand_clean) < 3:
+                    cand_clean = n_str
+
+                # Try sliding window of length cand_clean +- 2 on q_lower
+                w_len = len(cand_clean)
+                best_r = 0.0
+                for offset in [-2, -1, 0, 1, 2]:
+                    sub_len = max(3, w_len + offset)
+                    for i in range(len(q_lower) - sub_len + 1):
+                        sub = q_lower[i:i+sub_len].strip()
+                        r = difflib.SequenceMatcher(None, sub, cand_clean).ratio()
+                        if r > best_r:
+                            best_r = r
+                if best_r >= 0.68:
+                    seed_nodes.append((n, data))
+
         # Detect user intent and domain keywords
         has_opposite = any(w in q_lower for w in ['ตรงข้าม', 'ฝั่งตรงข้าม', 'เยื้อง', 'ข้ามถนน'])
         has_nearby = any(w in q_lower for w in ['ใกล้', 'ติดกับ', 'ข้างๆ', 'รอบๆ'])
