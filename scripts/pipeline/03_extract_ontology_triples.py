@@ -19,7 +19,7 @@ import re
 from pathlib import Path
 from typing import List, Dict, Any
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = BASE_DIR / "data"
 
 FACTS_PATH = DATA_DIR / "songkhla_places_facts.json"
@@ -141,7 +141,7 @@ def build_knowledge_triples(force_reextract: bool = False):
     if force_reextract or not AUTOMATED_TRIPLES_PATH.exists():
         print("[INFO] Running automated LLM Information Extraction across 21 PDF chunks...")
         from subprocess import run
-        extractor_script = BASE_DIR / "scripts" / "03_extract_ontology_triples_automated.py"
+        extractor_script = BASE_DIR / "scripts" / "pipeline" / "03_extract_ontology_triples_automated.py"
         run([sys.executable, str(extractor_script)], check=True)
 
     with open(AUTOMATED_TRIPLES_PATH, "r", encoding="utf-8") as f:

@@ -25,7 +25,7 @@ from typing import List, Dict, Any, Tuple
 import requests
 
 # Base paths
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = BASE_DIR / "data"
 CHUNKS_PATH = DATA_DIR / "songkhla_rag_chunks.json"
 SCHEMA_PATH = DATA_DIR / "songkhla_ontology_schema.json"

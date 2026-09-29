@@ -31,7 +31,7 @@ EMBED_MODEL_NAME = "kornwtp/ConGen-model-wangchanberta"
 
 
 def build_indices():
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data"))
     chunks_path = os.path.join(base_dir, "songkhla_rag_chunks.json")
     
     with open(chunks_path, "r", encoding="utf-8") as f:

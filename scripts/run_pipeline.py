@@ -22,43 +22,43 @@ from pathlib import Path
 # Script registry with clear descriptions and outputs
 STEPS = {
     1: {
-        "file": "01_enrich_places.py",
+        "file": "pipeline/01_enrich_places.py",
         "name": "Places Knowledge Base Enrichment",
         "desc": "Compiles verified Google Knowledge Panel facts, opening hours, phones, coordinates",
         "outputs": ["data/songkhla_places_facts.json", "data/Songkhla_Old_Town_Factsheet.md"]
     },
     2: {
-        "file": "02_extract_and_chunk.py",
+        "file": "pipeline/02_extract_and_chunk.py",
         "name": "Data Cleaning & Semantic Chunking",
         "desc": "Cleans AnyFlip text, strips Chinese noise, performs semantic chunking with facts",
         "outputs": ["data/songkhla_rag_chunks.json", "data/songkhla_rag_chunks.md"]
     },
     3: {
-        "file": "03_extract_ontology_triples.py",
+        "file": "pipeline/03_extract_ontology_triples.py",
         "name": "Ontology & Knowledge Triples Construction",
         "desc": "Builds domain ontology schema and extracts multi-relational knowledge triples",
         "outputs": ["data/songkhla_ontology_schema.json", "data/songkhla_knowledge_triples.json"]
     },
     4: {
-        "file": "04_build_graph.py",
+        "file": "pipeline/04_build_graph.py",
         "name": "Knowledge Graph Modeling & Visualization",
         "desc": "Builds NetworkX/Neo4j graph, calculates PageRank/centrality, exports PyVis HTML & PNG",
         "outputs": ["data/songkhla_graph.pkl", "data/songkhla_knowledge_graph.html", "data/songkhla_graph_overview.png"]
     },
     5: {
-        "file": "05_build_indices.py",
+        "file": "pipeline/05_build_indices.py",
         "name": "Hybrid Retrieval Indexing (Dense FAISS + Sparse BM25)",
         "desc": "Encodes WangchanBERTa embeddings into FAISS and tokenizes PyThaiNLP into BM25",
         "outputs": ["data/songkhla_faiss.index", "data/songkhla_bm25.pkl", "data/songkhla_chunks_metadata.json"]
     },
     6: {
-        "file": "06_benchmark_evaluation.py",
+        "file": "experiments/06_benchmark_evaluation.py",
         "name": "Empirical Benchmark & Evaluation Suite",
         "desc": "Evaluates 15 in-domain queries across Dense, Sparse, Graph, Hybrid RAG + Latency & MRR",
         "outputs": ["data/benchmark_results.json", "data/benchmark_summary_table.md"]
     },
     7: {
-        "file": "07_test_end_to_end.py",
+        "file": "tools/07_test_end_to_end.py",
         "name": "End-to-End System & LINE Schema Validation",
         "desc": "Verifies intent classification, Local Ollama generation, multi-message carousels, LINE API",
         "outputs": ["Live LINE Schema Verification & System Status"]

@@ -256,7 +256,7 @@ def extract_emergency_chunk(pages_dict: Dict[int, str]) -> Dict[str, Any]:
 
 
 def run_pipeline():
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data"))
     raw_txt_path = os.path.join(base_dir, "anyflip_songkhla_raw.txt")
     facts_json_path = os.path.join(base_dir, "songkhla_places_facts.json")
     

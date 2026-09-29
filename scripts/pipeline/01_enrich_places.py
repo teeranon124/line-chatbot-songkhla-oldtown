@@ -375,7 +375,7 @@ PLACES_DATA = [
 
 
 def export_data():
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data"))
     os.makedirs(base_dir, exist_ok=True)
     
     # 1. Export JSON

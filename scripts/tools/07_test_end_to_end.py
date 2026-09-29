@@ -20,7 +20,7 @@ import requests
 from pathlib import Path
 
 # Add project root to sys.path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from src.config import models, paths, line_config
 from src.intents import SongkhlaIntentClassifier

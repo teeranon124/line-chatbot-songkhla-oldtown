@@ -33,7 +33,7 @@ def is_neo4j_reachable(host="localhost", port=7687, timeout=1.0):
 
 
 def build_and_export_graph():
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data"))
     triples_path = os.path.join(base_dir, "songkhla_knowledge_triples.json")
 
     with open(triples_path, "r", encoding="utf-8") as f:

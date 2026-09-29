@@ -29,7 +29,7 @@ os.environ["TRANSFORMERS_NO_TF"] = "1"
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
 
 # Base Paths
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 DATA_DIR = BASE_DIR / "data"
 CHUNKS_PATH = DATA_DIR / "songkhla_rag_chunks.json"
 OUTPUT_JSON_PATH = DATA_DIR / "exp1_embedding_benchmark_results.json"
