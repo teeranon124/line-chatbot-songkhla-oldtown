@@ -2,6 +2,8 @@
 import sys
 import types
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
 
 
@@ -272,6 +274,49 @@ class FollowUpAndGroundingTests(unittest.TestCase):
 
         self.assertNotIn("ร้านเจ๊นิ", captured["prompt"])
         self.assertNotIn("เขาตังกวน", captured["prompt"])
+
+
+class RoutingObservabilityTests(unittest.TestCase):
+    def test_local_route_is_logged_to_terminal(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda messages, model_name: "คำตอบจำลอง"
+        output = StringIO()
+
+        with redirect_stdout(output):
+            engine.generate(
+                "ร้านไอติมโอ่งเปิดกี่โมง",
+                target_llm="ollama",
+                user_id=""
+            )
+
+        terminal = output.getvalue()
+        self.assertIn("[LLM ROUTER]", terminal)
+        self.assertIn("Provider: LOCAL", terminal)
+        self.assertIn("Backend: Ollama", terminal)
+        self.assertIn("Model: fake-local", terminal)
+        self.assertNotIn("ข้อมูลบริบทอ้างอิง", terminal)
+
+    def test_cloud_failure_logs_local_fallback_without_secrets(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.groq_api_key = "secret-must-not-appear"
+        engine.call_groq = lambda messages, model_name: "Cloud API Error: timeout"
+        engine.call_ollama = lambda messages, model_name: "คำตอบจาก local"
+        output = StringIO()
+
+        with redirect_stdout(output):
+            result = engine.generate(
+                "ช่วยวางแผนเที่ยวเมืองเก่าสงขลา 2 วัน",
+                target_llm="cloud",
+                user_id=""
+            )
+
+        terminal = output.getvalue()
+        self.assertIn("[LLM FALLBACK]", terminal)
+        self.assertIn("Original provider: CLOUD/Groq", terminal)
+        self.assertIn("Fallback provider: LOCAL/Ollama", terminal)
+        self.assertIn("Result: SUCCEEDED", terminal)
+        self.assertNotIn("secret-must-not-appear", terminal)
+        self.assertEqual(result["provider"], "ollama (failover)")
 
 
 if __name__ == "__main__":

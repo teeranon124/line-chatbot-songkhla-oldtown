@@ -2,7 +2,7 @@
 """
 LINE Bot Webhook Handler Module for Songkhla Old Town Assistant.
 Dispatches incoming messages through Intent Classifier to Rich Flex Carousels or Hybrid RAG.
-Ensures 100% of responses are formatted as Interactive LINE Flex Cards.
+Routes concise text replies and optional LINE Flex place cards by response type.
 """
 import json
 from typing import Union, List
@@ -11,6 +11,7 @@ from linebot.models import (
     MessageEvent,
     TextMessage,
     TextSendMessage,
+    ImageSendMessage,
     FlexSendMessage
 )
 
@@ -74,21 +75,19 @@ class SongkhlaLineHandler:
                 import traceback
                 traceback.print_exc()
                 try:
-                    rag_res = self.rag_engine.generate(query=user_text, user_id=user_id)
-                    ans = rag_res.get("answer", "ขออภัยค่ะ ระบบกำลังปรับปรุง")
-                    if user_id and user_id.startswith("U"):
-                        self.line_bot_api.push_message(user_id, TextSendMessage(text=ans))
-                        print("✅ [Fallback Push Message Sent Successfully]", flush=True)
-                    else:
-                        self.line_bot_api.reply_message(reply_token, TextSendMessage(text=ans))
-                        print("✅ [Fallback Reply Message Sent Successfully]", flush=True)
+                    self.line_bot_api.reply_message(
+                        reply_token,
+                        TextSendMessage(text="ขออภัย ระบบขัดข้องชั่วคราว กรุณาลองใหม่อีกครั้ง")
+                    )
+                    print("✅ [Fallback Error Message Sent Successfully]", flush=True)
                 except Exception as e2:
                     print(f"❌ [Failed to send Fallback Reply] {e2}", flush=True)
 
-    def process_message(self, user_text: str, user_id: str = "default_user") -> Union[FlexSendMessage, List[FlexSendMessage]]:
+    def process_message(
+        self, user_text: str, user_id: str = "default_user"
+    ) -> Union[TextSendMessage, ImageSendMessage, FlexSendMessage, List[Union[TextSendMessage, ImageSendMessage, FlexSendMessage]]]:
         """
-        Processes incoming user message through Intent Classification
-        and returns a visually rich Flex Carousel or AI Smart Answer Card.
+        Process a message into plain text plus optional place cards/carousels.
         """
         classification = self.intent_classifier.classify(user_text)
         intent = classification["intent"]
@@ -101,27 +100,36 @@ class SongkhlaLineHandler:
         if intent == "reset":
             if user_id in self.rag_engine.sessions:
                 self.rag_engine.sessions[user_id] = []
-            return [SongkhlaFlexTemplates.build_welcome_hub()]
+            return [TextSendMessage(text=self._welcome_text())]
 
         # 2. Home Navigation Hub
         if intent in ["home", "menu"]:
-            return [SongkhlaFlexTemplates.build_welcome_hub()]
+            return [TextSendMessage(text=self._welcome_text())]
 
-        # 3. Explicit 2-Day Itinerary Carousel
+        # 3. Explicit 2-Day Itinerary as readable text plus separate images
         if intent == "itinerary":
-            return [SongkhlaFlexTemplates.build_itinerary_carousel()]
+            return SongkhlaFlexTemplates.build_itinerary_messages(self.places)
 
         # 4. Explicit Food & Dessert Carousel
         if intent == "food":
-            return [SongkhlaFlexTemplates.build_food_carousel(self.food_places)]
+            return [
+                TextSendMessage(text="รวมร้านอาหาร ของหวาน และคาเฟ่ในย่านเมืองเก่าสงขลา"),
+                SongkhlaFlexTemplates.build_food_carousel(self.food_places)
+            ]
 
         # 5. Explicit Historical Attractions Carousel
         if intent == "attractions":
-            return [SongkhlaFlexTemplates.build_attractions_carousel(self.attraction_places)]
+            return [
+                TextSendMessage(text="รวมสถานที่ท่องเที่ยวและจุดเช็กอินในย่านเมืองเก่าสงขลา"),
+                SongkhlaFlexTemplates.build_attractions_carousel(self.attraction_places)
+            ]
 
         # 6. Explicit Hotels Carousel
         if intent == "hotels":
-            return [SongkhlaFlexTemplates.build_hotels_carousel(self.hotel_places)]
+            return [
+                TextSendMessage(text="รวมโรงแรมและที่พักที่มีข้อมูลในย่านเมืองเก่าสงขลา"),
+                SongkhlaFlexTemplates.build_hotels_carousel(self.hotel_places)
+            ]
 
         # 7. Emergency Contact Card
         if intent == "emergency":
@@ -130,16 +138,34 @@ class SongkhlaLineHandler:
         # 8. Natural Language Inquiries & Deep Questions -> True Hybrid GraphRAG Engine
         print(f"🧠 [Hybrid RAG Dispatch] Query: '{user_text}'")
         rag_res = self.rag_engine.generate(query=user_text, user_id=user_id, mode="hybrid")
-        
+
+        answer = str(rag_res.get("answer", "")).strip()
+        if not answer or answer.startswith(("Ollama Error", "Local LLM Error", "Groq Error", "Cloud API Error")):
+            return [TextSendMessage(text="ขออภัย ระบบขัดข้องชั่วคราว กรุณาลองใหม่อีกครั้ง")]
+
+        text_reply = TextSendMessage(text=answer)
+        no_information = any(marker in answer for marker in (
+            "ไม่มีข้อมูล", "ไม่พบข้อมูล", "ข้อมูลไม่เพียงพอ", "ไม่ได้ระบุ", "ไม่สามารถยืนยัน"
+        ))
+        is_follow_up = rag_res.get("retrieval_query", user_text.strip()) != user_text.strip()
+        if no_information or is_follow_up:
+            return [text_reply]
+
         # Multi-Entity Resolution: Scan query and answer for places
-        combined_text = f"{user_text} {rag_res.get('answer', '')}"
+        combined_text = f"{user_text} {answer}"
         matched_places = SongkhlaFlexTemplates.extract_matched_places(combined_text, self.places)
-        
-        smart_card = SongkhlaFlexTemplates.build_ai_answer_card(rag_res, places=matched_places)
-        
-        # Multi-Message Pattern: If matched places found, attach the tailored Carousel!
+
+        # A specific place gets one place card; multi-place recommendations get a carousel.
         if matched_places:
             places_carousel = SongkhlaFlexTemplates.build_matched_places_carousel(matched_places)
-            return [smart_card, places_carousel]
-        
-        return [smart_card]
+            return [text_reply, places_carousel]
+
+        return [text_reply]
+
+    @staticmethod
+    def _welcome_text() -> str:
+        return (
+            "สวัสดีครับ น้องสิงขรพร้อมช่วยแนะนำย่านเมืองเก่าสงขลา\n"
+            "ถามได้ทั้งสถานที่ เวลาเปิด-ปิด ราคา ร้านอาหาร ที่พัก "
+            "หรือขอคำแนะนำเส้นทางท่องเที่ยวได้เลย"
+        )

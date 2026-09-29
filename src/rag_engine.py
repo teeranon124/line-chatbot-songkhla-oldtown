@@ -120,8 +120,42 @@ class SongkhlaRAGEngine:
         is_complex = any(kw in query for kw in complex_keywords) or (len(query.strip()) > 50 and "และ" in query)
         
         if is_complex and self.groq_api_key:
+            self._last_route_reason = "complex planning/synthesis query"
             return "groq", self.groq_model
+        if is_complex:
+            self._last_route_reason = "complex query; Groq is not configured, using local"
+        else:
+            self._last_route_reason = "factual/simple query"
         return "ollama", self.local_model
+
+    @staticmethod
+    def _log_route(query: str, provider: str, model_name: str, reason: str) -> None:
+        """Print routing observability to the server terminal only."""
+        is_cloud = provider == "groq"
+        print("-" * 50, flush=True)
+        print("[LLM ROUTER]", flush=True)
+        print(f"Query: {query}", flush=True)
+        print(f"Provider: {'CLOUD' if is_cloud else 'LOCAL'}", flush=True)
+        print(f"Backend: {'Groq' if is_cloud else 'Ollama'}", flush=True)
+        print(f"Model: {model_name}", flush=True)
+        print(f"Reason: {reason}", flush=True)
+        print("Fallback: NO", flush=True)
+        print("-" * 50, flush=True)
+
+    @staticmethod
+    def _log_fallback(
+        original_provider: str,
+        fallback_provider: str,
+        reason: str,
+        succeeded: bool
+    ) -> None:
+        """Log a safe fallback category without response bodies or credentials."""
+        labels = {"groq": "CLOUD/Groq", "ollama": "LOCAL/Ollama"}
+        print("[LLM FALLBACK]", flush=True)
+        print(f"Original provider: {labels[original_provider]}", flush=True)
+        print(f"Fallback provider: {labels[fallback_provider]}", flush=True)
+        print(f"Reason: {reason}", flush=True)
+        print(f"Result: {'SUCCEEDED' if succeeded else 'FAILED'}", flush=True)
 
     def call_ollama(self, messages: List[Dict[str, str]], model_name: str) -> str:
         """Invokes Local LLM via Ollama API."""
@@ -269,10 +303,15 @@ class SongkhlaRAGEngine:
         # 3. Model Routing
         if target_llm in ["groq", "api", "cloud"]:
             provider, model_name = "groq", self.groq_model
+            route_reason = "explicit cloud provider override"
         elif target_llm in ["ollama", "local"]:
             provider, model_name = "ollama", self.local_model
+            route_reason = "explicit local provider override"
         else:
             provider, model_name = self.route_model(query, chunks)
+            route_reason = self._last_route_reason
+
+        self._log_route(query, provider, model_name, route_reason)
 
         # 4. Construct Prompt Messages with Session History
         messages = [{"role": "system", "content": SYSTEM_PROMPT}]
@@ -293,8 +332,18 @@ class SongkhlaRAGEngine:
             answer = self.call_groq(messages, model_name)
             if (answer.startswith("Groq Error") or answer.startswith("Cloud API Error")):
                 # Automatic failover to local Ollama
+                fallback_reason = (
+                    "cloud HTTP error" if answer.startswith("Groq Error")
+                    else "cloud connection/runtime error"
+                )
                 fallback_ans = self.call_ollama(messages, self.local_model)
-                if not (fallback_ans.startswith("Ollama Error") or fallback_ans.startswith("Local LLM Error")):
+                fallback_succeeded = not fallback_ans.startswith((
+                    "Ollama Error", "Local LLM Error"
+                ))
+                self._log_fallback(
+                    "groq", "ollama", fallback_reason, fallback_succeeded
+                )
+                if fallback_succeeded:
                     answer = fallback_ans
                     provider = "ollama (failover)"
                     model_name = self.local_model
@@ -302,8 +351,18 @@ class SongkhlaRAGEngine:
             answer = self.call_ollama(messages, model_name)
             if (answer.startswith("Ollama Error") or answer.startswith("Local LLM Error")) and self.groq_api_key:
                 # Automatic failover to Groq API
+                fallback_reason = (
+                    "local HTTP error" if answer.startswith("Ollama Error")
+                    else "local connection/runtime error"
+                )
                 fallback_ans = self.call_groq(messages, self.groq_model)
-                if not (fallback_ans.startswith("Groq Error") or fallback_ans.startswith("Cloud API Error")):
+                fallback_succeeded = not fallback_ans.startswith((
+                    "Groq Error", "Cloud API Error"
+                ))
+                self._log_fallback(
+                    "ollama", "groq", fallback_reason, fallback_succeeded
+                )
+                if fallback_succeeded:
                     answer = fallback_ans
                     provider = "groq (failover)"
                     model_name = self.groq_model
