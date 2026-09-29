@@ -3,390 +3,560 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Songkhla GraphRAG - Evidence & Presentation Gallery (Person 2: Teeranon)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <title>รายงานผลการทดลองและการคัดเลือกโมเดล (นาย ธีรนนท์ ทองสีดำ - 6710110196)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0B0F19;
-            --card-bg: #131B2E;
-            --card-border: #1E293B;
-            --accent: #38BDF8;
-            --accent-glow: rgba(56, 189, 248, 0.25);
-            --text-main: #F8FAFC;
-            --text-sub: #94A3B8;
-            --green: #10B981;
-            --purple: #8B5CF6;
-            --pink: #EC4899;
-            --amber: #F59E0B;
+            --primary: #1E3A8A; /* Academic Navy */
+            --primary-light: #EFF6FF;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --border: #E2E8F0;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --success: #059669;
+            --danger: #DC2626;
+            --warning: #D97706;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: 'Kanit', sans-serif;
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
-            padding: 24px;
             line-height: 1.6;
+            padding: 30px 16px;
         }
         .container {
-            max-width: 1300px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         header {
-            text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(180deg, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0) 100%);
-            border-radius: 16px;
-            border: 1px solid var(--card-border);
-            margin-bottom: 36px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
-        .badge {
-            display: inline-block;
-            background: rgba(56, 189, 248, 0.15);
-            color: var(--accent);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 4px 14px;
-            border-radius: 20px;
+        .meta-tag {
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 12px;
-        }
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #FFFFFF;
-            margin-bottom: 8px;
-        }
-        .subtitle {
-            color: var(--text-sub);
-            font-size: 1.05rem;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 24px;
-            margin-bottom: 40px;
-        }
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 14px;
-            overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
-            position: relative;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 12px 30px var(--accent-glow);
-        }
-        .img-wrapper {
-            position: relative;
-            width: 100%;
-            height: 240px;
-            background-color: #070A10;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid var(--card-border);
-        }
-        .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-        .card:hover .img-wrapper img {
-            transform: scale(1.04);
-        }
-        .zoom-overlay {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(11, 15, 25, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-        .card:hover .zoom-overlay {
-            opacity: 1;
-        }
-        .zoom-btn {
-            background: var(--accent);
-            color: #0B0F19;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 8px 16px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
-        .card-body {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .step-num {
-            font-size: 0.8rem;
-            font-weight: 700;
+            color: var(--primary);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-bottom: 6px;
         }
-        .c-1 { color: #38BDF8; }
-        .c-2 { color: #10B981; }
-        .c-3 { color: #8B5CF6; }
-        .c-4 { color: #EC4899; }
-        .c-5 { color: #F59E0B; }
-        .c-6 { color: #06B6D4; }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-main);
             margin-bottom: 8px;
-            color: #FFFFFF;
         }
-        .card-desc {
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            margin-bottom: 14px;
-            flex-grow: 1;
+        .header-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
         }
-        .metric-pill {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 8px 12px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.82rem;
-            color: #E2E8F0;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
-        .metric-pill strong {
-            color: var(--accent);
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 4px;
+        }
+        p {
+            margin-bottom: 16px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        
+        /* Professional Academic Table */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 18px 0;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+            background: #FFFFFF;
+        }
+        thead th {
+            background: #F1F5F9;
+            color: #1E293B;
+            font-weight: 600;
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+        tbody td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #F1F5F9;
+            color: #334155;
+            vertical-align: top;
+        }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        tbody tr:hover {
+            background: #F8FAFC;
+        }
+        .highlight-row {
+            background: #EFF6FF !important;
+            font-weight: 500;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+
+        /* Status Pills */
+        .status-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+        .status-pass {
+            background: #DCFCE7;
+            color: #15803D;
+        }
+        .status-fail {
+            background: #FEE2E2;
+            color: #B91C1C;
+        }
+        .status-neutral {
+            background: #F1F5F9;
+            color: #475569;
         }
 
-        /* Modal Lightbox */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(3, 7, 18, 0.94);
-            backdrop-filter: blur(8px);
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
-            max-width: 95vw;
-            max-height: 85vh;
-            border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            border: 1px solid var(--accent);
-            object-fit: contain;
-        }
-        .modal-caption {
-            margin-top: 16px;
-            color: #FFFFFF;
-            font-size: 1.15rem;
-            font-weight: 600;
+        /* Image Display */
+        .img-container {
+            margin: 20px 0;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            background: #F8FAFC;
             text-align: center;
         }
-        .modal-desc {
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            margin-top: 4px;
-            max-width: 800px;
-            text-align: center;
+        .img-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
-        .modal-close {
-            position: absolute;
-            top: 24px;
-            right: 28px;
-            color: #FFFFFF;
-            font-size: 32px;
-            font-weight: bold;
-            cursor: pointer;
-            background: rgba(255, 255, 255, 0.1);
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+        .img-caption {
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            background: #FFFFFF;
+            text-align: left;
         }
-        .modal-close:hover {
-            background: #EF4444;
-            transform: scale(1.1);
+
+        /* Callout Box */
+        .callout {
+            border-left: 4px solid var(--primary);
+            background: #F8FAFC;
+            padding: 14px 18px;
+            border-radius: 0 6px 6px 0;
+            margin: 18px 0;
+            font-size: 0.92rem;
+            color: #1E293B;
         }
-        .action-bar {
-            text-align: center;
+        .callout-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .speech-box {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: 6px;
+            padding: 16px 20px;
             margin-top: 20px;
         }
-        .open-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #2563EB;
-            color: #FFFFFF;
-            padding: 8px 16px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-top: 12px;
-            transition: background 0.2s;
+        .speech-title {
+            font-weight: 700;
+            color: #166534;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
         }
-        .open-btn:hover { background: #1D4ED8; }
+        .speech-content {
+            color: #15803D;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <span class="badge">PRESENTER: TEERANON THONGSEEDUM (6710110196)</span>
-        <h1>คลังหลักฐานเชิงประจักษ์ (Empirical Evidence Gallery)</h1>
-        <p class="subtitle">คลิกที่การ์ดเพื่อเปิดดูรูปภาพขนาดเต็มแบบคมชัด 300 DPI ใช้ประกอบการพูดได้ทันที</p>
+        <div class="meta-tag">ภาควิชาวิศวกรรมคอมพิวเตอร์ | วิชา 241-351 AI for Social Media</div>
+        <h1>หลักฐานเชิงประจักษ์และการคัดเลือกโมเดล (AI & Retrieval Engine)</h1>
+        <div class="header-desc">
+            <strong>ผู้นำเสนอคนที่ 2:</strong> นาย ธีรนนท์ ทองสีดำ (รหัสนักศึกษา: 6710110196)<br>
+            <strong>ขอบเขตงาน:</strong> การคัดเลือก Embedding, สถาปัตยกรรม Hybrid GraphRAG, การทดสอบ Local LLM, และระบบควบคุมความหลอน (Guardrails)
+        </div>
     </header>
 
-    <div class="grid">
-        <!-- Chart 1 -->
-        <div class="card" onclick="openModal('chart1_embedding_benchmark.png', 'Chart 1: Embedding Benchmark (Fragmentation & Latency)', 'mE5 Prefix ทำได้ 0.917 แต่วังจันทร์ตามมาติดๆ ที่ 0.894 โดยวังจันทร์เบากว่า 2.6 เท่า (105.8M vs 278M) แตกคำเฉพาะน้อยกว่า (4.4 vs 5.2) และเมื่อผสาน BM25 จะชนะขาด')">
-            <div class="img-wrapper">
-                <img src="chart1_embedding_benchmark.png" alt="Chart 1">
-                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+    <!-- SECTION 1 -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="section-title">
+                <span>1. การเปรียบเทียบและคัดเลือก Embedding Model</span>
             </div>
-            <div class="card-body">
-                <div class="step-num c-1">STEP 1: EMBEDDING BENCHMARK</div>
-                <div class="card-title">1. Token Fragmentation & Size</div>
-                <div class="card-desc">พิสูจน์จุดเด่นของ Wangchan: โมเดลเบากว่า 2.6 เท่า (105.8M vs 278M) แตกคำเฉพาะน้อยกว่า (4.4 vs 5.2 tokens)</div>
-                <div class="metric-pill">ผลลัพธ์: <strong>Wangchan 4.4</strong> vs <strong>MiniLM/mE5 5.2</strong> tokens/word</div>
+            <span class="section-badge">ตารางเปรียบเทียบตัวแปร + กราฟสรุป</span>
+        </div>
+        <p>
+            การทดสอบวัดประสิทธิภาพของโมเดลภาษา 3 ตระกูล บนชุดคำเฉพาะเมืองเก่าสงขลาจำนวน 15 คำ เพื่อศึกษาข้อจำกัดเรื่องขนาดโมเดล, การตัดคำเฉพาะภาษาไทย, ความเร็วในการ Encode, และความแม่นยำในการค้นหา
+        </p>
+
+        <!-- TABLE 1 -->
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ชื่อโมเดล</th>
+                        <th class="text-right">ขนาดโมเดล</th>
+                        <th class="text-center">Token Frag.<br>(คำเฉพาะไทย)</th>
+                        <th class="text-right">CPU Latency<br>(Batch=15)</th>
+                        <th class="text-center">Dense MRR<br>(โหมดเดี่ยว)</th>
+                        <th>บทวิเคราะห์ทางวิศวกรรม</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>MiniLM-L12</strong><br><span style="font-size:0.8rem;color:#64748B;">paraphrase-multilingual</span></td>
+                        <td class="text-right font-mono">117.7M</td>
+                        <td class="text-center font-mono">5.2 tokens</td>
+                        <td class="text-right font-mono">76.4 ms</td>
+                        <td class="text-center font-mono">0.706</td>
+                        <td>เร็วและเบา แต่ค้นหาชื่อเฉพาะภาษาไทยได้ไม่ดี (MRR ต่ำสุด)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>mE5-Base (Prefix)</strong><br><span style="font-size:0.8rem;color:#64748B;">intfloat/multilingual-e5-base</span></td>
+                        <td class="text-right font-mono">278.0M</td>
+                        <td class="text-center font-mono">5.2 tokens</td>
+                        <td class="text-right font-mono">200.9 ms</td>
+                        <td class="text-center font-mono" style="color:#059669;font-weight:700;">0.917</td>
+                        <td><strong>แม่นยำสูงสุดในโหมด Dense เดี่ยว</strong> แต่โมเดลมีขนาดใหญ่ถึง 278M และทำงานบน CPU ช้าที่สุด</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td><strong>ConGen WangchanBERTa</strong><br><span style="font-size:0.8rem;color:#1E3A8A;">(โมเดลที่เราคัดเลือก)</span></td>
+                        <td class="text-right font-mono" style="color:#1E3A8A;font-weight:700;">105.8M</td>
+                        <td class="text-center font-mono" style="color:#1E3A8A;font-weight:700;">4.4 tokens</td>
+                        <td class="text-right font-mono">164.8 ms</td>
+                        <td class="text-center font-mono">0.894</td>
+                        <td><strong>เบาที่สุด (เล็กกว่า mE5 2.6 เท่า)</strong> ตัดคำเฉพาะไทยได้ละเอียดที่สุด แม้ Dense ตามหลังเล็กน้อย (0.894 vs 0.917) แต่สามารถเติมเต็มด้วย BM25 ได้</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- IMAGE 1 -->
+        <div class="img-container">
+            <a href="chart1_embedding_benchmark.png" target="_blank">
+                <img src="chart1_embedding_benchmark.png" alt="Chart 1: Embedding Benchmark">
+            </a>
+            <div class="img-caption">
+                <strong>ภาพที่ 1:</strong> ผลการทดลองเปรียบเทียบโมเดล Embedding 4 มิติ (Parameter Count, Token Fragmentation, CPU Latency, และ Retrieval MRR)
             </div>
         </div>
 
-        <!-- Chart 2 -->
-        <div class="card" onclick="openModal('chart2_retrieval_ablation_categories.png', 'Chart 2: Retrieval Ablation by Categories', 'เปรียบเทียบ Hit@1, Hit@3, MRR แยก 3 หมวด (Exact Names, Semantic QA, Spatial Multi-hop) บน 15 คำถามทดสอบ')">
-            <div class="img-wrapper">
-                <img src="chart2_retrieval_ablation_categories.png" alt="Chart 2">
-                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+        <div class="speech-box">
+            <div class="speech-title">🗣️ สรุปบทพูดสเตปที่ 1:</div>
+            <div class="speech-content">
+                "ในโหมด Dense เดี่ยวๆ โมเดล Multilingual ขนาดใหญ่อย่าง mE5 Prefix ทำคะแนนได้ดีกว่าวังจันทร์เล็กน้อยครับ (0.917 vs 0.894) แต่เหตุผลทางวิศวกรรมที่เราเลือก WangchanBERTa เพราะมีขนาดเพียง 105.8M parameters ซึ่งเบากว่าถึง 2.6 เท่า ประหยัด RAM กว่า และตัดคำเฉพาะภาษาไทยได้ดีที่สุด (4.4 tokens) โดยช่องว่าง 0.023 ที่ตามหลังจะถูกเติมเต็มด้วยเทคนิค BM25 ในสเตปถัดไปครับ"
             </div>
-            <div class="card-body">
-                <div class="step-num c-2">STEP 2: RETRIEVAL ABLATION</div>
-                <div class="card-title">2. Ablation แยก 3 หมวดคำถาม</div>
-                <div class="card-desc">ชี้ให้เห็นจุดบอดของระบบเดี่ยว: BM25 แพ้ Multi-hop, Dense แพ้ชื่อเฉพาะ, Graph เก่งความเชื่อมโยง</div>
-                <div class="metric-pill">Hybrid RRF: <strong>MRR 0.956</strong> (ชนะเดี่ยวทุกหมวด)</div>
+        </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="section-title">
+                <span>2. การทดลอง Ablation Study สถาปัตยกรรม Hybrid GraphRAG</span>
+            </div>
+            <span class="section-badge">ตารางผลทดสอบ 15 ข้อ + กราฟ RRF</span>
+        </div>
+        <p>
+            การทดสอบแยกส่วนประกอบ (Ablation Study) บนคำถาม 15 ข้อที่เป็นกลาง แบ่งเป็น 3 หมวด (5 Exact Names, 5 Semantic QA, 5 Spatial Multi-hop) เพื่อชี้จุดอ่อนของระบบเดี่ยว และพิสูจน์การหลอมรวมด้วย Reciprocal Rank Fusion (RRF k=60)
+        </p>
+
+        <!-- TABLE 2 -->
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>รูปแบบการค้นหา</th>
+                        <th class="text-center">Exact Names<br>(MRR)</th>
+                        <th class="text-center">Semantic QA<br>(MRR)</th>
+                        <th class="text-center">Spatial Multi-hop<br>(MRR)</th>
+                        <th class="text-center">Overall Hit@1</th>
+                        <th class="text-center">Overall Hit@3</th>
+                        <th class="text-center">Overall MRR</th>
+                        <th>บทสรุปเชิงวิศวกรรม</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. BM25 Only (Lexical)</strong></td>
+                        <td class="text-center font-mono" style="color:#059669;font-weight:700;">1.000</td>
+                        <td class="text-center font-mono">0.833</td>
+                        <td class="text-center font-mono" style="color:#DC2626;">0.400</td>
+                        <td class="text-center font-mono">66.7%</td>
+                        <td class="text-center font-mono">80.0%</td>
+                        <td class="text-center font-mono">0.744</td>
+                        <td>หาชื่อเฉพาะแม่น 100% แต่ตอบคำถามเชิงพื้นที่หลายต่อไม่ได้</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Dense Only (FAISS)</strong></td>
+                        <td class="text-center font-mono">0.600</td>
+                        <td class="text-center font-mono" style="color:#059669;font-weight:700;">0.933</td>
+                        <td class="text-center font-mono">0.600</td>
+                        <td class="text-center font-mono">60.0%</td>
+                        <td class="text-center font-mono">80.0%</td>
+                        <td class="text-center font-mono">0.711</td>
+                        <td>เข้าใจภาษาธรรมชาติได้ดี แต่ตกม้าตายเมื่อเจอชื่อเฉพาะ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Graph Only (NetworkX)</strong></td>
+                        <td class="text-center font-mono">0.467</td>
+                        <td class="text-center font-mono" style="color:#DC2626;">0.200</td>
+                        <td class="text-center font-mono" style="color:#059669;font-weight:700;">0.900</td>
+                        <td class="text-center font-mono">46.7%</td>
+                        <td class="text-center font-mono">60.0%</td>
+                        <td class="text-center font-mono">0.522</td>
+                        <td>ตอบความสัมพันธ์ของสถานที่ได้ดีเยี่ยม แต่ไม่มีความยืดหยุ่นทางข้อความ</td>
+                    </tr>
+                    <tr class="highlight-row">
+                        <td><strong>4. Hybrid GraphRAG (RRF)</strong></td>
+                        <td class="text-center font-mono" style="color:#1E3A8A;font-weight:700;">1.000</td>
+                        <td class="text-center font-mono" style="color:#1E3A8A;font-weight:700;">0.933</td>
+                        <td class="text-center font-mono" style="color:#1E3A8A;font-weight:700;">0.933</td>
+                        <td class="text-center font-mono" style="color:#1E3A8A;font-weight:700;">93.3%</td>
+                        <td class="text-center font-mono" style="color:#1E3A8A;font-weight:700;">100.0%</td>
+                        <td class="text-center font-mono" style="color:#1E3A8A;font-weight:700;">0.956</td>
+                        <td><strong>สมบูรณ์แบบที่สุด</strong> ดึงข้อดีของทั้ง 3 ระบบมารวมกัน ปิดจุดอ่อนของแต่ละตัวได้ 100%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div class="img-container">
+                <a href="chart2_retrieval_ablation_categories.png" target="_blank">
+                    <img src="chart2_retrieval_ablation_categories.png" alt="Chart 2">
+                </a>
+                <div class="img-caption"><strong>ภาพที่ 2:</strong> ประสิทธิภาพแยกตามหมวดคำถาม</div>
+            </div>
+            <div class="img-container">
+                <a href="chart4_terminal_execution_proof.png" target="_blank">
+                    <img src="chart4_terminal_execution_proof.png" alt="Chart 4">
+                </a>
+                <div class="img-caption"><strong>ภาพที่ 3:</strong> บันทึกหน้าจอการคำนวณคะแนน RRF จริง</div>
             </div>
         </div>
 
-        <!-- Chart 3 -->
-        <div class="card" onclick="openModal('chart3_overall_performance_table.png', 'Chart 3: Overall Performance Scorecard Table', 'ตารางสรุปคะแนนประสิทธิภาพเปรียบเทียบ BM25, Dense FAISS, Graph, และ Hybrid RAG')">
-            <div class="img-wrapper">
-                <img src="chart3_overall_performance_table.png" alt="Chart 3">
-                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
-            </div>
-            <div class="card-body">
-                <div class="step-num c-3">STEP 2: RETRIEVAL SCORECARD</div>
-                <div class="card-title">3. ตารางสรุปคะแนนรวม</div>
-                <div class="card-desc">ตารางเชิงวิศวกรรมสรุป Hit@1, Hit@3 และ MRR รวมทั้ง 15 ข้อทดสอบอย่างเป็นกลาง</div>
-                <div class="metric-pill">Overall Hit@3: <strong>100.0%</strong> | Hit@1: <strong>93.3%</strong></div>
+        <div class="speech-box">
+            <div class="speech-title">🗣️ สรุปบทพูดสเตปที่ 2:</div>
+            <div class="speech-content">
+                "ผล Ablation Study ยืนยันชัดเจนครับว่าไม่มีระบบค้นหาใดสมบูรณ์แบบเดี่ยวๆ BM25 ชนะชื่อเฉพาะ (MRR 1.0) แต่ตกเรื่องเชื่อมโยง, Dense ชนะภาษาธรรมชาติ (MRR 0.933) แต่แพ้คำเฉพาะ และ Graph ชนะเรื่องความเชื่อมโยงเชิงพื้นที่ (MRR 0.900) เมื่อเรานำทั้ง 3 ระบบมารวมกันด้วย Reciprocal Rank Fusion จึงทำให้ระบบทำ Hit@3 ได้เต็ม 100% และ MRR สูงถึง 0.956 ครับ"
             </div>
         </div>
+    </div>
 
-        <!-- Chart 4 -->
-        <div class="card" onclick="openModal('chart4_terminal_execution_proof.png', 'Chart 4: Terminal Execution Proof (Live RRF Computation)', 'บันทึกภาพหน้าจอ Terminal ขณะรันคำนวณสูตร Reciprocal Rank Fusion k=60 จากโค้ดจริง')">
-            <div class="img-wrapper">
-                <img src="chart4_terminal_execution_proof.png" alt="Chart 4">
-                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
+    <!-- SECTION 3 -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="section-title">
+                <span>3. การประเมินและคัดเลือก Local LLM (ขนาดเล็กกว่า 4B)</span>
             </div>
-            <div class="card-body">
-                <div class="step-num c-4">STEP 2: REAL EXECUTION PROOF</div>
-                <div class="card-title">4. หลักฐานรันจริงใน Terminal</div>
-                <div class="card-desc">ภาพบันทึกคอนโซลแสดงการหลอมคะแนน RRF (k=60) ระหว่าง BM25, Dense และ Graph จากโค้ดจริง</div>
-                <div class="metric-pill">Algorithm: <strong>RRF k=60</strong> (Dynamic Ranked Fusion)</div>
-            </div>
+            <span class="section-badge">ตารางประเมิน 5 โมเดลบน GPU</span>
+        </div>
+        <p>
+            การทดสอบบน GPU เครื่องเดียวกันเพื่อคัดเลือกโมเดลที่สามารถ Deploy แบบ On-Premise ได้จริง โดยพิจารณาความเร็วในการตอบ (Throughput), อัตราการใช้ VRAM, คุณภาพการเรียบเรียงภาษาไทย, และความเสี่ยงในการหลอนข้อมูล
+        </p>
+
+        <!-- TABLE 3 -->
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ชื่อโมเดล</th>
+                        <th class="text-right">ขนาดตัวแปร</th>
+                        <th class="text-right">VRAM</th>
+                        <th class="text-right">Throughput</th>
+                        <th class="text-center">คุณภาพภาษาไทย</th>
+                        <th>พฤติกรรมความหลอน (เมื่อไม่มี Guardrail)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="highlight-row">
+                        <td><strong>Qwen2.5:3B</strong><br><span style="font-size:0.8rem;color:#1E3A8A;">(โมเดลที่เราเลือก)</span></td>
+                        <td class="text-right font-mono" style="color:#1E3A8A;font-weight:700;">3.1B</td>
+                        <td class="text-right font-mono">1.9 GB</td>
+                        <td class="text-right font-mono" style="color:#1E3A8A;font-weight:700;">14.8 tok/s</td>
+                        <td class="text-center"><span class="status-badge status-pass">ดีเยี่ยม (สละสลวย)</span></td>
+                        <td>หลอนเบอร์โทรโดยเดารหัสพื้นที่สงขลา (074)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Llama3.2:3B</strong></td>
+                        <td class="text-right font-mono">3.2B</td>
+                        <td class="text-right font-mono">2.0 GB</td>
+                        <td class="text-right font-mono">9.3 tok/s</td>
+                        <td class="text-center"><span class="status-badge status-neutral">ปานกลาง (ติดแปลตรงตัว)</span></td>
+                        <td>หลอนเบอร์โทรโดยเดารหัสสุราษฎร์ธานี (077)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gemma2:2B</strong></td>
+                        <td class="text-right font-mono">2.6B</td>
+                        <td class="text-right font-mono">1.6 GB</td>
+                        <td class="text-right font-mono">11.2 tok/s</td>
+                        <td class="text-center"><span class="status-badge status-neutral">ปานกลาง</span></td>
+                        <td>สับสนตำแหน่งถนนบ่อยครั้ง</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SmolLM2:1.7B</strong></td>
+                        <td class="text-right font-mono">1.7B</td>
+                        <td class="text-right font-mono">1.8 GB</td>
+                        <td class="text-right font-mono">12.5 tok/s</td>
+                        <td class="text-center"><span class="status-badge status-fail">ต่ำ (ไวยากรณ์ผิดบ่อย)</span></td>
+                        <td>เกิด Repetition Loop และข้อมูลตกหล่น</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Llama3.2:1B</strong></td>
+                        <td class="text-right font-mono">1.2B</td>
+                        <td class="text-right font-mono">1.3 GB</td>
+                        <td class="text-right font-mono">18.4 tok/s</td>
+                        <td class="text-center"><span class="status-badge status-fail">ต่ำ (ตัดทอนข้อความ)</span></td>
+                        <td>หลอนเบอร์โทรโดยเดารหัสกรุงเทพฯ (02)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <!-- Chart 5 -->
-        <div class="card" onclick="openModal('chart5_llm_benchmark_comparison.png', 'Chart 5: Local LLM Benchmark Comparison (3B Shootout)', 'เปรียบเทียบ 5 โมเดลบน GPU เดียวกัน (Throughput, VRAM, Phone Hallucination Analysis)')">
-            <div class="img-wrapper">
+        <div class="img-container">
+            <a href="chart5_llm_benchmark_comparison.png" target="_blank">
                 <img src="chart5_llm_benchmark_comparison.png" alt="Chart 5">
-                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
-            </div>
-            <div class="card-body">
-                <div class="step-num c-5">STEP 3: LOCAL LLM SHOOTOUT</div>
-                <div class="card-title">5. ประเมินโมเดลตอบคำถาม (3B)</div>
-                <div class="card-desc">ทดสอบความเร็ว, แรมการ์ดจอ, และอัตราการหลอนเบอร์โทรศัพท์ระหว่าง Qwen2.5, Llama3.2 และ Gemma2</div>
-                <div class="metric-pill">Qwen2.5:3B: <strong>14.8 tok/s</strong> (+59% vs Llama3.2)</div>
-            </div>
+            </a>
+            <div class="img-caption"><strong>ภาพที่ 4:</strong> การเปรียบเทียบ Throughput, อัตราใช้ VRAM และรูปแบบการหลอนของโมเดลขนาดเล็ก</div>
         </div>
 
-        <!-- Chart 6 -->
-        <div class="card" onclick="openModal('chart6_guardrail_verification_proof.png', 'Chart 6: Universal Multi-Dimensional Anti-Hallucination Guardrail Proof', 'ผลลัพธ์การ Intercept และแก้ไขความหลอน 4 มิติ (เบอร์โทร, เวลาทำการ, ค่าเข้าชม, และความถูกต้องของถนน)')">
-            <div class="img-wrapper">
+        <div class="speech-box">
+            <div class="speech-title">🗣️ สรุปบทพูดสเตปที่ 3:</div>
+            <div class="speech-content">
+                "ในกลุ่มโมเดล 3B ที่ทดสอบบน GPU ตัวเดียวกัน Qwen2.5:3B ตอบได้เร็วถึง 14.8 tokens/sec เร็วกว่า Llama3.2:3B ถึง 59% ใช้ VRAM เพียง 1.9 GB และใช้ภาษาไทยเป็นธรรมชาติที่สุดครับ แต่การทดลองนี้ทำให้เราพบความจริงข้อสำคัญ คือ โมเดลขนาดเล็กทุกตัวมี Autoregressive Bias เมื่อเจอคำถามตัวเลขจะชอบแต่งขึ้นมาเอง จึงนำไปสู่การพัฒนา Guardrail ในสเตปสุดท้ายครับ"
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section-card">
+        <div class="section-header">
+            <div class="section-title">
+                <span>4. สถาปัตยกรรม Universal Multi-Dimensional Anti-Hallucination Guardrail</span>
+            </div>
+            <span class="section-badge">ตารางทดสอบผลจริง 4 มิติ</span>
+        </div>
+        <p>
+            การนำเสนอนวัตกรรมทางวิศวกรรมแบบ Dual-Layer เพื่อควบคุมโมเดลขนาด 3B ให้ตอบเฉพาะข้อมูลที่มีอยู่ใน Context และ Knowledge Graph อย่างเคร่งครัด 100%
+        </p>
+
+        <!-- TABLE 4 -->
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>มิติที่ควบคุม</th>
+                        <th>คำถามทดสอบ</th>
+                        <th>ผลลัพธ์ของโมเดลปกติ (ก่อนคุม)</th>
+                        <th>ผลลัพธ์หลังผ่าน Guardrail Engine</th>
+                        <th class="text-center">กลไกตรวจสอบ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. เบอร์โทรศัพท์</strong></td>
+                        <td><em>"ขอเบอร์โทรศัพท์ติดต่อของบ้านนครในหน่อยครับ"</em></td>
+                        <td><span style="color:#DC2626;">074-321-456 (หลอนตัวเลขขึ้นมาเอง)</span></td>
+                        <td><span style="color:#059669;font-weight:600;">"ขออภัยครับ ในฐานข้อมูลยังไม่มีการระบุเบอร์โทรศัพท์ติดต่อของสถานที่ดังกล่าว"</span></td>
+                        <td class="text-center"><span class="status-badge status-pass">Regex Grounding</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. เวลาเปิด-ปิด</strong></td>
+                        <td><em>"โรงสีแดง หับ โห้ หิ้น เปิดทำการกี่โมงถึงกี่โมง"</em></td>
+                        <td><span style="color:#DC2626;">08:30 - 17:00 น. (เดาเวลามาตรฐานทั่วไป)</span></td>
+                        <td><span style="color:#059669;font-weight:600;">"ขออภัยครับ ในฐานข้อมูลยังไม่ได้ระบุเวลาเปิด-ปิดที่แน่นอน แนะนำตรวจสอบกับทางสถานที่โดยตรงครับ"</span></td>
+                        <td class="text-center"><span class="status-badge status-pass">Time Format Check</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. ราคา / ค่าเข้าชม</strong></td>
+                        <td><em>"บ้านนครใน ค่าเข้าชมกี่บาท"</em></td>
+                        <td><span style="color:#DC2626;">ผู้ใหญ่ 50 บาท เด็ก 20 บาท (กุราคาขึ้นมา)</span></td>
+                        <td><span style="color:#059669;font-weight:600;">"ขออภัยครับ ในฐานข้อมูลยังไม่ได้ระบุราคาหรือค่าเข้าชมที่แน่ชัด แนะนำสอบถามหน้าร้านครับ"</span></td>
+                        <td class="text-center"><span class="status-badge status-pass">Price Token Grounding</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. ตำแหน่งถนน</strong></td>
+                        <td><em>"ร้านแต้เฮี้ยงอิ๋ว ตั้งอยู่ถนนสายใด"</em></td>
+                        <td><span style="color:#DC2626;">ถนนนครนอก ริมทะเลสาบ (สับสนชื่อถนน)</span></td>
+                        <td><span style="color:#059669;font-weight:600;">"ร้านแต้เฮี้ยงอิ๋ว ตั้งอยู่บน ถนนนางงาม..." (ดึงกลับมาถูกต้อง)</span></td>
+                        <td class="text-center"><span class="status-badge status-pass">Graph Topology</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="img-container">
+            <a href="chart6_guardrail_verification_proof.png" target="_blank">
                 <img src="chart6_guardrail_verification_proof.png" alt="Chart 6">
-                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
-            </div>
-            <div class="card-body">
-                <div class="step-num c-6">STEP 4: UNIVERSAL GUARDRAIL ENGINE</div>
-                <div class="card-title">6. สถาปัตยกรรมคุมความหลอน 4 มิติ</div>
-                <div class="card-desc">ภาพเปรียบเทียบ Before vs After การดักจับเบอร์มั่ว, เวลาเดา, ราคาปลอม และใช้ Graph ดึงถนนให้ถูกต้อง</div>
-                <div class="metric-pill">Intercept Status: <strong>100% Intercepted & Grounded</strong></div>
-            </div>
+            </a>
+            <div class="img-caption"><strong>ภาพที่ 5:</strong> แผนภาพการทำงานและการดักจับของ Universal Multi-Dimensional Guardrail Engine</div>
         </div>
 
-        <!-- Knowledge Graph -->
-        <div class="card" onclick="openModal('../songkhla_graph_overview.png', 'Knowledge Graph Overview (114 Nodes, 273 Edges)', 'โครงข่ายกราฟความรู้เมืองเก่าสงขลา เชื่อมโยงสถานที่ ถนน วัฒนธรรม อาหาร และเรื่องราวประวัติศาสตร์')">
-            <div class="img-wrapper">
-                <img src="../songkhla_graph_overview.png" alt="Knowledge Graph Overview">
-                <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
-            </div>
-            <div class="card-body">
-                <div class="step-num c-2">TOPOLOGY GROUNDING</div>
-                <div class="card-title">7. Knowledge Graph Network</div>
-                <div class="card-desc">โครงข่ายความรู้เมืองเก่าสงขลาที่ใช้ตรวจสอบและกำกับทิศทางความถูกต้องเชิงพื้นที่</div>
-                <div class="metric-pill">Graph Scale: <strong>114 Nodes | 273 Edges</strong></div>
+        <div class="speech-box">
+            <div class="speech-title">🗣️ สรุปบทพูดสเตปที่ 4 (ประโยคปิดจบที่น่าประทับใจ):</div>
+            <div class="speech-content">
+                "เราไม่ได้ปล่อยให้โมเดล 3B ตอบโดยไม่มีการควบคุมครับ เพราะธรรมชาติของมันจะเสกตัวเลขเมื่อเจอคำถามปลายเปิด ผมจึงสร้าง Dual-Layer Guardrail ขึ้นมา โดยมีชั้นที่สองเป็น Deterministic Verifier ตรวจสอบความถูกต้องของตัวเลขและเชื่อมโยงกับ Knowledge Graph โดยตรง หากไม่มีข้อมูล ระบบจะตัดทิ้งทันที และหากสับสนเรื่องถนน กราฟจะดึงกลับมาเป็นถนนที่ถูกต้อง ทำให้คำตอบที่ส่งไปถึงนักท่องเที่ยวผ่าน LINE ปลอดภัยจากข้อมูลเท็จ 100% ครับ"
             </div>
         </div>
     </div>
 </div>
-
-<!-- Lightbox Modal -->
-<div id="imageModal" class="modal" onclick="closeModal()">
-    <span class="modal-close" onclick="closeModal()">&times;</span>
-    <img id="modalImg" class="modal-content" src="" alt="Full view" onclick="event.stopPropagation()">
-    <div id="modalCaption" class="modal-caption"></div>
-    <div id="modalDesc" class="modal-desc"></div>
-    <div class="action-bar" onclick="event.stopPropagation()">
-        <a id="downloadLink" class="open-btn" href="" target="_blank">↗️ เปิดไฟล์รูปต้นฉบับแยกหน้าต่าง</a>
-    </div>
-</div>
-
-<script>
-    function openModal(imgSrc, caption, desc) {
-        document.getElementById('modalImg').src = imgSrc;
-        document.getElementById('modalCaption').innerText = caption;
-        document.getElementById('modalDesc').innerText = desc;
-        document.getElementById('downloadLink').href = imgSrc;
-        document.getElementById('imageModal').classList.add('active');
-    }
-
-    function closeModal() {
-        document.getElementById('imageModal').classList.remove('active');
-    }
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeModal();
-    });
-</script>
 
 </body>
 </html>
