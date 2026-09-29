@@ -24,7 +24,8 @@ SYSTEM_PROMPT = """คุณคือ "น้องสิงขร" ผู้ช
 3. ห้ามใช้เครื่องหมาย Markdown เช่น เครื่องหมายดอกจัน ** หรือเครื่องหมาย # เด็ดขาด ให้ใช้ภาษาไทยธรรมดาที่เป็นธรรมชาติ
 4. ต้องตอบเป็นภาษาไทยล้วน 100% ห้ามมีตัวอักษรจีนหรือภาษาต่างประเทศปะปนเด็ดขาด (เช่น ห้ามใช้คำว่า 墙壁 ให้ใช้คำว่า กำแพงหรือผนัง)
 5. หากถามเรื่องของหวานหรือของกินเล่น ให้เลือกเฉพาะร้านของหวาน เช่น ร้านไอติมโอ่ง หรือบ้านขนมไทยสองแสน ห้ามนำร้านอาหารคาวมาตอบเป็นของหวาน
-6. อ้างอิงข้อมูลจากบริบทอย่างเคร่งครัด หากไม่มีข้อมูลให้ตอบตามตรงว่าไม่มีข้อมูล ห้ามกุเรื่องขึ้นมาเอง"""
+6. กฎเหล็กป้องกันภาพหลอน (Anti-Hallucination Guardrail): อ้างอิงข้อมูลจากบริบทอย่างเคร่งครัด 100% ห้ามกุเรื่องขึ้นมาเองเด็ดขาด
+   - หากถามหาข้อมูลที่ไม่ได้ระบุไว้ในบริบท (โดยเฉพาะ "เบอร์โทรศัพท์", "เวลาเปิดปิด", หรือ "ราคา") ให้ตอบตรงๆ ทันทีว่า "ขออภัยครับ ในข้อมูลไม่มีการระบุ..." ห้ามสุ่มเดาหรือสร้างตัวเลขขึ้นมาเองเด็ดขาด"""
 
 
 class SongkhlaRAGEngine:
@@ -184,6 +185,21 @@ class SongkhlaRAGEngine:
         clean_ans = re.sub(r'^\s*สวัสดี.*?(ค่ะ|ครับ)[!🏮\s]*\n*', '', clean_ans)
         clean_ans = clean_ans.replace("墙壁", "กำแพง")
         clean_ans = re.sub(r'[\u4e00-\u9fff]+', '', clean_ans)
+
+        # 5.1 Deterministic Anti-Hallucination Guardrail (Post-generation Fact Verification)
+        phone_matches = re.findall(r'\b0\d{1,2}[-\s]?\d{3,4}[-\s]?\d{3,4}\b', clean_ans)
+        if phone_matches:
+            clean_context = re.sub(r'[-\s]', '', context_str)
+            for phone in phone_matches:
+                clean_phone = re.sub(r'[-\s]', '', phone)
+                if clean_phone not in clean_context:
+                    # Intercept hallucinated phone number
+                    if any(k in query for k in ["เบอร์", "โทร", "ติดต่อ"]):
+                        clean_ans = "ขออภัยครับ ในฐานข้อมูลยังไม่มีการระบุเบอร์โทรศัพท์ติดต่อของสถานที่ดังกล่าว"
+                        break
+                    else:
+                        clean_ans = re.sub(re.escape(phone), "[ไม่มีข้อมูลเบอร์]", clean_ans)
+
         answer = clean_ans.strip()
 
         latency = time.time() - start_time
