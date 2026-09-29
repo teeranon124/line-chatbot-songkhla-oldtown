@@ -2,7 +2,10 @@
 import pickle
 from collections import Counter
 
-with open("data/songkhla_graph.pkl", "rb") as f:
+import os
+
+data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "songkhla_graph.pkl"))
+with open(data_path, "rb") as f:
     G = pickle.load(f)
 
 print("=" * 60)
