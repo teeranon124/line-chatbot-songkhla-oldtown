@@ -140,16 +140,20 @@ def build_and_export_graph():
                     """
                     session.run(cypher, e)
                 
-                # Insert Triples
+                # Insert Triples with exact Ontology Labels from NetworkX
                 for t in triples:
                     rel = t["relation"]
                     src = t["source"]
                     tgt = t["target"]
                     props = t.get("properties", {})
+                    src_label = G.nodes[src].get("label", "Place")
+                    tgt_label = G.nodes[tgt].get("label", "Concept")
                     
                     cypher = f"""
                     MERGE (s {{name: $src}})
+                    SET s:{src_label}
                     MERGE (t {{name: $tgt}})
+                    SET t:{tgt_label}
                     MERGE (s)-[r:{rel}]->(t)
                     SET r += $props
                     """
@@ -157,7 +161,7 @@ def build_and_export_graph():
                     
                 cnt_nodes = session.run("MATCH (n) RETURN count(n) AS cnt").single()["cnt"]
                 cnt_rels = session.run("MATCH ()-[r]->() RETURN count(r) AS cnt").single()["cnt"]
-                print(f"[Neo4j SUCCESS] Populated {cnt_nodes} nodes and {cnt_rels} relationships!")
+                print(f"[Neo4j SUCCESS] Populated {cnt_nodes} nodes and {cnt_rels} relationships with full Ontology labels!")
             driver.close()
         except Exception as err:
             print(f"[Neo4j Notice]: Neo4j driver connection error: {err}")
