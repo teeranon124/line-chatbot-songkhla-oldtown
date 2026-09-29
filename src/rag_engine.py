@@ -117,43 +117,64 @@ class SongkhlaRAGEngine:
     def verify_and_ground_answer(self, query: str, answer: str, context_str: str) -> str:
         """
         Universal Multi-Dimensional Anti-Hallucination Guardrail:
-        1. Phone Number Verification (Regex cross-check against context)
-        2. Operating Hours & Times Verification (Time digits against context)
-        3. Pricing & Fees Verification (Price digits against context)
-        4. Location & Street Consistency Validation (Knowledge Graph Ground Truth)
+        1. Phone Number Verification (Regex cross-check against context, supports (074), +66, and mobile formats)
+        2. Operating Hours & Times Verification (Strict time digit grounding against context; no false positive pass-through)
+        3. Pricing & Fees Verification (Price digits against context or free admission indicator)
+        4. Location & Street Consistency Validation (Entity-specific Graph Topology grounding; no cross-entity corruption)
         """
         clean_context = context_str.replace(" ", "")
 
-        # 1. Phone Numbers Guardrail
-        phone_matches = re.findall(r'\b0\d{1,2}[-\s]?\d{3,4}[-\s]?\d{3,4}\b', answer)
+        # 1. Phone Numbers Guardrail: Supports (074), +66, and standard formats
+        clean_ctx_digits = re.sub(r'\D', '', clean_context)
+        phone_pattern = r'(?:\+66[-\s]?\(?\d{1,2}\)?|\(?0\d{1,2}\)?)[-\s]?\d{3,4}[-\s]?\d{3,4}\b'
+        phone_matches = re.findall(phone_pattern, answer)
         if phone_matches:
-            clean_ctx_digits = re.sub(r'[-\s]', '', clean_context)
             for phone in phone_matches:
-                clean_phone = re.sub(r'[-\s]', '', phone)
-                if clean_phone not in clean_ctx_digits:
+                clean_phone_digits = re.sub(r'\D', '', phone)
+                if clean_phone_digits.startswith("66"):
+                    clean_phone_digits = "0" + clean_phone_digits[2:]
+                
+                # Verify if phone digits exist in context
+                if clean_phone_digits not in clean_ctx_digits and (clean_phone_digits[1:] not in clean_ctx_digits):
                     if any(k in query for k in ["เบอร์", "โทร", "ติดต่อ"]):
                         return "ขออภัยครับ ในฐานข้อมูลยังไม่มีการระบุเบอร์โทรศัพท์ติดต่อของสถานที่ดังกล่าว"
                     answer = re.sub(re.escape(phone), "[ไม่มีข้อมูลเบอร์]", answer)
 
-        # 2. Operating Hours & Times Guardrail
-        if any(k in query for k in ["เวลา", "กี่โมง", "เปิดกี่โมง", "ปิดกี่โมง", "เปิดปิด", "เวลาเปิด"]):
-            time_matches = re.findall(r'\b\d{1,2}[:.]\d{2}\s*(น\.|น|โมง)?\b', answer)
+        # 2. Operating Hours & Times Guardrail: Strict digit & format verification
+        if any(k in query for k in ["เวลา", "กี่โมง", "เปิดกี่โมง", "ปิดกี่โมง", "เปิดปิด", "เวลาเปิด", "เปิดทำ"]):
+            time_matches = re.findall(r'\b\d{1,2}[:.]\d{2}(?:\s*(?:น\.|น|โมง))?\b', answer)
             if time_matches:
-                ctx_has_time = any(tm in clean_context for tm in time_matches) or any(t in clean_context for t in ["เวลา", "เปิด", "ปิด"])
-                if not ctx_has_time:
+                ctx_normalized = clean_context.replace(".", ":")
+                time_in_ctx = False
+                for tm in time_matches:
+                    clean_tm = re.sub(r'[^\d:]', '', tm.replace(".", ":"))
+                    if clean_tm and clean_tm in ctx_normalized:
+                        time_in_ctx = True
+                        break
+                    tm_digits = re.sub(r'\D', '', tm)
+                    if len(tm_digits) >= 3 and tm_digits in re.sub(r'\D', '', clean_context):
+                        time_in_ctx = True
+                        break
+                if not time_in_ctx:
                     return "ขออภัยครับ ในฐานข้อมูลยังไม่ได้ระบุเวลาเปิด-ปิดที่แน่นอน แนะนำตรวจสอบกับทางสถานที่โดยตรงครับ"
 
-        # 3. Pricing & Admission Fees Guardrail
+        # 3. Pricing & Admission Fees Guardrail: Strict price grounding
         if any(k in query for k in ["ราคา", "ค่าเข้า", "กี่บาท", "เท่าไหร่", "ค่าบัตร"]):
-            price_matches = re.findall(r'\b\d{1,4}\s*(บาท|฿)\b', answer)
+            price_matches = re.findall(r'\b\d{1,5}\s*(?:บาท|฿)\b', answer)
             if price_matches:
-                ctx_has_price = any(pm in clean_context for pm in price_matches) or ("ฟรี" in clean_context and "ฟรี" in answer)
-                if not ctx_has_price:
+                ctx_digits = re.sub(r'\D', '', clean_context)
+                has_grounded_price = False
+                for pm in price_matches:
+                    pm_digits = re.sub(r'\D', '', pm)
+                    if pm_digits and pm_digits in ctx_digits:
+                        has_grounded_price = True
+                        break
+                if not has_grounded_price:
                     if "ฟรี" in clean_context:
                         return "สถานที่นี้เปิดให้เข้าชมฟรี ไม่มีค่าใช้จ่ายครับ"
                     return "ขออภัยครับ ในฐานข้อมูลยังไม่ได้ระบุราคาหรือค่าเข้าชมที่แน่ชัด แนะนำสอบถามหน้าร้านครับ"
 
-        # 4. Street / Location Knowledge Graph Ground-Truth Validation
+        # 4. Street / Location Knowledge Graph Ground-Truth Validation (Entity-Specific)
         known_locations = {
             "แต้เฮี้ยงอิ๋ว": "ถนนนางงาม",
             "เกียดฟั่ง": "ถนนนางงาม",
@@ -167,12 +188,22 @@ class SongkhlaRAGEngine:
             "กำแพงเมืองสงขลา": "ถนนจะนะ"
         }
         streets = ["ถนนนางงาม", "ถนนนครนอก", "ถนนนครใน", "ถนนพัทลุง", "ถนนจะนะ"]
+        all_entities = list(known_locations.keys())
+        
         for entity, correct_street in known_locations.items():
             if entity in answer:
                 for s in streets:
-                    if s in answer and s != correct_street:
-                        # Auto-correct street drift using Graph Topology
-                        answer = answer.replace(s, correct_street)
+                    if s != correct_street:
+                        # Negative lookahead ensures we only match within the entity's clause
+                        # and never bridge across another known entity or major sentence delimiter
+                        other_ents = '|'.join(re.escape(e) for e in all_entities if e != entity)
+                        stop_pattern = rf'(?:[。\.\n;]|ส่วน|และ|ขณะที่|{other_ents})'
+                        
+                        p1 = rf'({re.escape(entity)}(?:(?!{stop_pattern})[\s\S]){{0,40}}?)({re.escape(s)})'
+                        answer = re.sub(p1, rf'\g<1>{correct_street}', answer)
+                        
+                        p2 = rf'({re.escape(s)}(?:(?!{stop_pattern})[\s\S]){{0,40}}?)({re.escape(entity)})'
+                        answer = re.sub(p2, rf'{correct_street}\g<2>', answer)
 
         return answer
 

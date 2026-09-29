@@ -69,7 +69,7 @@ for b in bars2:
 
 # Subplot 3: CPU Latency (ms)
 bars3 = ax3.bar(names, latency, color=colors, edgecolor="black", width=0.55)
-ax3.set_title("3. ความเร็วในการ Encode บน CPU (Batch=15)\n*WangchanBERTa เบากว่าและเร็วกว่า mE5 3.3 เท่า*", fontsize=12, fontweight="bold")
+ax3.set_title("3. ความเร็วในการ Encode บน CPU (Batch=15)\n*WangchanBERTa เบากว่า mE5 2.6 เท่า และเร็วกว่า 22% (164.8 ms vs 200.9 ms)*", fontsize=12, fontweight="bold")
 ax3.set_ylabel("Latency (ms)")
 ax3.grid(axis="y", linestyle="--", alpha=0.5)
 for b in bars3:
