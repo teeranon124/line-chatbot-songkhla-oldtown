@@ -260,16 +260,16 @@
 
     <div class="grid">
         <!-- Chart 1 -->
-        <div class="card" onclick="openModal('chart1_embedding_benchmark.png', 'Chart 1: Embedding Benchmark (Fragmentation & Latency)', 'Multilingual MiniLM แตกคำไทยเฉลี่ย 7.8 tokens ต่อคำ ขณะที่ WangchanBERTa แตกเพียง 2.3 tokens ต่อคำ รักษาความหมายชื่อเฉพาะสงขลาได้ดีกว่า')">
+        <div class="card" onclick="openModal('chart1_embedding_benchmark.png', 'Chart 1: Embedding Benchmark (Fragmentation & Latency)', 'mE5 Prefix ทำได้ 0.917 แต่วังจันทร์ตามมาติดๆ ที่ 0.894 โดยวังจันทร์เบากว่า 2.6 เท่า (105.8M vs 278M) แตกคำเฉพาะน้อยกว่า (4.4 vs 5.2) และเมื่อผสาน BM25 จะชนะขาด')">
             <div class="img-wrapper">
                 <img src="chart1_embedding_benchmark.png" alt="Chart 1">
                 <div class="zoom-overlay"><span class="zoom-btn">🔍 คลิกดูภาพเต็ม</span></div>
             </div>
             <div class="card-body">
                 <div class="step-num c-1">STEP 1: EMBEDDING BENCHMARK</div>
-                <div class="card-title">1. Token Fragmentation Rate</div>
-                <div class="card-desc">พิสูจน์ว่าทำไม WangchanBERTa ถึงเหมาะกับภาษาไทยเมืองเก่าสงขลามากกว่า Multilingual ทั่วไป</div>
-                <div class="metric-pill">ผลลัพธ์: <strong>Wangchan 2.3</strong> vs <strong>MiniLM 7.8</strong> tokens/word</div>
+                <div class="card-title">1. Token Fragmentation & Size</div>
+                <div class="card-desc">พิสูจน์จุดเด่นของ Wangchan: โมเดลเบากว่า 2.6 เท่า (105.8M vs 278M) แตกคำเฉพาะน้อยกว่า (4.4 vs 5.2 tokens)</div>
+                <div class="metric-pill">ผลลัพธ์: <strong>Wangchan 4.4</strong> vs <strong>MiniLM/mE5 5.2</strong> tokens/word</div>
             </div>
         </div>
 
