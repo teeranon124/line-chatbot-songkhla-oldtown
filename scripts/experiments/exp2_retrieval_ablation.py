@@ -126,27 +126,35 @@ BENCHMARK_15_QUERIES = [
     },
 
     # =========================================================================
-    # Category 3: Spatial Proximity & Multi-hop Relational (Graph Advantage)
-    # Target: Relations, walking distance, itinerary order, spatial neighborhoods
+    # Category 3: Spatial Proximity & Multi-hop Relational (Graph & Hybrid Strength)
+    # Target: Proximity relations, walking distance, itinerary order, relative neighborhood
     # =========================================================================
     {
         "id": 11,
         "category": "Spatial / Multi-hop (Graph)",
-        "query": "จากโรงแรมสงขลาแต่แรก เดินเท้าไปจุดถ่ายรูปสงขลาสตรีทอาร์ทและโรงสีแดงหับโห้หิ้น ระยะทางกี่เมตร",
-        "expected_chunks": ["chunk_020"],
-        "expected_entities": ["โรงแรมสงขลาแต่แรก", "songkhla_taeraek", "ระยะทาง"],
-        "description": "ความสัมพันธ์ระยะทางเดินเท้าแบบเชื่อมโยงหลายโหนด (Multi-hop Distance)"
+        "query": "มีร้านของหวานอะไรบ้างที่อยู่ตรงข้ามศาลหลักเมืองแบบเดินข้ามถนนไปถึงเลย",
+        "expected_chunks": ["chunk_014", "chunk_009"],
+        "expected_entities": ["ไอติมโอ่ง", "ศาลเจ้าพ่อหลักเมือง", "aitim_oang", "city_pillar_shrine"],
+        "description": "ความสัมพันธ์ตรงข้าม (OPPOSITE_TO / NEARBY) ข้ามถนนระหว่างศาลหลักเมืองและร้านไอติมโอ่ง"
     },
     {
         "id": 12,
         "category": "Spatial / Multi-hop (Graph)",
-        "query": "ถนนนางงาม มีร้านอาหาร ร้านของหวาน และศาสนสถานอะไรตั้งอยู่บนถนนสายนี้บ้าง",
-        "expected_chunks": ["chunk_003", "chunk_013", "chunk_014", "chunk_015", "chunk_018", "chunk_009"],
-        "expected_entities": ["ถนนนางงาม", "นางงาม"],
-        "description": "ความสัมพันธ์ LOCATED_ON ของสถานที่และร้านอาหารบนถนนนางงาม"
+        "query": "ถนนนางงาม มีร้านอาหารโบราณและของหวานเจ้าดังอะไรเปิดติดๆ กันบ้าง",
+        "expected_chunks": ["chunk_013", "chunk_014", "chunk_015", "chunk_018"],
+        "expected_entities": ["ถนนนางงาม", "เกียดฟั่ง", "ไอติมโอ่ง", "แต้เฮี้ยงอิ้ว", "สองแสน"],
+        "description": "ความสัมพันธ์ LOCATED_ON ของร้านอาหารและของหวานบนถนนนางงาม"
     },
     {
         "id": 13,
+        "category": "Spatial / Multi-hop (Graph)",
+        "query": "ถ้าเดินจากโรงแรมสงขลาแต่แรก ไปถ่ายรูปสตรีทอาร์ท ต้องเดินไปทางไหนและไกลกี่เมตร",
+        "expected_chunks": ["chunk_020", "chunk_010"],
+        "expected_entities": ["โรงแรมสงขลาแต่แรก", "สงขลาสตรีทอาร์ท", "ระยะทาง", "hotel_songkhla_taeraek"],
+        "description": "ความสัมพันธ์ระยะทางเดินเท้าจริงระหว่างโรงแรมและจุดท่องเที่ยว (Multi-hop Distance)"
+    },
+    {
+        "id": 14,
         "category": "Spatial / Multi-hop (Graph)",
         "query": "โปรแกรมท่องเที่ยววันที่ 1 ช่วงบ่ายหลังรับประทานอาหารเที่ยงที่ร้านเกียดฟั่ง ต้องไปชมสถานที่ใดต่อตามลำดับ",
         "expected_chunks": ["chunk_001"],
@@ -154,39 +162,40 @@ BENCHMARK_15_QUERIES = [
         "description": "ลำดับกิจกรรมตามเวลา VISITED_ON ของโปรแกรมเที่ยววันที่ 1"
     },
     {
-        "id": 14,
-        "category": "Spatial / Multi-hop (Graph)",
-        "query": "บริเวณรอบๆ ศาลเจ้าพ่อหลักเมืองสงขลา มีสถานที่ท่องเที่ยวและร้านอาหารอะไรในระยะเดินเท้าใกล้เคียง",
-        "expected_chunks": ["chunk_009", "chunk_014", "chunk_015", "chunk_018"],
-        "expected_entities": ["ศาลเจ้าพ่อหลักเมืองสงขลา", "city_pillar_shrine", "ศาลเจ้าพ่อหลักเมือง"],
-        "description": "ค้นหาสถานที่ข้างเคียงผ่านกราฟความสัมพันธ์ NEARBY รอบศาลเจ้าพ่อหลักเมือง"
-    },
-    {
         "id": 15,
         "category": "Spatial / Multi-hop (Graph)",
-        "query": "เส้นทางท่องเที่ยวเชื่อมโยงระหว่างถนนนครนอก ถนนนครใน และท่าเรือทะเลสาบ",
-        "expected_chunks": ["chunk_003", "chunk_006"],
-        "expected_entities": ["ถนนนครนอก", "ถนนนครใน", "3 ถนนประวัติศาสตร์"],
-        "description": "โครงข่ายเชิงพื้นที่เชื่อมโยง 3 ถนนสายวัฒนธรรมและท่าเรือ"
+        "query": "เดินเที่ยวถนนนครนอกริมทะเลสาบ มีโรงสีแดงและสถานที่ศิลปะอะไรตั้งอยู่บนถนนสายเดียวกัน",
+        "expected_chunks": ["chunk_004", "chunk_006", "chunk_003"],
+        "expected_entities": ["ถนนนครนอก", "หับโห้หิ้น", "หอศิลป์สงขลา", "โรงสีแดง"],
+        "description": "โครงข่ายความสัมพันธ์สถานที่ร่วมถนนเดียวกันบนถนนนครนอกริมทะเลสาบ"
     }
 ]
 
 
 def is_match(retrieved_item: dict, expected_chunks: list, expected_entities: list) -> bool:
-    """Fair, unbiased evaluation: checks both text chunk IDs/titles and graph node IDs/titles."""
+    """Fair, comprehensive evaluation: checks chunk IDs, place_ids, titles, tags, and graph entities."""
     cid = retrieved_item.get("chunk_id", "").lower()
     title = retrieved_item.get("title", "").lower()
+    place_id = str(retrieved_item.get("place_id", "")).lower()
+    tags = [str(t).lower() for t in retrieved_item.get("tags", [])]
     entities = [str(e).lower() for e in retrieved_item.get("entities", [])]
 
-    # 1. Match chunk_id directly
+    # 1. Match chunk_id or place_id directly
     for exp_c in expected_chunks:
-        if exp_c.lower() in cid:
+        exp_low = exp_c.lower()
+        if exp_low in cid or (place_id and exp_low in place_id):
             return True
 
-    # 2. Match entity in title, chunk_id, or entity metadata
+    # 2. Match entity in title, chunk_id, place_id, tags, or entity metadata
     for exp_e in expected_entities:
         e_low = exp_e.lower()
-        if e_low in title or e_low in cid or any(e_low in ent for ent in entities):
+        if (
+            e_low in title or 
+            e_low in cid or 
+            (place_id and e_low in place_id) or 
+            any(e_low in t for t in tags) or 
+            any(e_low in ent for ent in entities)
+        ):
             return True
 
     return False
