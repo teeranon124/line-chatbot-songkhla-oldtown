@@ -137,7 +137,7 @@ class HybridRetriever:
         for rank, hit in enumerate(dense_hits):
             cid = hit["chunk_index"]
             if cid < len(self.chunks):
-                chunk = self.chunks[cid]
+                chunk = dict(self.chunks[cid])
                 key = chunk["chunk_id"]
                 chunk_map[key] = chunk
                 fused_scores[key] = fused_scores.get(key, 0.0) + w_dense / (rrf_k + rank + 1)
@@ -147,7 +147,7 @@ class HybridRetriever:
         for rank, hit in enumerate(sparse_hits):
             cid = hit["chunk_index"]
             if cid < len(self.chunks):
-                chunk = self.chunks[cid]
+                chunk = dict(self.chunks[cid])
                 key = chunk["chunk_id"]
                 chunk_map[key] = chunk
                 fused_scores[key] = fused_scores.get(key, 0.0) + w_sparse / (rrf_k + rank + 1)
@@ -168,11 +168,28 @@ class HybridRetriever:
                 key = matched_chunk["chunk_id"]
                 if key not in chunk_map:
                     chunk_map[key] = dict(matched_chunk)
-                # Augment text chunk with Knowledge Graph relational evidence
-                chunk_map[key]["graph_subgraph"] = g_chunk.get("content", "")
+                graph_content = g_chunk.get("content", "").strip()
+                if graph_content:
+                    # Preserve a structured graph-evidence contract for the
+                    # context builder while retaining the legacy field for
+                    # callers that still inspect graph_subgraph directly.
+                    graph_item = {
+                        "chunk_id": g_chunk.get("chunk_id"),
+                        "title": g_chunk.get("title"),
+                        "category": g_chunk.get("category", "Knowledge Graph"),
+                        "content": graph_content,
+                        "score": g_chunk.get("score")
+                    }
+                    graph_evidence = chunk_map[key].setdefault("graph_evidence", [])
+                    if not any(
+                        isinstance(item, dict) and item.get("content") == graph_content
+                        for item in graph_evidence
+                    ):
+                        graph_evidence.append(graph_item)
+                    chunk_map[key].setdefault("graph_subgraph", graph_content)
             else:
                 key = g_chunk["chunk_id"]
-                chunk_map[key] = g_chunk
+                chunk_map[key] = dict(g_chunk)
             fused_scores[key] = fused_scores.get(key, 0.0) + w_graph / (rrf_k + rank + 1)
 
         # Sort by fused score

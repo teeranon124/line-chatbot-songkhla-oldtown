@@ -93,6 +93,91 @@ class SongkhlaRAGEngine:
         except Exception as e:
             return f"Cloud API Error: {e}"
 
+    @staticmethod
+    def build_context(chunks: List[Dict[str, Any]]) -> str:
+        """Render retrieved text and graph evidence into the LLM context."""
+        context_parts = []
+
+        for i, chunk in enumerate(chunks, 1):
+            title = chunk.get("title") or f"เอกสารที่ {i}"
+            chunk_id = chunk.get("chunk_id")
+            source_page = chunk.get("source_page")
+            raw_content = chunk.get("content")
+            content = str(raw_content).strip() if raw_content is not None else ""
+            is_graph_only = chunk.get("category") == "Knowledge Graph"
+            evidence_blocks = []
+            seen_contents = set()
+
+            if content and not is_graph_only:
+                text_meta = [f"แหล่งข้อมูล: {title}"]
+                if chunk_id:
+                    text_meta.append(f"Chunk ID: {chunk_id}")
+                if source_page is not None:
+                    text_meta.append(f"หน้า: {source_page}")
+                evidence_blocks.append(
+                    "[หลักฐานข้อความ]\n"
+                    + "\n".join(text_meta)
+                    + f"\nเนื้อหา:\n{content}"
+                )
+                seen_contents.add(content)
+
+            graph_evidence = chunk.get("graph_evidence", [])
+            if not isinstance(graph_evidence, list):
+                graph_evidence = []
+
+            if is_graph_only and content:
+                graph_evidence = [{
+                    "chunk_id": chunk_id,
+                    "title": title,
+                    "content": content
+                }, *graph_evidence]
+
+            # Support hybrid results created before graph_evidence was added.
+            raw_legacy_graph = chunk.get("graph_subgraph")
+            legacy_graph_content = (
+                str(raw_legacy_graph).strip() if raw_legacy_graph is not None else ""
+            )
+            if legacy_graph_content:
+                graph_evidence = [*graph_evidence, {
+                    "title": title,
+                    "content": legacy_graph_content
+                }]
+
+            for graph_item in graph_evidence:
+                if isinstance(graph_item, str):
+                    graph_title = "Knowledge Graph"
+                    graph_chunk_id = None
+                    graph_content = graph_item.strip()
+                elif isinstance(graph_item, dict):
+                    graph_title = graph_item.get("title") or "Knowledge Graph"
+                    graph_chunk_id = graph_item.get("chunk_id")
+                    raw_graph_content = graph_item.get("content")
+                    graph_content = (
+                        str(raw_graph_content).strip() if raw_graph_content is not None else ""
+                    )
+                else:
+                    continue
+
+                if not graph_content or graph_content in seen_contents:
+                    continue
+
+                graph_meta = [f"แหล่งข้อมูลกราฟ: {graph_title}"]
+                if graph_chunk_id:
+                    graph_meta.append(f"Graph Chunk ID: {graph_chunk_id}")
+                evidence_blocks.append(
+                    "[หลักฐานกราฟ]\n"
+                    + "\n".join(graph_meta)
+                    + f"\nความสัมพันธ์ที่ค้นคืน:\n{graph_content}"
+                )
+                seen_contents.add(graph_content)
+
+            if evidence_blocks:
+                context_parts.append(
+                    f"--- [หลักฐานลำดับที่ {i}] ---\n" + "\n\n".join(evidence_blocks)
+                )
+
+        return "\n\n".join(context_parts)
+
     def generate(
         self,
         query: str,
@@ -109,13 +194,8 @@ class SongkhlaRAGEngine:
         # 1. Retrieve Context
         chunks = self.retriever.retrieve(query, top_k=top_k, mode=mode)
         
-        # 2. Build Context String
-        context_parts = []
-        for i, c in enumerate(chunks, 1):
-            title = c.get("title", f"เอกสารที่ {i}")
-            content = c.get("content", "").strip()
-            context_parts.append(f"--- [เอกสารที่ {i}: {title}] ---\n{content}\n")
-        context_str = "\n".join(context_parts)
+        # 2. Build structured text + graph context for the selected LLM.
+        context_str = self.build_context(chunks)
 
         # 3. Model Routing
         if target_llm in ["groq", "api", "cloud"]:
