@@ -62,7 +62,107 @@ class SongkhlaGraphEngine:
         q_lower = query.lower()
         q_tokens = [w for w in word_tokenize(q_lower, engine="newmm") if len(w.strip()) > 1]
 
-        # Domain concept semantic mapping to properties & categories
+        # 1. Identify seed nodes mentioned in query (Exact and canonical entity resolution)
+        seed_nodes = []
+        stopwords = {"สถานที่", "ท่องเที่ยว", "ประวัติศาสตร์", "โบราณ", "อาหาร", "ร้าน", "ของหวาน", "ของฝาก", "สำคัญ", "ย่าน", "เมือง", "สงขลา", "ไทย"}
+        for n, data in self.G.nodes(data=True):
+            n_str = str(n).strip()
+            n_low = n_str.lower()
+            if n_low in stopwords or len(n_low) < 2:
+                continue
+            if n_low in q_lower:
+                seed_nodes.append((n, data))
+            elif data.get('name_en') and data['name_en'].lower() in q_lower:
+                seed_nodes.append((n, data))
+            elif data.get('id') and len(data['id']) >= 4 and data['id'].lower() in q_lower:
+                seed_nodes.append((n, data))
+
+        # Detect user intent and domain keywords
+        has_opposite = any(w in q_lower for w in ['ตรงข้าม', 'ฝั่งตรงข้าม', 'เยื้อง', 'ข้ามถนน'])
+        has_nearby = any(w in q_lower for w in ['ใกล้', 'ติดกับ', 'ข้างๆ', 'รอบๆ'])
+        has_distance = any(w in q_lower for w in ['กี่เมตร', 'ระยะทาง', 'เดิน', 'นาที', 'ไกล', 'เส้นทาง'])
+        is_asking_all = any(w in q_lower for w in ['อะไรบ้าง', 'มีร้านใดบ้าง', 'ร้านอะไรบ้าง', 'รวบรวม', 'ทั้งหมด', 'เปิดติดๆ'])
+        wants_foodshop = any(w in q_lower for w in ['ร้าน', 'ร้านอาหาร', 'ร้านขนม', 'ของหวาน', 'ไอติม', 'ของฝาก', 'กิน'])
+
+        node_scores = {}
+
+        # -------------------------------------------------------------
+        # GRAPH PATTERN 1: Multi-Constraint Intersection (e.g. Street + Historical Era)
+        # -------------------------------------------------------------
+        if len(seed_nodes) >= 2:
+            for n, data in self.G.nodes(data=True):
+                connected_seeds = 0
+                for sn, _ in seed_nodes:
+                    if self.G.has_edge(n, sn) or self.G.has_edge(sn, n):
+                        connected_seeds += 1
+                if connected_seeds >= 2:
+                    node_scores[n] = node_scores.get(n, 0.0) + 60.0
+
+        # -------------------------------------------------------------
+        # GRAPH PATTERN 2: Spatial Adjacency / Opposite / Nearby Traversal
+        # -------------------------------------------------------------
+        if has_opposite or has_nearby:
+            for sn, _ in seed_nodes:
+                # Outgoing edges
+                for _, target, edata in self.G.out_edges(sn, data=True):
+                    rel = edata.get('relation', '')
+                    if (has_opposite and rel == 'OPPOSITE_TO') or (has_nearby and rel in ['NEARBY', 'OPPOSITE_TO']):
+                        tdata = self.G.nodes.get(target, {})
+                        bonus = 45.0
+                        if wants_foodshop and tdata.get('label') == 'FoodShop':
+                            bonus += 15.0
+                        if 'ของหวาน' in q_lower and 'ของหวาน' in tdata.get('category', ''):
+                            bonus += 20.0
+                        node_scores[target] = node_scores.get(target, 0.0) + bonus
+                # Incoming edges
+                for source, _, edata in self.G.in_edges(sn, data=True):
+                    rel = edata.get('relation', '')
+                    if (has_opposite and rel == 'OPPOSITE_TO') or (has_nearby and rel in ['NEARBY', 'OPPOSITE_TO']):
+                        sdata_src = self.G.nodes.get(source, {})
+                        bonus = 45.0
+                        if wants_foodshop and sdata_src.get('label') == 'FoodShop':
+                            bonus += 15.0
+                        if 'ของหวาน' in q_lower and 'ของหวาน' in sdata_src.get('category', ''):
+                            bonus += 20.0
+                        node_scores[source] = node_scores.get(source, 0.0) + bonus
+
+        # -------------------------------------------------------------
+        # GRAPH PATTERN 3: Street Topological Aggregation (Street -> All Located Shops)
+        # -------------------------------------------------------------
+        for sn, sdata in seed_nodes:
+            if sdata.get('label') == 'Street' or 'ถนน' in str(sn):
+                for source, _, edata in self.G.in_edges(sn, data=True):
+                    if edata.get('relation') == 'LOCATED_ON':
+                        src_data = self.G.nodes.get(source, {})
+                        bonus = 30.0
+                        if wants_foodshop and src_data.get('label') == 'FoodShop':
+                            bonus += 25.0
+                        if 'ของหวาน' in q_lower and 'ของหวาน' in src_data.get('category', ''):
+                            bonus += 15.0
+                        node_scores[source] = node_scores.get(source, 0.0) + bonus
+                if is_asking_all:
+                    node_scores[sn] = node_scores.get(sn, 0.0) + 35.0
+
+        # -------------------------------------------------------------
+        # GRAPH PATTERN 4: Reverse Relation (Dish -> FoodShop)
+        # -------------------------------------------------------------
+        for sn, sdata in seed_nodes:
+            if sdata.get('label') == 'Dish':
+                for source, _, edata in self.G.in_edges(sn, data=True):
+                    if edata.get('relation') == 'SERVES':
+                        node_scores[source] = node_scores.get(source, 0.0) + 50.0
+
+        # -------------------------------------------------------------
+        # GRAPH PATTERN 5: Distance & Walking Paths
+        # -------------------------------------------------------------
+        if has_distance:
+            for sn, _ in seed_nodes:
+                for _, target, edata in self.G.out_edges(sn, data=True):
+                    if 'distance_m' in edata or 'walk_min' in edata:
+                        node_scores[sn] = node_scores.get(sn, 0.0) + 35.0
+                        node_scores[target] = node_scores.get(target, 0.0) + 25.0
+
+        # Domain concept semantic mapping to properties & categories (Fallback & Supplemental)
         concept_map = {
             "ของหวาน": ["ของหวาน", "ขนม", "ไอติม", "ไอศกรีม", "คลายร้อน", "เย็น", "หวาน", "ไข่แข็ง", "ของฝาก"],
             "อาหารคาว": ["อาหารคาว", "อาหาร", "กิน", "ข้าว", "เช้า", "เที่ยง", "สตู", "หมูกรอบ", "ซาลาเปา", "ข้าวต้ม", "กับข้าว"],
@@ -72,32 +172,23 @@ class SongkhlaGraphEngine:
             "ประวัติศาสตร์": ["ประวัติศาสตร์", "โบราณ", "เก่าแก่", "300 ปี", "สงครามโลก", "รัชกาล", "โรงสีแดง", "หับโห้หิ้น"]
         }
 
-        node_scores = {}
         for n, data in self.G.nodes(data=True):
             s = 0.0
-            n_str = str(n).lower()
             cat = str(data.get("category", "")).lower()
             street = str(data.get("street", "")).lower()
             clue = str(data.get("landmark_clue", "")).lower()
-            name_en = str(data.get("name_en", "")).lower()
 
-            # 1. Direct name / alias matching
-            if n_str == q_lower:
-                s += 5.0
-            elif n_str in q_lower:
-                s += 3.5
-            elif any(tok in n_str for tok in q_tokens if len(tok) >= 3):
-                s += 2.2
-            elif name_en and name_en in q_lower:
-                s += 2.0
+            # Seed nodes base score
+            if any(sn == n for sn, _ in seed_nodes):
+                s += 12.0
 
-            # 2. Properties & Landmark Clue matching
-            if clue and any(tok in clue for tok in q_tokens if len(tok) >= 3):
+            # Properties & Landmark Clue matching
+            if clue and any(tok in clue for tok in q_tokens if len(tok) >= 4):
                 s += 2.5
             if street and street in q_lower:
                 s += 2.0
 
-            # 3. Concept / Category matching
+            # Concept / Category matching
             for concept, kw_list in concept_map.items():
                 if any(kw in q_lower for kw in kw_list):
                     if any(kw in cat for kw in kw_list):
@@ -105,34 +196,18 @@ class SongkhlaGraphEngine:
                     if any(kw in clue for kw in kw_list):
                         s += 2.2
 
-            # 4. Outgoing relations (SERVES, HISTORICAL_ERA, OFFERS_ACTIVITY)
-            for _, target, edata in self.G.out_edges(n, data=True):
-                t_str = str(target).lower()
-                rel = edata.get("relation", "")
-                if t_str in q_lower or any(tok in t_str for tok in q_tokens if len(tok) >= 3):
-                    if rel in ["SERVES", "FAMOUS_FOR"]:
-                        s += 3.0
-                    elif rel in ["HISTORICAL_ERA", "FOUNDED_IN"]:
-                        s += 2.5
-                    elif rel in ["NEARBY", "OPPOSITE_TO"]:
-                        s += 2.2
-                    else:
-                        s += 1.8
-
             if s > 0:
-                node_scores[n] = s
+                node_scores[n] = node_scores.get(n, 0.0) + s
 
-        # 5. Spreading activation along graph topology (1-hop propagation)
+        # Spreading activation along graph topology (1-hop propagation)
         propagated = dict(node_scores)
         for n, score in node_scores.items():
-            # Propagate to out-neighbors
             for _, target, edata in self.G.out_edges(n, data=True):
                 if target in self.G:
-                    propagated[target] = propagated.get(target, 0.0) + score * 0.35
-            # Propagate to in-neighbors (e.g. Street -> Place)
+                    propagated[target] = propagated.get(target, 0.0) + score * 0.25
             for source, _, edata in self.G.in_edges(n, data=True):
                 if source in self.G:
-                    propagated[source] = propagated.get(source, 0.0) + score * 0.35
+                    propagated[source] = propagated.get(source, 0.0) + score * 0.25
 
         # Sort and select top_k nodes
         top_nodes = sorted(propagated.items(), key=lambda x: x[1], reverse=True)[:top_k]

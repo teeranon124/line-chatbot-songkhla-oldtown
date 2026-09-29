@@ -56,6 +56,8 @@ def build_and_export_graph():
             category=e["category"],
             street=e["street"],
             address=e["address"],
+            landmark_clue=e.get("landmark_clue", ""),
+            signature_items=e.get("signature_items", []),
             open_hours=e["open_hours"],
             open_days=e["open_days"],
             price_range=e["price_range"],

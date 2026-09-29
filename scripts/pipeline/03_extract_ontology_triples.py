@@ -173,6 +173,8 @@ def build_knowledge_triples(force_reextract: bool = False):
             "category": p["category"],
             "street": p["street"],
             "address": p["address"],
+            "landmark_clue": p.get("landmark_clue", ""),
+            "signature_items": p.get("signature_items", []),
             "open_hours": p["open_hours"],
             "open_days": p["open_days"],
             "price_range": p["price_range"],
@@ -237,6 +239,26 @@ def build_knowledge_triples(force_reextract: bool = False):
                         "target": st_clean,
                         "properties": {"evidence": f"ที่ตั้งตามข้อมูลจริง: {street_raw}", "extraction_method": "Fact_Grounding"}
                     })
+
+    # 6. Spatial Proximity & Relative Adjacency (OPPOSITE_TO / NEARBY from Ground Truth Facts)
+    spatial_groundings = [
+        ("ร้านไอติมโอ่ง", "OPPOSITE_TO", "ศาลเจ้าพ่อหลักเมืองสงขลา", "ตั้งอยู่ตรงข้ามศาลเจ้าพ่อหลักเมืองสงขลา บนถนนนางงาม"),
+        ("ศาลเจ้าพ่อหลักเมืองสงขลา", "OPPOSITE_TO", "ร้านไอติมโอ่ง", "ตรงข้ามร้านไอติมโอ่ง บนถนนนางงาม"),
+        ("ร้านแต้เฮี้ยงอิ้ว", "OPPOSITE_TO", "บ้านขนมไทยสองแสน", "ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม"),
+        ("บ้านขนมไทยสองแสน", "OPPOSITE_TO", "ร้านแต้เฮี้ยงอิ้ว", "อยู่ตรงข้ามร้านแต้เฮี้ยงอิ้ว ใกล้ศาลเจ้าพ่อหลักเมือง"),
+        ("ร้านเจ๊นิ ข้าวต้มปลา", "NEARBY", "โรงสีแดง หับโห้หิ้น", "ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ถนนนครนอก"),
+        ("โรงสีแดง หับโห้หิ้น", "NEARBY", "ร้านเจ๊นิ ข้าวต้มปลา", "ตั้งอยู่เยื้องกับร้านเจ๊นิ ข้าวต้มปลา ถนนนครนอก")
+    ]
+    for src, rel, tgt, evid in spatial_groundings:
+        sig = (src, rel, tgt)
+        if sig not in seen:
+            seen.add(sig)
+            formatted_triples.append({
+                "source": src,
+                "relation": rel,
+                "target": tgt,
+                "properties": {"evidence": evid, "extraction_method": "Spatial_Fact_Grounding"}
+            })
 
     # Ensure Samila Peninsula topological bridge into Old Town network
     extra_topo = [

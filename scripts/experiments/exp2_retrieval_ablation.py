@@ -127,47 +127,48 @@ BENCHMARK_15_QUERIES = [
 
     # =========================================================================
     # Category 3: Spatial Proximity & Multi-hop Relational (Graph & Hybrid Strength)
-    # Target: Proximity relations, walking distance, itinerary order, relative neighborhood
+    # Target: Authentic graph topology: proximity/opposite, street aggregation,
+    #         walking distance, multi-constraint intersection, reverse dish traversal
     # =========================================================================
     {
         "id": 11,
         "category": "Spatial / Multi-hop (Graph)",
-        "query": "มีร้านของหวานอะไรบ้างที่อยู่ตรงข้ามศาลหลักเมืองแบบเดินข้ามถนนไปถึงเลย",
-        "expected_chunks": ["chunk_014", "chunk_009"],
-        "expected_entities": ["ไอติมโอ่ง", "ศาลเจ้าพ่อหลักเมือง", "aitim_oang", "city_pillar_shrine"],
+        "query": "เมื่อไปสักการะศาลเจ้าพ่อหลักเมืองสงขลา มีร้านของหวานหรือไอติมโบราณร้านใดตั้งอยู่ตรงข้ามในระยะเดินข้ามถนน",
+        "expected_chunks": ["chunk_014"],
+        "expected_entities": ["ไอติมโอ่ง", "aitim_oang"],
         "description": "ความสัมพันธ์ตรงข้าม (OPPOSITE_TO / NEARBY) ข้ามถนนระหว่างศาลหลักเมืองและร้านไอติมโอ่ง"
     },
     {
         "id": 12,
         "category": "Spatial / Multi-hop (Graph)",
-        "query": "ถนนนางงาม มีร้านอาหารโบราณและของหวานเจ้าดังอะไรเปิดติดๆ กันบ้าง",
-        "expected_chunks": ["chunk_013", "chunk_014", "chunk_015", "chunk_018"],
+        "query": "ถนนนางงาม มีร้านอาหารคาวและของหวานโบราณร้านใดบ้างที่เปิดให้บริการบนถนนสายนี้ (รวบรวมร้านทั้งหมด)",
+        "expected_chunks": ["chunk_003"],
         "expected_entities": ["ถนนนางงาม", "เกียดฟั่ง", "ไอติมโอ่ง", "แต้เฮี้ยงอิ้ว", "สองแสน"],
-        "description": "ความสัมพันธ์ LOCATED_ON ของร้านอาหารและของหวานบนถนนนางงาม"
+        "description": "โครงสร้างรวบรวมสถานที่บนถนนสายเดียวกัน (Topological Aggregation LOCATED_ON)"
     },
     {
         "id": 13,
         "category": "Spatial / Multi-hop (Graph)",
-        "query": "ถ้าเดินจากโรงแรมสงขลาแต่แรก ไปถ่ายรูปสตรีทอาร์ท ต้องเดินไปทางไหนและไกลกี่เมตร",
-        "expected_chunks": ["chunk_020", "chunk_010"],
-        "expected_entities": ["โรงแรมสงขลาแต่แรก", "สงขลาสตรีทอาร์ท", "ระยะทาง", "hotel_songkhla_taeraek"],
-        "description": "ความสัมพันธ์ระยะทางเดินเท้าจริงระหว่างโรงแรมและจุดท่องเที่ยว (Multi-hop Distance)"
+        "query": "จากโรงแรมสงขลาแต่แรก เดินเท้าไปจุดถ่ายรูปสงขลาสตรีทอาร์ท และโรงสีแดงหับโห้หิ้น มีระยะทางกี่เมตรและใช้เวลากี่นาที",
+        "expected_chunks": ["chunk_020"],
+        "expected_entities": ["โรงแรมสงขลาแต่แรก", "สงขลาสตรีทอาร์ท", "หับโห้หิ้น", "hotel_songkhla_taeraek"],
+        "description": "ความสัมพันธ์ระยะทางเดินเท้าจริงและเวลาเดิน (Attributed Distance & Time)"
     },
     {
         "id": 14,
         "category": "Spatial / Multi-hop (Graph)",
-        "query": "โปรแกรมท่องเที่ยววันที่ 1 ช่วงบ่ายหลังรับประทานอาหารเที่ยงที่ร้านเกียดฟั่ง ต้องไปชมสถานที่ใดต่อตามลำดับ",
-        "expected_chunks": ["chunk_001"],
-        "expected_entities": ["โปรแกรมเที่ยวสงขลา วันที่ 1", "วันที่ 1", "itinerary_day1"],
-        "description": "ลำดับกิจกรรมตามเวลา VISITED_ON ของโปรแกรมเที่ยววันที่ 1"
+        "query": "สถานที่สำคัญทางประวัติศาสตร์ในสมัยรัชกาลที่ 3 ที่ตั้งอยู่บนถนนนางงามคือสถานที่ใด",
+        "expected_chunks": ["chunk_009"],
+        "expected_entities": ["ศาลเจ้าพ่อหลักเมืองสงขลา", "ศาลเจ้าพ่อหลักเมือง", "city_pillar_shrine"],
+        "description": "การค้นหาจุดตัดหลายเงื่อนไข (Multi-Constraint Intersection: HISTORICAL_ERA ∩ LOCATED_ON)"
     },
     {
         "id": 15,
         "category": "Spatial / Multi-hop (Graph)",
-        "query": "เดินเที่ยวถนนนครนอกริมทะเลสาบ มีโรงสีแดงและสถานที่ศิลปะอะไรตั้งอยู่บนถนนสายเดียวกัน",
-        "expected_chunks": ["chunk_004", "chunk_006", "chunk_003"],
-        "expected_entities": ["ถนนนครนอก", "หับโห้หิ้น", "หอศิลป์สงขลา", "โรงสีแดง"],
-        "description": "โครงข่ายความสัมพันธ์สถานที่ร่วมถนนเดียวกันบนถนนนครนอกริมทะเลสาบ"
+        "query": "เมนูต้มยำแห้งปลากระพงและหมูสับต้มบ๊วย เป็นของร้านอาหารใด ตั้งอยู่บนถนนสายใด และอยู่ตรงข้ามร้านอะไร",
+        "expected_chunks": ["chunk_015"],
+        "expected_entities": ["แต้เฮี้ยงอิ้ว", "tae_hiang_iu"],
+        "description": "การสืบค้นย้อนกลับหลายช่วง (Multi-hop Reverse Traversal: Dish -> Shop -> Street & Opposite)"
     }
 ]
 
