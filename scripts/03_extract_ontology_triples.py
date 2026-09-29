@@ -15,7 +15,9 @@ import os
 import sys
 import json
 import argparse
+import re
 from pathlib import Path
+from typing import List, Dict, Any
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
@@ -58,46 +60,70 @@ def classify_price_tier(price_str: str, cat: str) -> str:
     return "ระดับมาตรฐาน"
 
 
+import difflib
+
+def load_canonical_catalog() -> List[str]:
+    """Dynamically builds master canonical entity catalog from facts and ontology schema."""
+    catalog = []
+    if FACTS_PATH.exists():
+        with open(FACTS_PATH, "r", encoding="utf-8") as f:
+            facts = json.load(f)
+        for p in facts:
+            clean_name = re.sub(r'\(.*?\)', '', p.get("name", "")).strip()
+            if clean_name:
+                catalog.append(clean_name)
+    # Add canonical streets and major landmarks
+    streets = [
+        "ถนนนางงาม", "ถนนนครนอก", "ถนนนครใน", "ถนนเพชรคีรี", "ถนนรามัญ",
+        "ถนนจะนะ", "ถนนสุขุม", "ถนนทะเลหลวง", "ถนนสะเดา", "ถนนพัทลุง", "ถนนยะหริ่ง",
+        "แหลมสมิหลา", "หาดชลาทัศน์", "เขาตังกวน"
+    ]
+    catalog.extend(streets)
+    return list(dict.fromkeys(catalog))
+
+
+CANONICAL_CATALOG = None
+
 def normalize_node_name(raw_name: str) -> str:
-    import re
+    """
+    Algorithmic Entity Resolution using Subsequence and Levenshtein Distance (difflib).
+    Eliminates all hardcoded if-else dictionaries.
+    """
+    global CANONICAL_CATALOG
+    if CANONICAL_CATALOG is None:
+        CANONICAL_CATALOG = load_canonical_catalog()
+
     name = raw_name.strip()
-    clean = re.sub(r'\s+', '', name)
-    if 'แต้เฮียง' in clean or 'แต้เฮี้ยง' in clean:
-        return 'ร้านแต้เฮี้ยงอิ้ว'
-    if 'มอนทาน' in clean or 'montana' in clean.lower():
-        return 'โรงแรมมอนทาน่า'
-    if 'คลับทรี' in clean or 'clubtree' in clean.lower():
-        return 'โรงแรมคลับทรี'
-    if 'สงขลาแต่แรก' in clean or 'taeraek' in clean.lower():
-        return 'โรงแรมสงขลาแต่แรก'
-    if 'รถราง' in clean or 'singora' in clean.lower():
-        return 'รถรางชมเมืองสงขลา'
-    if 'เกียดฟั่ง' in clean or 'kiatfang' in clean.lower():
-        return 'ร้านเกียดฟั่ง'
-    if 'เจ๊นิ' in clean or 'jaeni' in clean.lower():
-        return 'ร้านเจ๊นิ'
-    if 'ไอติมโอ่ง' in clean or 'aitimoang' in clean.lower():
-        return 'ร้านไอติมโอ่ง'
-    if 'สองแสน' in clean:
-        return 'บ้านขนมไทยสองแสน'
-    if 'หับโห้หิ้น' in clean or 'โรงสีแดง' in clean:
-        return 'โรงสีแดง หับโห้หิ้น'
-    if 'สงขลาสเตชั่น' in clean or 'station' in clean.lower():
-        return 'สงขลาสเตชั่น'
-    if 'หอศิลป์' in clean:
-        return 'หอศิลป์สงขลา'
-    if 'จีน300' in clean:
-        return 'บ้านจีน 300 ปี'
-    if 'สงครามโลก' in clean:
-        return 'บ้านสงครามโลก'
-    if 'หลักเมือง' in clean:
-        return 'ศาลเจ้าพ่อหลักเมืองสงขลา'
-    if 'สตรีทอาร์ท' in clean or 'streetart' in clean.lower():
-        return 'สงขลาสตรีทอาร์ท'
-    if 'ตังกวน' in clean:
-        return 'เขาตังกวน'
-    if 'นครใน' in clean and 'ถนน' not in clean:
-        return 'บ้านนครใน'
+    clean = re.sub(r'[\s\(\)\-\_]+', '', name)
+    root = re.sub(r'^(ร้าน|โรงแรม|ถนน|บ้าน)', '', clean)
+    
+    best_cand = None
+    best_score = 0.0
+
+    for cand in CANONICAL_CATALOG:
+        c_clean = re.sub(r'[\s\(\)\-\_]+', '', cand)
+        c_root = re.sub(r'^(ร้าน|โรงแรม|ถนน|บ้าน)', '', c_clean)
+        
+        # Exact match
+        if clean == c_clean:
+            return cand
+            
+        # Core root substring matching
+        if len(root) >= 3 and len(c_root) >= 3:
+            if root in c_root or c_root in root:
+                score = 0.90 + min(len(root), len(c_root)) / max(len(root), len(c_root)) * 0.10
+                if score > best_score:
+                    best_score = score
+                    best_cand = cand
+            else:
+                # Levenshtein ratio on core morphological root
+                sim = difflib.SequenceMatcher(None, root, c_root).ratio()
+                if sim >= 0.65 and sim > best_score:
+                    best_score = sim
+                    best_cand = cand
+
+    if best_cand and best_score >= 0.65:
+        return best_cand
     return raw_name.strip()
 
 

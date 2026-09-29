@@ -75,7 +75,7 @@
     {
       "id": "jae_ni",
       "label": "FoodShop",
-      "name": "ร้านเจ๊นิ",
+      "name": "ร้านเจ๊นิ ข้าวต้มปลา",
       "name_full": "ร้านเจ๊นิ ข้าวต้มปลา (สาขาโรงสีแดง)",
       "name_en": "Jae Ni Fish Porridge (Hub Ho Hin Branch)",
       "category": "อาหารคาว",
@@ -243,7 +243,7 @@
     {
       "id": "songkhla_street_art",
       "label": "Place",
-      "name": "สงขลาสตรีทอาร์ท",
+      "name": "สงขลา สตรีทอาร์ท",
       "name_full": "สงขลา สตรีทอาร์ท (Street Art)",
       "name_en": "Songkhla Old Town Street Art",
       "category": "จุดถ่ายภาพ / ศิลปะกลางแจ้ง",
@@ -369,7 +369,7 @@
     {
       "id": "hotel_montana",
       "label": "Hotel",
-      "name": "โรงแรมมอนทาน่า",
+      "name": "โรงแรมมอนทาน่า สงขลา",
       "name_full": "โรงแรมมอนทาน่า สงขลา (Montana Hotel)",
       "name_en": "Montana Hotel Songkhla",
       "category": "โรงแรม / ที่พัก",
@@ -440,7 +440,7 @@
       }
     },
     {
-      "source": "ร้านเจ๊นิ",
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา",
       "relation": "SERVES",
       "target": "ข้าวต้มปลากะพงและบะหมี่",
       "properties": {
@@ -452,7 +452,7 @@
     {
       "source": "บ้านขนมไทยสองแสน",
       "relation": "NEARBY",
-      "target": "ร้านเจ๊นิ",
+      "target": "ร้านเจ๊นิ ข้าวต้มปลา",
       "properties": {
         "evidence": "แวะซื้อของฝากขนมไทยโบราณ ทองเอก สัมปันนี ที่ ร้านบ้านขนมไทยสองแสน",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -525,6 +525,16 @@
       "target": "รัชกาลที่ 6",
       "properties": {
         "evidence": "ถนนเก้าห้อง สร้างขึ้นในสมัยรัชกาลที่ 6",
+        "extracted_by": "Ollama_Qwen2.5_3B",
+        "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "หอศิลป์สงขลา",
+      "relation": "CONNECTS_TO",
+      "target": "โรงสีเก่าดัดแปลงเป็นหอศิลป์",
+      "properties": {
+        "evidence": "ที่ตั้ง / ถนน: ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -772,7 +782,7 @@
     {
       "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
       "relation": "OFFERS_ACTIVITY",
-      "target": "สงขลาสตรีทอาร์ท",
+      "target": "สงขลา สตรีทอาร์ท",
       "properties": {
         "evidence": "ภายใน ศาลหลักเมืองเป็นที่ประดิษฐานของเสา หลักเมืองสงขลา ซึ่ง พระบาทสมเด็จพระ นั่ งเกล้าเจ้าอยู่หัวรัชกาล ที่ 3 ได้ทรง โปรดเกล้าฯพระราชทานในโอกาสที่จะ ทำการสถาปนาเมืองสงขลาใหม่ที่บ่อยาง",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -790,7 +800,7 @@
       }
     },
     {
-      "source": "สงขลาสตรีทอาร์ท",
+      "source": "สงขลา สตรีทอาร์ท",
       "relation": "LOCATED_ON",
       "target": "ถนนนางงาม",
       "properties": {
@@ -800,7 +810,7 @@
       }
     },
     {
-      "source": "สงขลาสตรีทอาร์ท",
+      "source": "สงขลา สตรีทอาร์ท",
       "relation": "LOCATED_ON",
       "target": "ถนนนครนอก",
       "properties": {
@@ -810,7 +820,7 @@
       }
     },
     {
-      "source": "สงขลาสตรีทอาร์ท",
+      "source": "สงขลา สตรีทอาร์ท",
       "relation": "LOCATED_ON",
       "target": "ถนนนครใน",
       "properties": {
@@ -820,7 +830,7 @@
       }
     },
     {
-      "source": "สงขลาสตรีทอาร์ท",
+      "source": "สงขลา สตรีทอาร์ท",
       "relation": "LOCATED_ON",
       "target": "ถนนเพชรคีรี",
       "properties": {
@@ -830,7 +840,7 @@
       }
     },
     {
-      "source": "สงขลาสตรีทอาร์ท",
+      "source": "สงขลา สตรีทอาร์ท",
       "relation": "LOCATED_ON",
       "target": "ถนนจะนะ",
       "properties": {
@@ -840,7 +850,7 @@
       }
     },
     {
-      "source": "สงขลาสตรีทอาร์ท",
+      "source": "สงขลา สตรีทอาร์ท",
       "relation": "LOCATED_ON",
       "target": "ถนนสุขุม",
       "properties": {
@@ -850,7 +860,7 @@
       }
     },
     {
-      "source": "สงขลาสตรีทอาร์ท",
+      "source": "สงขลา สตรีทอาร์ท",
       "relation": "LOCATED_ON",
       "target": "ถนนทะเลหลวง",
       "properties": {
@@ -860,7 +870,7 @@
       }
     },
     {
-      "source": "สงขลาสตรีทอาร์ท",
+      "source": "สงขลา สตรีทอาร์ท",
       "relation": "LOCATED_ON",
       "target": "ถนนสะเดา",
       "properties": {
@@ -870,7 +880,7 @@
       }
     },
     {
-      "source": "สงขลาสตรีทอาร์ท",
+      "source": "สงขลา สตรีทอาร์ท",
       "relation": "LOCATED_ON",
       "target": "ย่านเมืองเก่าสงขลา",
       "properties": {
@@ -952,7 +962,7 @@
     {
       "source": "เขาตังกวน",
       "relation": "OFFERS_ACTIVITY",
-      "target": "สงขลาสตรีทอาร์ท",
+      "target": "สงขลา สตรีทอาร์ท",
       "properties": {
         "evidence": "จากโรงแรมสงขลาแต่แรก เดินไป สตรีทอาร์ท",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -1012,7 +1022,7 @@
     {
       "source": "ร้านไอติมโอ่ง",
       "relation": "OFFERS_ACTIVITY",
-      "target": "สงขลาสตรีทอาร์ท",
+      "target": "สงขลา สตรีทอาร์ท",
       "properties": {
         "evidence": "จาก โรงแรมสงขลาแต่แรก เดินเท้าไปจุดถ่ายรูปสงขลาสตรีทอาร์ท ประมาณ 300 เมตร (เดิน 4 นาที) และเดินไป โรงสีแดง หับโห้หิ้น ประมาณ 450 เมตร (เดิน 6 นาที)",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -1122,7 +1132,7 @@
     {
       "source": "สงขลาสเตชั่น",
       "relation": "OFFERS_ACTIVITY",
-      "target": "สงขลาสตรีทอาร์ท",
+      "target": "สงขลา สตรีทอาร์ท",
       "properties": {
         "evidence": "จาก สงขลาสเตชั่น (Songkhla Station) เดินไป สตรีทอาร์ท",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -1180,7 +1190,7 @@
       }
     },
     {
-      "source": "ร้านเจ๊นิ",
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา",
       "relation": "LOCATED_ON",
       "target": "ถนนนครนอก",
       "properties": {
@@ -1190,21 +1200,11 @@
       }
     },
     {
-      "source": "ร้านเจ๊นิ",
+      "source": "ร้านเจ๊นิ ข้าวต้มปลา",
       "relation": "HISTORICAL_ERA",
       "target": "มากว่า 60 ปี",
       "properties": {
         "evidence": "มากว่า 60 ปีสืบทอดมา 3 รุ่น",
-        "extracted_by": "Ollama_Qwen2.5_3B",
-        "extraction_method": "Automated_LLM_Relation_Extraction"
-      }
-    },
-    {
-      "source": "ร้านเจ๊นิ",
-      "relation": "SERVES",
-      "target": "ข้าวต้มปลา",
-      "properties": {
-        "evidence": "เมนูเด่น / ไฮไลต์: ข้าวต้มปลากะพงสด",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
       }
@@ -1280,7 +1280,7 @@
       }
     },
     {
-      "source": "โรงแรมมอนทาน่า",
+      "source": "โรงแรมมอนทาน่ า Montana Hotel",
       "relation": "LOCATED_ON",
       "target": "ถนนเพชรคีรี",
       "properties": {
@@ -1302,7 +1302,7 @@
     {
       "source": "โรงแรมสงขลาแต่แรก",
       "relation": "NEARBY",
-      "target": "สงขลาสตรีทอาร์ท",
+      "target": "สงขลา สตรีทอาร์ท",
       "properties": {
         "evidence": "จาก โรงแรมสงขลาแต่แรก เดินเท้าไปจุดถ่ายรูปสงขลาสตรีทอาร์ท: ประมาณ 300 เมตร (เดิน 4 นาที)",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -1326,7 +1326,7 @@
     {
       "source": "โรงแรมสงขลาแต่แรก",
       "relation": "NEARBY",
-      "target": "ร้านไอติมโอ่ง",
+      "target": "ศาลเจ้าพ่อหลักเมืองสงขลา",
       "properties": {
         "evidence": "จาก โรงแรมสงขลาแต่แรก เดินเท้าไปถ่ายภาพสตรีทอาร์ท: ประมาณ 250 เมตร (เดิน 3 นาที)",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -1338,7 +1338,7 @@
     {
       "source": "โรงแรมคลับทรี",
       "relation": "NEARBY",
-      "target": "สงขลาสตรีทอาร์ท",
+      "target": "ย่านเมืองเก่า / สตรีทอาร์ท",
       "properties": {
         "evidence": "จาก โรงแรมคลับทรี เดินทางไปยังย่านเมืองเก่า / สตรีทอาร์ท: ประมาณ 1.2 กิโลเมตร (นั่งรถ 3 นาที หรือเดิน 15 นาที)",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -1359,9 +1359,9 @@
       }
     },
     {
-      "source": "โรงแรมมอนทาน่า",
+      "source": "โรงแรมมอนทาน่า สงขลา",
       "relation": "NEARBY",
-      "target": "สงขลาสตรีทอาร์ท",
+      "target": "ย่านเมืองเก่า / สตรีทอาร์ท",
       "properties": {
         "evidence": "จาก โรงแรมมอนทาน่า เดินทางไปยังย่านเมืองเก่า / สตรีทอาร์ท: ประมาณ 1.3 กิโลเมตร",
         "extracted_by": "Ollama_Qwen2.5_3B",
@@ -1370,7 +1370,7 @@
       }
     },
     {
-      "source": "โรงแรมมอนทาน่า",
+      "source": "โรงแรมมอนทาน่า สงขลา",
       "relation": "NEARBY",
       "target": "โรงสีแดง หับโห้หิ้น",
       "properties": {

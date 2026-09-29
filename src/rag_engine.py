@@ -42,18 +42,35 @@ class SongkhlaRAGEngine:
 
     def route_model(self, query: str, context_chunks: List[Dict[str, Any]]) -> Tuple[str, str]:
         """
-        Adaptive Model Router:
-        - Default to Local LLM (Ollama) for fast, concise, offline-first execution of factual queries.
-        - Route to Cloud API (Groq) for multi-day itinerary synthesis, complex planning, or multi-constraint reasoning.
+        Adaptive Model Router based on Information Entropy, Context Density & Multi-hop Breadth.
+        Routes to Cloud API (Groq) for high-entropy multi-domain synthesis,
+        and Local LLM (Ollama) for low-entropy factual answering.
+        Does NOT rely on brittle keyword matching.
         """
-        complex_keywords = [
-            "จัดทริป", "วางแผนเที่ยว", "จัดตาราง", "2 วัน", "3 วัน", "ทั้งวัน",
-            "เปรียบเทียบ", "ข้อดีข้อเสีย", "วิเคราะห์", "คำนวณงบ", "งบประมาณ"
-        ]
+        if not self.groq_api_key:
+            return "ollama", self.local_model
+
+        # 1. Context Information Volume (total length of retrieved evidence)
+        total_context_len = sum(len(c.get("content", "")) for c in context_chunks)
         
-        is_complex = any(kw in query for kw in complex_keywords) or (len(query.strip()) > 50 and "และ" in query)
+        # 2. Multi-Domain Entity Diversity (categories spanning different aspects)
+        categories = {c.get("category", "") for c in context_chunks if c.get("category")}
         
-        if is_complex and self.groq_api_key:
+        # 3. Query Structural Complexity and Retrieval Spread
+        q_len = len(query.strip())
+        num_chunks = len(context_chunks)
+
+        # Composite Complexity Scoring:
+        # - Broad multi-chunk spread (>= 5 chunks retrieved by adaptive retriever)
+        # - High context volume (> 1,200 chars) requires high-parameter reasoning
+        # - Multi-category synthesis (>= 3 distinct domain categories in context)
+        is_high_complexity = (
+            (num_chunks >= 5 and total_context_len > 1200) or
+            (len(categories) >= 3) or
+            (q_len > 40 and num_chunks >= 4)
+        )
+
+        if is_high_complexity:
             return "groq", self.groq_model
         return "ollama", self.local_model
 
