@@ -167,6 +167,9 @@ def extract_dynamic_spatial_relations(places: List[Dict[str, Any]], catalog: Lis
                 for cand in catalog:
                     if cand == src:
                         continue
+                    # Spatial proximity (OPPOSITE_TO, NEARBY) only applies between Places, NEVER a Street!
+                    if rel_type in ("OPPOSITE_TO", "NEARBY") and ("ถนน" in cand or "ถนน" in src):
+                        continue
                     c_clean = re.sub(r'[\s\(\)\-\_]+', '', cand)
                     c_root = re.sub(r'^(ร้าน|โรงแรม|ถนน|บ้าน)', '', c_clean)
 

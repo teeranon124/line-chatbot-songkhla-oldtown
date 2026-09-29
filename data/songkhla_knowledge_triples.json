@@ -3,7 +3,7 @@
     "title": "Songkhla Old Town Knowledge Graph Triples (100% Automated Extraction)",
     "version": "2.1-fully-dynamic",
     "total_entities": 18,
-    "total_triples": 125,
+    "total_triples": 121,
     "extraction_pipeline": "Ollama Qwen2.5:3B + Dynamic NLP Spatial Linker",
     "source": "Raw PDF Chunks (21 chunks from Songkhla_Travel_Guide_AnyFlip.pdf)",
     "hardcoded": false
@@ -1570,24 +1570,6 @@
     {
       "source": "ร้านแต้เฮี้ยงอิ้ว",
       "relation": "OPPOSITE_TO",
-      "target": "ถนนนางงาม",
-      "properties": {
-        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม'",
-        "extraction_method": "Dynamic_NLP_Clue_Extraction"
-      }
-    },
-    {
-      "source": "ถนนนางงาม",
-      "relation": "OPPOSITE_TO",
-      "target": "ร้านแต้เฮี้ยงอิ้ว",
-      "properties": {
-        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม'",
-        "extraction_method": "Dynamic_Symmetric_Inference"
-      }
-    },
-    {
-      "source": "ร้านแต้เฮี้ยงอิ้ว",
-      "relation": "OPPOSITE_TO",
       "target": "บ้านขนมไทยสองแสน",
       "properties": {
         "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม'",
@@ -1646,24 +1628,6 @@
       "properties": {
         "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'อาคารโบราณจีนและชิโนยูโรเปียน เชื่อมทะลุระหว่างถนนนครในกับถนนนครนอก'",
         "extraction_method": "Dynamic_NLP_Clue_Extraction"
-      }
-    },
-    {
-      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
-      "relation": "OPPOSITE_TO",
-      "target": "ถนนนางงาม",
-      "properties": {
-        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'ศูนย์กลางความศรัทธาใจกลางถนนนางงาม ตรงข้ามร้านไอติมโอ่ง'",
-        "extraction_method": "Dynamic_NLP_Clue_Extraction"
-      }
-    },
-    {
-      "source": "ถนนนางงาม",
-      "relation": "OPPOSITE_TO",
-      "target": "ศาลเจ้าพ่อหลักเมืองสงขลา",
-      "properties": {
-        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'ศูนย์กลางความศรัทธาใจกลางถนนนางงาม ตรงข้ามร้านไอติมโอ่ง'",
-        "extraction_method": "Dynamic_Symmetric_Inference"
       }
     },
     {
