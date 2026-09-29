@@ -148,7 +148,25 @@ class SongkhlaLineHandler:
             "ไม่มีข้อมูล", "ไม่พบข้อมูล", "ข้อมูลไม่เพียงพอ", "ไม่ได้ระบุ", "ไม่สามารถยืนยัน"
         ))
         is_follow_up = rag_res.get("retrieval_query", user_text.strip()) != user_text.strip()
-        if no_information or is_follow_up:
+        if no_information:
+            return [text_reply]
+
+        allowed_places = rag_res.get("allowed_places") or []
+        if allowed_places:
+            place_by_name = {
+                place.get("name", "").split("(", 1)[0].strip(): place
+                for place in self.places
+            }
+            matched_places = [
+                place_by_name[name] for name in allowed_places if name in place_by_name
+            ]
+            if matched_places:
+                return [
+                    text_reply,
+                    SongkhlaFlexTemplates.build_matched_places_carousel(matched_places),
+                ]
+
+        if is_follow_up:
             return [text_reply]
 
         # Multi-Entity Resolution: Scan query and answer for places

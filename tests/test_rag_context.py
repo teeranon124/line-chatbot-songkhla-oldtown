@@ -46,6 +46,7 @@ sys.modules.setdefault("src.graph_engine", graph_engine_module)
 
 from src.rag_engine import SongkhlaRAGEngine
 from src.retriever import HybridRetriever
+from src.line_handler import SongkhlaLineHandler
 
 
 TEXT_CHUNK = {
@@ -274,6 +275,448 @@ class FollowUpAndGroundingTests(unittest.TestCase):
 
         self.assertNotIn("ร้านเจ๊นิ", captured["prompt"])
         self.assertNotIn("เขาตังกวน", captured["prompt"])
+
+
+class MultiEntityFollowUpTests(unittest.TestCase):
+    @staticmethod
+    def _history(user_text, assistant_text="คำตอบก่อนหน้า"):
+        return [
+            {"role": "user", "content": user_text},
+            {"role": "assistant", "content": assistant_text},
+        ]
+
+    def test_single_entity_follow_up_remains_supported(self):
+        engine = make_engine([])
+        resolved = engine.resolve_retrieval_query(
+            "แล้วราคาเท่าไหร่",
+            self._history("ร้านไอติมโอ่งเปิดกี่โมง", "ร้านไอติมโอ่งเปิดทุกวัน"),
+        )
+        self.assertEqual(resolved, "ร้านไอติมโอ่ง ราคาเท่าไหร่")
+
+    def test_two_entity_route_follow_up_keeps_both_places(self):
+        engine = make_engine([])
+        resolved = engine.resolve_retrieval_query(
+            "ควรไปไหนก่อน",
+            self._history("ร้านไอติมโอ่งกับบ้านจีน 300 ปีไกลกันไหม"),
+        )
+        self.assertEqual(
+            resolved, "ร้านไอติมโอ่ง บ้านจีน 300 ปี ควรไปไหนก่อน"
+        )
+
+    def test_three_entity_route_follow_up_keeps_all_places(self):
+        engine = make_engine([])
+        resolved = engine.resolve_retrieval_query(
+            "ควรไปที่ไหนก่อน-หลัง",
+            self._history(
+                "อยากเที่ยวโรงสีแดง บ้านจีน 300 ปี และร้านไอติมโอ่ง"
+            ),
+        )
+        self.assertEqual(
+            resolved,
+            "โรงสีแดง หับโห้หิ้น บ้านจีน 300 ปี ร้านไอติมโอ่ง "
+            "ควรไปที่ไหนก่อน-หลัง",
+        )
+
+    def test_assistant_introduced_entity_resolves_shop_reference(self):
+        engine = make_engine([])
+        resolved = engine.resolve_retrieval_query(
+            "แล้วร้านนี้เปิดกี่โมง",
+            self._history(
+                "แนะนำของหวานงบ 30 บาท",
+                "แนะนำร้านไอติมโอ่ง ราคา 20 - 30 บาทครับ",
+            ),
+        )
+        self.assertEqual(resolved, "ร้านไอติมโอ่ง เปิดกี่โมง")
+
+    def test_explicit_new_place_does_not_inherit_old_entities(self):
+        engine = make_engine([])
+        query = "เขาตังกวนเปิดกี่โมง"
+        resolved = engine.resolve_retrieval_query(
+            query,
+            self._history("ร้านไอติมโอ่งเปิดกี่โมง"),
+        )
+        self.assertEqual(resolved, query)
+        self.assertNotIn("ร้านไอติมโอ่ง", resolved)
+
+    def test_aliases_resolve_to_one_canonical_place(self):
+        engine = make_engine([])
+        resolved = engine.resolve_retrieval_query(
+            "แล้วไปไหนต่อ",
+            self._history("โรงสีแดง และโรงสีแดง หับโห้หิ้น"),
+        )
+        self.assertEqual(resolved.count("โรงสีแดง หับโห้หิ้น"), 1)
+        self.assertEqual(resolved, "โรงสีแดง หับโห้หิ้น ไปไหนต่อ")
+
+    def test_route_prompt_guards_self_relations_and_unsupported_order(self):
+        self_relation_chunk = dict(GRAPH_CHUNK)
+        self_relation_chunk["content"] = (
+            "ร้านไอติมโอ่ง -> NEARBY -> ร้านไอติมโอ่ง"
+        )
+        engine = make_engine([self_relation_chunk])
+        engine.sessions["traveler"] = self._history(
+            "ร้านไอติมโอ่งกับบ้านจีน 300 ปีไกลกันไหม"
+        )
+        captured = {}
+
+        def fake_ollama(messages, model_name):
+            captured["prompt"] = messages[-1]["content"]
+            return "ควรไปร้านไอติมโอ่ง ซึ่งอยู่ใกล้กับร้านไอติมโอ่ง"
+
+        engine.call_ollama = fake_ollama
+        result = engine.generate(
+            "ควรไปไหนก่อน", target_llm="ollama", user_id="traveler"
+        )
+
+        self.assertIn("ห้ามกล่าวว่าสถานที่อยู่ใกล้ตัวเอง", captured["prompt"])
+        self.assertIn("ห้ามแต่งระยะทางหรือเหตุผล", captured["prompt"])
+        self.assertIn("ร้านไอติมโอ่ง บ้านจีน 300 ปี", captured["prompt"])
+        self.assertNotIn("อยู่ใกล้กับร้านไอติมโอ่ง", result["answer"])
+        self.assertEqual(result["allowed_places"], ["ร้านไอติมโอ่ง", "บ้านจีน 300 ปี"])
+
+
+class RoutePlanningTests(unittest.TestCase):
+    def test_route_answer_drops_llm_appended_unsupported_note(self):
+        engine = make_engine([])
+        engine.call_ollama = lambda messages, model_name: (
+            "1. โรงสีแดง หับโห้หิ้น\n"
+            "2. บ้านจีน 300 ปี\n"
+            "3. ร้านไอติมโอ่ง\n"
+            "ระยะห่างโดยประมาณแบบเส้นตรง 219 เมตร และ 390 เมตร\n"
+            "หมายเหตุ: ข้อมูลเวลาเปิด-ปิดไม่ปรากฏในหลักฐาน"
+        )
+        result = engine.generate(
+            "อยากเที่ยวโรงสีแดง บ้านจีน 300 ปี และร้านไอติมโอ่ง "
+            "ควรไปที่ไหนก่อน-หลัง",
+            target_llm="ollama",
+            user_id="",
+        )
+
+        self.assertEqual(result["answer"], result["route_plan"]["answer"])
+        self.assertNotIn("หมายเหตุ", result["answer"])
+        self.assertNotIn("ไม่ปรากฏในหลักฐาน", result["answer"])
+
+    def test_direct_distance_question_rejects_misattributed_250_metres(self):
+        engine = make_engine([])
+        engine.call_ollama = lambda messages, model_name: (
+            "ร้านไอติมโอ่งอยู่ห่างจากบ้านจีน 300 ปี ประมาณ 250 เมตร"
+        )
+        result = engine.generate(
+            "ร้านไอติมโอ่งอยู่ห่างจากบ้านจีน 300 ปี exactly กี่เมตร",
+            target_llm="ollama",
+            user_id="",
+        )
+        self.assertIn("ระยะห่างโดยประมาณแบบเส้นตรง 390 เมตร", result["answer"])
+        self.assertNotIn("250 เมตร", result["answer"])
+        self.assertEqual(
+            result["allowed_places"], ["ร้านไอติมโอ่ง", "บ้านจีน 300 ปี"]
+        )
+
+    def test_two_place_follow_up_is_locked_and_includes_distance(self):
+        engine = make_engine([])
+        engine.sessions["traveler"] = [
+            {"role": "user", "content": "ร้านไอติมโอ่งกับบ้านจีน 300 ปีไกลกันไหม"},
+            {"role": "assistant", "content": "ทั้งสองแห่งอยู่ในย่านเมืองเก่าสงขลา"},
+        ]
+        engine.call_ollama = lambda messages, model_name: "1. บ้านจีน 300 ปี\n2. ร้านไอติมโอ่ง"
+
+        result = engine.generate(
+            "ควรไปไหนก่อน", target_llm="ollama", user_id="traveler"
+        )
+
+        self.assertEqual(result["allowed_places"], ["ร้านไอติมโอ่ง", "บ้านจีน 300 ปี"])
+        self.assertEqual(
+            result["route_plan"]["ordered_places"],
+            ["บ้านจีน 300 ปี", "ร้านไอติมโอ่ง"],
+        )
+        self.assertIn("ระยะห่างโดยประมาณแบบเส้นตรง 390 เมตร", result["answer"])
+        self.assertNotIn("โรงสีแดง", result["answer"])
+
+    def test_three_place_route_is_deterministic_and_constrained(self):
+        engine = make_engine([])
+        engine.call_ollama = lambda messages, model_name: "แนะนำโรงแรมคลับทรีก่อน"
+        result = engine.generate(
+            "อยากเที่ยวโรงสีแดง บ้านจีน 300 ปี และร้านไอติมโอ่ง "
+            "ควรไปที่ไหนก่อน-หลัง",
+            target_llm="ollama",
+            user_id="",
+        )
+
+        expected = ["โรงสีแดง หับโห้หิ้น", "บ้านจีน 300 ปี", "ร้านไอติมโอ่ง"]
+        self.assertEqual(result["allowed_places"], expected)
+        self.assertEqual(result["route_plan"]["ordered_places"], expected)
+        self.assertNotIn("โรงแรมคลับทรี", result["answer"])
+        self.assertIn("219 เมตร", result["answer"])
+        self.assertIn("390 เมตร", result["answer"])
+
+    def test_same_place_set_in_different_input_orders_has_same_route(self):
+        engine = make_engine([])
+        queries = [
+            "อยากเที่ยวโรงสีแดง บ้านจีน 300 ปี และร้านไอติมโอ่ง ควรไปที่ไหนก่อน-หลัง",
+            "ร้านไอติมโอ่ง โรงสีแดง บ้านจีน 300 ปี ไปที่ไหนก่อนดี",
+            "บ้านจีน 300 ปี ร้านไอติมโอ่ง โรงสีแดง ช่วยจัดลำดับให้หน่อย",
+        ]
+        routes = []
+        for query in queries:
+            places = engine._extract_place_entities(query)
+            routes.append(engine._build_route_plan(places, [], query)["ordered_places"])
+        self.assertEqual(routes[0], routes[1])
+        self.assertEqual(routes[1], routes[2])
+        self.assertEqual(
+            routes[0],
+            ["โรงสีแดง หับโห้หิ้น", "บ้านจีน 300 ปี", "ร้านไอติมโอ่ง"],
+        )
+
+    def test_explicit_start_constraint_remains_first(self):
+        engine = make_engine([])
+        query = (
+            "เริ่มจากร้านไอติมโอ่ง แล้วเที่ยวโรงสีแดงกับบ้านจีน 300 ปี "
+            "ช่วยจัดลำดับให้หน่อย"
+        )
+        places = engine._extract_place_entities(query)
+        plan = engine._build_route_plan(places, [], query)
+        self.assertEqual(plan["ordered_places"][0], "ร้านไอติมโอ่ง")
+        self.assertIn("ผู้ใช้ระบุให้เริ่มจากร้านไอติมโอ่ง", plan["decisions"])
+
+    def test_explicit_end_constraint_remains_last(self):
+        engine = make_engine([])
+        query = (
+            "เที่ยวร้านไอติมโอ่ง บ้านจีน 300 ปี และโรงสีแดง "
+            "โดยปิดท้ายที่โรงสีแดง ช่วยจัดลำดับให้หน่อย"
+        )
+        places = engine._extract_place_entities(query)
+        plan = engine._build_route_plan(places, [], query)
+        self.assertEqual(plan["ordered_places"][-1], "โรงสีแดง หับโห้หิ้น")
+        self.assertIn("ผู้ใช้ระบุให้ปิดท้ายที่โรงสีแดง หับโห้หิ้น", plan["decisions"])
+
+    def test_route_reason_uses_only_structured_facts(self):
+        engine = make_engine([])
+        places = ["ร้านไอติมโอ่ง", "โรงสีแดง หับโห้หิ้น", "บ้านจีน 300 ปี"]
+        plan = engine._build_route_plan(places, [], "ช่วยจัดลำดับให้หน่อย")
+        explanation = " ".join(plan["decisions"])
+        self.assertIn("สถานที่ท่องเที่ยวทางประวัติศาสตร์", explanation)
+        self.assertIn("08:00 - 18:00 น.", explanation)
+        self.assertIn("ของหวาน / เครื่องดื่ม", explanation)
+        self.assertNotIn("สถานที่แรกที่ผู้ใช้ระบุ", plan["answer"])
+        self.assertNotIn("nearest-neighbor", plan["answer"])
+
+    def test_explicit_distance_wins_over_haversine(self):
+        engine = make_engine([])
+        explicit = {
+            "content": "ร้านไอติมโอ่ง ↔ บ้านจีน 300 ปี ระยะทาง 250 เมตร"
+        }
+        distance = engine.resolve_pairwise_distance(
+            "ร้านไอติมโอ่ง", "บ้านจีน 300 ปี", [explicit]
+        )
+        self.assertEqual(distance["source"], "explicit")
+        self.assertEqual(distance["meters"], 250)
+        self.assertEqual(distance["description"], "ระยะทางตามหลักฐาน 250 เมตร")
+
+    def test_haversine_uses_lat_lon_and_is_labelled_straight_line(self):
+        engine = make_engine([])
+        distance = engine.resolve_pairwise_distance(
+            "ร้านไอติมโอ่ง", "บ้านจีน 300 ปี"
+        )
+        self.assertEqual(distance["source"], "haversine")
+        self.assertEqual(distance["meters"], 390)
+        self.assertEqual(
+            distance["description"], "ระยะห่างโดยประมาณแบบเส้นตรง 390 เมตร"
+        )
+        self.assertNotIn("เดิน", distance["description"])
+        self.assertNotIn("ขับ", distance["description"])
+
+    def test_missing_evidence_and_coordinates_returns_unknown(self):
+        engine = make_engine([])
+        engine._place_records = {"ก": {"name": "ก"}, "ข": {"name": "ข"}}
+        distance = engine.resolve_pairwise_distance("ก", "ข")
+        self.assertEqual(distance["source"], "unknown")
+        self.assertIsNone(distance["meters"])
+        self.assertNotRegex(distance["description"], r"\d+\s*เมตร")
+
+    def test_line_cards_use_only_route_allowed_places(self):
+        class Classifier:
+            @staticmethod
+            def classify(_text):
+                return {"intent": "qa_hybrid", "method": "test", "confidence": 1.0}
+
+        class RAG:
+            sessions = {}
+
+            @staticmethod
+            def generate(query, user_id, mode):
+                return {
+                    "answer": "1. ร้านไอติมโอ่ง\n2. บ้านจีน 300 ปี",
+                    "retrieval_query": "ร้านไอติมโอ่ง บ้านจีน 300 ปี ควรไปไหนก่อน",
+                    "allowed_places": ["ร้านไอติมโอ่ง", "บ้านจีน 300 ปี"],
+                }
+
+        import json
+        from src.config import paths
+
+        handler = SongkhlaLineHandler.__new__(SongkhlaLineHandler)
+        handler.intent_classifier = Classifier()
+        handler.rag_engine = RAG()
+        with open(paths.facts_path, "r", encoding="utf-8") as f:
+            handler.places = json.load(f)
+
+        messages = handler.process_message("ควรไปไหนก่อน", user_id="traveler")
+        carousel = messages[1].contents
+        card_names = [
+            bubble.body.contents[0].text for bubble in carousel.contents
+        ]
+        self.assertEqual(card_names, ["ร้านไอติมโอ่ง", "บ้านจีน 300 ปี"])
+
+    def test_single_place_follow_up_still_resolves_without_route_plan(self):
+        engine = make_engine([])
+        history = [
+            {"role": "user", "content": "ร้านไอติมโอ่งเปิดกี่โมง"},
+            {"role": "assistant", "content": "เปิด 10:00 - 18:30 น."},
+        ]
+        self.assertEqual(
+            engine.resolve_retrieval_query("แล้วราคาเท่าไหร่", history),
+            "ร้านไอติมโอ่ง ราคาเท่าไหร่",
+        )
+
+
+class EvidenceRelevanceGuardrailTests(unittest.TestCase):
+    def test_known_khao_tang_kuan_lift_price_uses_existing_fact(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda messages, model_name: (
+            "ข้อมูลที่เกี่ยวข้องไม่ได้ระบุถึงราคาของลิฟต์ขึ้นเขาตังกวน"
+        )
+        result = engine.generate(
+            "ค่าลิฟต์ขึ้นเขาตังกวนราคาเท่าไร",
+            target_llm="ollama",
+            user_id="",
+        )
+
+        self.assertEqual(result["guardrail_status"], "PASS")
+        self.assertIn("ผู้ใหญ่ 30 บาท / เด็ก 20 บาท", result["answer"])
+        self.assertNotIn("ไม่ได้ระบุ", result["answer"])
+
+    def test_natural_thai_out_of_scope_destination_abstains(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda *args: self.fail("LLM must not be called")
+        result = engine.generate("อยากไปเชียงใหม่ต้องไปยังไง", user_id="")
+
+        self.assertEqual(result["guardrail_status"], "ABSTAIN")
+        self.assertEqual(
+            result["answer"],
+            "ขออภัยครับ ตอนนี้ระบบยังไม่มีข้อมูลเกี่ยวกับเชียงใหม่ "
+            "จึงยังไม่สามารถแนะนำเส้นทางไปเชียงใหม่ได้ครับ",
+        )
+        for unrelated in ("สงขลา", "โปรแกรมท่องเที่ยว", "จังหวัดอื่น"):
+            self.assertNotIn(unrelated, result["answer"])
+
+    def test_llm_abstention_cannot_continue_with_unrelated_recommendations(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda messages, model_name: (
+            "ขออภัยครับ จากข้อมูลที่มีตอนนี้ยังไม่พบข้อมูลเกี่ยวกับโรงสีแดง "
+            "แต่แนะนำโรงแรมมอนทาน่า รถราง และโทร 074-311015"
+        )
+        result = engine.generate(
+            "ขอเส้นทางท่องเที่ยวที่ข้อมูลยังไม่รองรับ",
+            target_llm="ollama",
+            user_id="",
+        )
+
+        self.assertEqual(
+            result["answer"],
+            "ขออภัยครับ จากข้อมูลที่มีตอนนี้ยังไม่พบข้อมูลที่เกี่ยวข้องครับ",
+        )
+        self.assertNotIn("โรงแรมมอนทาน่า", result["answer"])
+        self.assertNotIn("รถราง", result["answer"])
+        self.assertNotIn("074-311015", result["answer"])
+
+    def test_unknown_entity_route_abstains_without_llm(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda *args: self.fail("LLM must not be called")
+        result = engine.generate("ไปบ้านพรุไปยังไง", user_id="")
+
+        self.assertEqual(result["guardrail_status"], "ABSTAIN")
+        self.assertIn("บ้านพรุ", result["answer"])
+        for unrelated in ("ร้านไอติมโอ่ง", "โรงสีแดง", "บ้านนครใน"):
+            self.assertNotIn(unrelated, result["answer"])
+
+    def test_unknown_english_entity_opening_hours_abstains(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda *args: self.fail("LLM must not be called")
+        result = engine.generate("Cream World เปิดกี่โมง", user_id="")
+
+        self.assertEqual(result["guardrail_status"], "ABSTAIN")
+        self.assertIn("Cream World", result["answer"])
+        self.assertIn("เวลาเปิด-ปิด", result["answer"])
+
+    def test_known_entity_continues_to_generation(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        called = {"value": False}
+
+        def fake_ollama(messages, model_name):
+            called["value"] = True
+            return "ร้านไอติมโอ่งเปิดเวลา 10:00 - 18:30 น."
+
+        engine.call_ollama = fake_ollama
+        result = engine.generate(
+            "ร้านไอติมโอ่งเปิดกี่โมง", target_llm="ollama", user_id=""
+        )
+        self.assertTrue(called["value"])
+        self.assertEqual(result["guardrail_status"], "PASS")
+
+    def test_generic_discovery_is_not_blocked(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda messages, model_name: "คำแนะนำจากหลักฐาน"
+        result = engine.generate(
+            "มีที่เที่ยวอะไรแนะนำบ้าง", target_llm="ollama", user_id=""
+        )
+        self.assertEqual(result["guardrail_status"], "PASS")
+
+    def test_generic_constrained_recommendation_is_not_blocked(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda messages, model_name: "ร้านไอติมโอ่ง ราคา 20 - 30 บาท"
+        result = engine.generate(
+            "แนะนำของหวานงบไม่เกิน 30 บาท", target_llm="ollama", user_id=""
+        )
+        self.assertEqual(result["guardrail_status"], "PASS")
+
+    def test_known_entity_missing_parking_returns_partial_without_llm(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda *args: self.fail("LLM must not be called")
+        result = engine.generate("ร้านไอติมโอ่งมีที่จอดรถไหม", user_id="")
+
+        self.assertEqual(result["guardrail_status"], "PARTIAL")
+        self.assertIn("ที่จอดรถ", result["answer"])
+        self.assertIn("ร้านไอติมโอ่ง", result["answer"])
+
+    def test_mixed_multi_entity_abstains_for_unknown_without_distance(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda *args: self.fail("LLM must not be called")
+        result = engine.generate("ร้านไอติมโอ่งกับบ้านพรุไกลกันไหม", user_id="")
+
+        self.assertEqual(result["guardrail_status"], "ABSTAIN")
+        self.assertIn("บ้านพรุ", result["answer"])
+        self.assertIn("ร้านไอติมโอ่ง", result["answer"])
+        self.assertNotRegex(result["answer"], r"\d+\s*เมตร")
+
+    def test_unknown_entity_line_response_has_text_only(self):
+        engine = make_engine([dict(TEXT_CHUNK)])
+        engine.call_ollama = lambda *args: self.fail("LLM must not be called")
+
+        class Classifier:
+            @staticmethod
+            def classify(_text):
+                return {"intent": "qa_hybrid", "method": "test", "confidence": 1.0}
+
+        import json
+        from src.config import paths
+
+        handler = SongkhlaLineHandler.__new__(SongkhlaLineHandler)
+        handler.intent_classifier = Classifier()
+        handler.rag_engine = engine
+        with open(paths.facts_path, "r", encoding="utf-8") as f:
+            handler.places = json.load(f)
+
+        messages = handler.process_message("ไปบ้านพรุไปยังไง", user_id="traveler")
+        self.assertEqual(len(messages), 1)
+        self.assertIn("บ้านพรุ", messages[0].text)
 
 
 class RoutingObservabilityTests(unittest.TestCase):
