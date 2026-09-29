@@ -17,6 +17,7 @@
     "VISITED_ON",
     "HISTORICAL_ERA",
     "CONNECTS_TO",
-    "NEARBY"
+    "NEARBY",
+    "OPPOSITE_TO"
   ]
 }

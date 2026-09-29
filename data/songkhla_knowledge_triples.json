@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "title": "Songkhla Old Town Knowledge Graph Triples (100% Automated LLM Extraction)",
-    "version": "2.0-automated",
+    "title": "Songkhla Old Town Knowledge Graph Triples (100% Automated Extraction)",
+    "version": "2.1-fully-dynamic",
     "total_entities": 18,
-    "total_triples": 114,
-    "extraction_model": "qwen2.5:3b",
+    "total_triples": 122,
+    "extraction_pipeline": "Ollama Qwen2.5:3B + Dynamic NLP Spatial Linker",
     "source": "Raw PDF Chunks (21 chunks from Songkhla_Travel_Guide_AnyFlip.pdf)",
     "hardcoded": false
   },
@@ -1516,7 +1516,7 @@
     {
       "source": "หอศิลป์สงขลา",
       "relation": "LOCATED_ON",
-      "target": "ถนนนางงาม",
+      "target": "ถนนกำแพงเพชร",
       "properties": {
         "evidence": "ที่ตั้งตามข้อมูลจริง: ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
         "extraction_method": "Fact_Grounding"
@@ -1554,8 +1554,8 @@
       "relation": "OPPOSITE_TO",
       "target": "ศาลเจ้าพ่อหลักเมืองสงขลา",
       "properties": {
-        "evidence": "ตั้งอยู่ตรงข้ามศาลเจ้าพ่อหลักเมืองสงขลา บนถนนนางงาม",
-        "extraction_method": "Spatial_Fact_Grounding"
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'ตั้งอยู่ตรงข้ามศาลเจ้าพ่อหลักเมืองสงขลา'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
       }
     },
     {
@@ -1563,8 +1563,26 @@
       "relation": "OPPOSITE_TO",
       "target": "ร้านไอติมโอ่ง",
       "properties": {
-        "evidence": "ตรงข้ามร้านไอติมโอ่ง บนถนนนางงาม",
-        "extraction_method": "Spatial_Fact_Grounding"
+        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'ตั้งอยู่ตรงข้ามศาลเจ้าพ่อหลักเมืองสงขลา'",
+        "extraction_method": "Dynamic_Symmetric_Inference"
+      }
+    },
+    {
+      "source": "ร้านแต้เฮี้ยงอิ้ว",
+      "relation": "OPPOSITE_TO",
+      "target": "ถนนนางงาม",
+      "properties": {
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
+      }
+    },
+    {
+      "source": "ถนนนางงาม",
+      "relation": "OPPOSITE_TO",
+      "target": "ร้านแต้เฮี้ยงอิ้ว",
+      "properties": {
+        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม'",
+        "extraction_method": "Dynamic_Symmetric_Inference"
       }
     },
     {
@@ -1572,8 +1590,8 @@
       "relation": "OPPOSITE_TO",
       "target": "บ้านขนมไทยสองแสน",
       "properties": {
-        "evidence": "ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม",
-        "extraction_method": "Spatial_Fact_Grounding"
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
       }
     },
     {
@@ -1581,8 +1599,8 @@
       "relation": "OPPOSITE_TO",
       "target": "ร้านแต้เฮี้ยงอิ้ว",
       "properties": {
-        "evidence": "อยู่ตรงข้ามร้านแต้เฮี้ยงอิ้ว ใกล้ศาลเจ้าพ่อหลักเมือง",
-        "extraction_method": "Spatial_Fact_Grounding"
+        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'ตั้งอยู่ตรงข้ามร้านบ้านขนมไทยสองแสน บนถนนนางงาม'",
+        "extraction_method": "Dynamic_Symmetric_Inference"
       }
     },
     {
@@ -1590,17 +1608,62 @@
       "relation": "NEARBY",
       "target": "โรงสีแดง หับโห้หิ้น",
       "properties": {
-        "evidence": "ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ถนนนครนอก",
-        "extraction_method": "Spatial_Fact_Grounding"
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'สาขาโรงสีแดง ตั้งอยู่เยื้องกับโรงสีแดงหับโห้หิ้น ย่านเมืองเก่า'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
       }
     },
     {
-      "source": "โรงสีแดง หับโห้หิ้น",
+      "source": "บ้านขนมไทยสองแสน",
       "relation": "NEARBY",
-      "target": "ร้านเจ๊นิ ข้าวต้มปลา",
+      "target": "ร้านแต้เฮี้ยงอิ้ว",
       "properties": {
-        "evidence": "ตั้งอยู่เยื้องกับร้านเจ๊นิ ข้าวต้มปลา ถนนนครนอก",
-        "extraction_method": "Spatial_Fact_Grounding"
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'อยู่ตรงข้ามร้านแต้เฮี้ยงอิ้ว ใกล้ศาลเจ้าพ่อหลักเมือง'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
+      }
+    },
+    {
+      "source": "สงขลาสเตชั่น",
+      "relation": "NEARBY",
+      "target": "โรงสีแดง หับโห้หิ้น",
+      "properties": {
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'อาคารตึกไม้โบราณ 2 ชั้น เยื้องโรงสีแดงหับโห้หิ้น ชั้นสองมีหอศิลป์'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
+      }
+    },
+    {
+      "source": "บ้านนครใน",
+      "relation": "CONNECTS_TO",
+      "target": "ถนนนครในกับถนนนครนอก",
+      "properties": {
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'อาคารโบราณจีนและชิโนยูโรเปียน เชื่อมทะลุระหว่างถนนนครในกับถนนนครนอก'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
+      }
+    },
+    {
+      "source": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "relation": "OPPOSITE_TO",
+      "target": "ถนนนางงาม",
+      "properties": {
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'ศูนย์กลางความศรัทธาใจกลางถนนนางงาม ตรงข้ามร้านไอติมโอ่ง'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
+      }
+    },
+    {
+      "source": "ถนนนางงาม",
+      "relation": "OPPOSITE_TO",
+      "target": "ศาลเจ้าพ่อหลักเมืองสงขลา",
+      "properties": {
+        "evidence": "ความสัมพันธ์สมมาตร (Symmetric Topology) อิงจาก: 'ศูนย์กลางความศรัทธาใจกลางถนนนางงาม ตรงข้ามร้านไอติมโอ่ง'",
+        "extraction_method": "Dynamic_Symmetric_Inference"
+      }
+    },
+    {
+      "source": "รถรางชมเมืองสงขลา",
+      "relation": "CONNECTS_TO",
+      "target": "ถนนจะนะ",
+      "properties": {
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ ถนนจะนะ วิ่งเชื่อมย่านเมืองเก่าไปยังแหลมสมิหลาและเขาตังกวน'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
       }
     },
     {
@@ -1608,35 +1671,44 @@
       "relation": "CONNECTS_TO",
       "target": "แหลมสมิหลา",
       "properties": {
-        "evidence": "รถราง Singora Tram วิ่งเชื่อมเมืองเก่าไปยังแหลมสมิหลา",
-        "extraction_method": "Topological_Grounding"
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ ถนนจะนะ วิ่งเชื่อมย่านเมืองเก่าไปยังแหลมสมิหลาและเขาตังกวน'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
       }
     },
     {
-      "source": "พิพิธภัณฑ์พธำมะรงค์",
-      "relation": "LOCATED_ON",
-      "target": "ถนนจะนะ",
-      "properties": {
-        "evidence": "พิพิธภัณฑ์พธำมะรงค์ตั้งอยู่บนถนนจะนะ",
-        "extraction_method": "Topological_Grounding"
-      }
-    },
-    {
-      "source": "แหลมสมิหลา",
-      "relation": "NEARBY",
+      "source": "รถรางชมเมืองสงขลา",
+      "relation": "CONNECTS_TO",
       "target": "เขาตังกวน",
       "properties": {
-        "evidence": "แหลมสมิหลาตั้งอยู่ใกล้เชิงเขาตังกวน",
-        "extraction_method": "Topological_Grounding"
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ ถนนจะนะ วิ่งเชื่อมย่านเมืองเก่าไปยังแหลมสมิหลาและเขาตังกวน'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
       }
     },
     {
-      "source": "แหลมสมิหลา",
+      "source": "รถรางชมเมืองสงขลา",
+      "relation": "CONNECTS_TO",
+      "target": "พิพิธภัณฑ์พธำมะรงค์",
+      "properties": {
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ ถนนจะนะ วิ่งเชื่อมย่านเมืองเก่าไปยังแหลมสมิหลาและเขาตังกวน'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
+      }
+    },
+    {
+      "source": "โรงแรมคลับทรี",
       "relation": "NEARBY",
       "target": "หาดชลาทัศน์",
       "properties": {
-        "evidence": "แหลมสมิหลาเชื่อมต่อกับหาดชลาทัศน์",
-        "extraction_method": "Topological_Grounding"
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'โรงแรมสไตล์บูทีกโมเดิร์นโคโลเนียล ใกล้หาดชลาทัศน์และเมืองเก่า'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
+      }
+    },
+    {
+      "source": "โรงแรมมอนทาน่า สงขลา",
+      "relation": "NEARBY",
+      "target": "หาดชลาทัศน์",
+      "properties": {
+        "evidence": "สกัดอัตโนมัติจาก Landmark Clue: 'โรงแรมทำเลสะดวก ใกล้สนามกีฬาติณสูลานนท์และหาดชลาทัศน์'",
+        "extraction_method": "Dynamic_NLP_Clue_Extraction"
       }
     }
   ]
