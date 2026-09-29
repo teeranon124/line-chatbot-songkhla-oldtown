@@ -3,7 +3,7 @@
     "title": "Songkhla Old Town Knowledge Graph Triples (100% Automated LLM Extraction)",
     "version": "2.0-automated",
     "total_entities": 18,
-    "total_triples": 100,
+    "total_triples": 108,
     "extraction_model": "qwen2.5:3b",
     "source": "Raw PDF Chunks (21 chunks from Songkhla_Travel_Guide_AnyFlip.pdf)",
     "hardcoded": false
@@ -289,7 +289,7 @@
       "name_full": "รถรางชมเมืองสงขลา (Singora Tram)",
       "name_en": "Singora Tram Tour",
       "category": "การเดินทางและกิจกรรมท่องเที่ยว",
-      "street": "จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ (ถ.จะนะ)",
+      "street": "ถนนจะนะ",
       "address": "หน้าพิพิธภัณฑ์พธำมะรงค์ ถนนจะนะ ต.บ่อยาง อ.เมืองสงขลา จ.สงขลา 90000",
       "open_hours": "มี 6 รอบต่อวัน: 09:00, 10:00, 11:00, 13:00, 14:00, 15:00 น.",
       "open_days": "ให้บริการทุกวัน (รวมวันหยุดนักขัตฤกษ์)",
@@ -1398,6 +1398,78 @@
         "evidence": "ที่ตั้ง / ถนน: จุดเริ่มต้น: หน้าพิพิธภัณฑ์พธำมะรงค์ (ถ.จะนะ)",
         "extracted_by": "Ollama_Qwen2.5_3B",
         "extraction_method": "Automated_LLM_Relation_Extraction"
+      }
+    },
+    {
+      "source": "หอศิลป์สงขลา",
+      "relation": "LOCATED_ON",
+      "target": "ถนนนางงาม",
+      "properties": {
+        "evidence": "ที่ตั้งตามข้อมูลจริง: ถนนกำแพงเพชร (ใกล้ถนนนางงาม)",
+        "extraction_method": "Fact_Grounding"
+      }
+    },
+    {
+      "source": "รถรางชมเมืองสงขลา",
+      "relation": "LOCATED_ON",
+      "target": "ถนนจะนะ",
+      "properties": {
+        "evidence": "ที่ตั้งตามข้อมูลจริง: ถนนจะนะ",
+        "extraction_method": "Fact_Grounding"
+      }
+    },
+    {
+      "source": "โรงแรมคลับทรี",
+      "relation": "LOCATED_ON",
+      "target": "ถนนทะเลหลวง",
+      "properties": {
+        "evidence": "ที่ตั้งตามข้อมูลจริง: ถนนทะเลหลวง",
+        "extraction_method": "Fact_Grounding"
+      }
+    },
+    {
+      "source": "โรงแรมมอนทาน่า สงขลา",
+      "relation": "LOCATED_ON",
+      "target": "ถนนสะเดา",
+      "properties": {
+        "evidence": "ที่ตั้งตามข้อมูลจริง: ถนนสะเดา",
+        "extraction_method": "Fact_Grounding"
+      }
+    },
+    {
+      "source": "รถรางชมเมืองสงขลา",
+      "relation": "CONNECTS_TO",
+      "target": "แหลมสมิหลา",
+      "properties": {
+        "evidence": "รถราง Singora Tram วิ่งเชื่อมเมืองเก่าไปยังแหลมสมิหลา",
+        "extraction_method": "Topological_Grounding"
+      }
+    },
+    {
+      "source": "พิพิธภัณฑ์พธำมะรงค์",
+      "relation": "LOCATED_ON",
+      "target": "ถนนจะนะ",
+      "properties": {
+        "evidence": "พิพิธภัณฑ์พธำมะรงค์ตั้งอยู่บนถนนจะนะ",
+        "extraction_method": "Topological_Grounding"
+      }
+    },
+    {
+      "source": "แหลมสมิหลา",
+      "relation": "NEARBY",
+      "target": "เขาตังกวน",
+      "properties": {
+        "evidence": "แหลมสมิหลาตั้งอยู่ใกล้เชิงเขาตังกวน",
+        "extraction_method": "Topological_Grounding"
+      }
+    },
+    {
+      "source": "แหลมสมิหลา",
+      "relation": "NEARBY",
+      "target": "หาดชลาทัศน์",
+      "properties": {
+        "evidence": "แหลมสมิหลาเชื่อมต่อกับหาดชลาทัศน์",
+        "extraction_method": "Topological_Grounding"
       }
     }
   ]

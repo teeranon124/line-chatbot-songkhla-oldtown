@@ -29,6 +29,17 @@ if isolated:
 else:
     print("  ✅ ZERO isolated nodes! 100% of nodes are meaningfully connected in the network!")
 
+import networkx as nx
+undirected_G = G.to_undirected()
+num_comps = nx.number_connected_components(undirected_G)
+print(f"\n🌐 CONNECTED COMPONENTS (Topological Island Audit): {num_comps}")
+if num_comps == 1:
+    print("  ✅ 1 SINGLE CONNECTED NETWORK! (Zero isolated subgraphs or floating islands!)")
+else:
+    print(f"  ⚠️ {num_comps} separate subgraphs detected:")
+    for idx, comp in enumerate(nx.connected_components(undirected_G), 1):
+        print(f"     Component {idx} ({len(comp)} nodes): {list(comp)[:6]}...")
+
 print("\n🏛️ HUB NODES (Top 5 Highest Degree Nodes):")
 for n, deg in sorted(G.degree(), key=lambda x: x[1], reverse=True)[:5]:
     lbl = G.nodes[n].get("label", "Concept")

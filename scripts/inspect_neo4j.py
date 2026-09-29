@@ -33,6 +33,11 @@ with driver.session() as session:
     res = session.run("MATCH (p)-[:LOCATED_ON]->(st) RETURN st.name AS street, count(p) AS places_count, collect(p.name)[..4] AS sample_places")
     for r in res:
         samples = ", ".join(r["sample_places"])
-        print(f"  * {r['street']} ({r['places_count']} แห่ง): {samples}")
+    print("\n🏝️ INSPECTING 'แหลมสมิหลา':")
+    res = session.run("MATCH (n) WHERE n.name CONTAINS 'สมิหลา' OPTIONAL MATCH (n)-[r]-(m) RETURN n.name AS name, labels(n) AS labels, count(r) AS degree, collect(type(r)) AS rels, collect(m.name) AS neighbors")
+    for r in res:
+        print(f"  Name: {r['name']} | Labels: {r['labels']} | Degree: {r['degree']}")
+        print(f"  Relationships: {r['rels']}")
+        print(f"  Neighbors: {r['neighbors']}")
 
 driver.close()
