@@ -1,0 +1,62 @@
+[
+  {
+    "name": "WangchanBERTa-ConGen\n(Thai 768d)",
+    "dense_hit5": 95.0,
+    "hybrid_hit5": 95.0,
+    "dense_hit1": 75.0,
+    "hybrid_hit1": 85.0,
+    "dense_mrr": 0.829607843137255,
+    "hybrid_mrr": 0.8883333333333333,
+    "diff": 0.0
+  },
+  {
+    "name": "MiniLM-L12\n(Multilingual 384d)",
+    "dense_hit5": 85.0,
+    "hybrid_hit5": 95.0,
+    "dense_hit1": 60.0,
+    "hybrid_hit1": 70.0,
+    "dense_mrr": 0.7172149122807018,
+    "hybrid_mrr": 0.8097222222222221,
+    "diff": 10.0
+  },
+  {
+    "name": "Multilingual-E5-Small\n(Multilingual 384d)",
+    "dense_hit5": 100.0,
+    "hybrid_hit5": 100.0,
+    "dense_hit1": 75.0,
+    "hybrid_hit1": 70.0,
+    "dense_mrr": 0.8416666666666666,
+    "hybrid_mrr": 0.8083333333333332,
+    "diff": 0.0
+  },
+  {
+    "name": "DistilUSE-Base\n(Multilingual 512d)",
+    "dense_hit5": 85.0,
+    "hybrid_hit5": 100.0,
+    "dense_hit1": 40.0,
+    "hybrid_hit1": 50.0,
+    "dense_mrr": 0.5366666666666666,
+    "hybrid_mrr": 0.7016666666666665,
+    "diff": 15.0
+  },
+  {
+    "name": "Multilingual-E5-Base\n(Multilingual 768d)",
+    "dense_hit5": 95.0,
+    "hybrid_hit5": 100.0,
+    "dense_hit1": 85.0,
+    "hybrid_hit1": 80.0,
+    "dense_mrr": 0.9,
+    "hybrid_mrr": 0.8916666666666666,
+    "diff": 5.0
+  },
+  {
+    "name": "MPNet-Base\n(Multilingual 768d)",
+    "dense_hit5": 85.0,
+    "hybrid_hit5": 95.0,
+    "dense_hit1": 50.0,
+    "hybrid_hit1": 70.0,
+    "dense_mrr": 0.6639411027568922,
+    "hybrid_mrr": 0.8128787878787879,
+    "diff": 10.0
+  }
+]

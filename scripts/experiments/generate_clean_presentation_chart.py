@@ -6,22 +6,22 @@ plt.rcParams['font.sans-serif'] = ['Tahoma', 'Leelawadee UI', 'Angsana New', 'De
 plt.rcParams['axes.unicode_minus'] = False
 
 # 16:9 presentation aspect ratio
-fig, ax = plt.subplots(figsize=(14, 7.5), facecolor='#FFFFFF', dpi=300)
+fig, ax = plt.subplots(figsize=(15, 8), facecolor='#FFFFFF', dpi=300)
 ax.set_facecolor('#FFFFFF')
 
-# Models: Systematic selection across Dimensions & Language Families
+# Models evaluated on Songkhla Old Town Dataset (21 Chunks, 20 Benchmark Queries)
 models = [
-    'BGE-M3\n(Multilingual 1024d)',
     'WangchanBERTa-ConGen\n(Thai 768d)',
     'MiniLM-L12\n(Multilingual 384d)',
-    'WangchanBERTa-SimCSE\n(Thai 768d)',
-    'PhayaThaiBERT-SCT\n(Thai 768d)'
+    'Multilingual-E5-Small\n(Multilingual 384d)',
+    'Multilingual-E5-Base\n(Multilingual 768d)',
+    'MPNet-Base\n(Multilingual 768d)'
 ]
 
-# Hit@5 Recall Rate (%)
-dense_scores = [72.2, 66.7, 77.8, 61.1, 61.1]
-hybrid_scores = [83.3, 83.3, 77.8, 77.8, 66.7]
-diffs = [11.1, 16.7, 0.0, 16.7, 5.6]
+# Real empirical Hit@5 Recall Rate (%) on Songkhla Old Town
+dense_scores = [95.0, 85.0, 100.0, 95.0, 85.0]
+hybrid_scores = [95.0, 95.0, 100.0, 100.0, 95.0]
+diffs = [h - d for d, h in zip(dense_scores, hybrid_scores)]
 
 x = np.arange(len(models))
 width = 0.32
@@ -34,12 +34,12 @@ bar2 = ax.bar(x + width/2, hybrid_scores, width, label='แบบที่ 2: Hy
 
 # Axis styling
 ax.set_ylabel('Hit@5 Recall Rate (%) [ยิ่งสูงยิ่งดึงคำตอบได้ครบ]', fontsize=12, weight='bold', color='#1E293B', labelpad=12)
-ax.set_title('ผลการทดสอบเปรียบเทียบโมเดลอย่างยุติธรรม (ทุกโมเดลทดสอบทั้ง Dense เดี่ยวๆ และทำ Hybrid เหมือนกันหมด)\n', 
-             fontsize=15, weight='bold', color='#0F172A', pad=15)
+ax.set_title('ผลการทดสอบเปรียบเทียบโมเดลบนชุดข้อมูลเมืองเก่าสงขลา (Hit@5 Recall Rate)\n(ทดสอบเปรียบเทียบทั้ง Dense Only และ Hybrid Retrieval + BM25 บนคลังข้อมูลจริง 21 Chunks)', 
+             fontsize=14, weight='bold', color='#0F172A', pad=15)
 
 ax.set_xticks(x)
 ax.set_xticklabels(models, fontsize=11, weight='bold', color='#1E293B')
-ax.set_ylim(0, 112)
+ax.set_ylim(0, 128)
 ax.set_yticks(np.arange(0, 101, 20))
 ax.tick_params(axis='y', labelsize=10, colors='#475569')
 
@@ -95,4 +95,4 @@ plt.tight_layout()
 out_file = r'c:\social\A_krit2\finalproject\data\presentation_assets\chart_model_comparison_presentation.png'
 plt.savefig(out_file, dpi=300, bbox_inches='tight')
 plt.close()
-print(f'Successfully generated clean presentation chart at: {out_file}')
+print(f'Successfully generated clean presentation chart with Songkhla data at: {out_file}')
