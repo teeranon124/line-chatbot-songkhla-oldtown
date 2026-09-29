@@ -1,0 +1,36 @@
+{
+  "dataset_hash_before": "4e1101d07e5f3d1ee49c22ba87a7d984179b3af8dfb37936242a944330526e76",
+  "dataset_hash_after": "4e1101d07e5f3d1ee49c22ba87a7d984179b3af8dfb37936242a944330526e76",
+  "dataset_unchanged": true,
+  "validation": {
+    "status": "PASS",
+    "dataset_path": "evaluation/phase_b_dataset.json",
+    "total_items": 50,
+    "answerable_items": 48,
+    "insufficient_evidence_items": 2,
+    "category_counts": {
+      "comparison": 5,
+      "dense_friendly": 3,
+      "direct_fact": 8,
+      "entity_relation": 8,
+      "graph_friendly": 5,
+      "insufficient_evidence": 2,
+      "lexical_mismatch": 5,
+      "multi_hop_relation": 5,
+      "natural_thai": 4,
+      "recommendation": 5
+    },
+    "errors": [],
+    "warnings": []
+  },
+  "retrieval_winners": {
+    "hit_at_1": "hybrid",
+    "hit_at_3": "sparse",
+    "hit_at_5": "sparse",
+    "mrr": "hybrid"
+  },
+  "prompt_validation": "PASS",
+  "graph_help_count": 12,
+  "graph_hurt_count": 5,
+  "graph_neutral_count": 18
+}

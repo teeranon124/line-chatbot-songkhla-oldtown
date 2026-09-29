@@ -1,0 +1,34 @@
+{
+  "status": "NOT_RUN",
+  "reason": "NOT RUN — OLLAMA UNAVAILABLE",
+  "ollama": {
+    "reachable": false,
+    "configured_model": "qwen2.5:3b",
+    "model_available": false,
+    "reason": "URLError: <urlopen error [Errno 1] Operation not permitted>"
+  },
+  "current_llm_config": {
+    "provider": "ollama",
+    "model": "qwen2.5:3b",
+    "temperature": 0.2,
+    "top_p": 0.9,
+    "seed": "NOT_CONFIGURED"
+  },
+  "automatic_metrics": {},
+  "human_review": {
+    "status": "HUMAN_REVIEW_REQUIRED",
+    "dimensions_1_to_5": [
+      "Correctness",
+      "Context Faithfulness",
+      "Completeness",
+      "Relevance",
+      "Thai Naturalness",
+      "Recommendation Usefulness"
+    ]
+  },
+  "phase_a_prompt_validation": {
+    "status": "NOT_RUN",
+    "reason": "Actual Hybrid prompt examples require both current Dense model and current configured Ollama model.",
+    "regression_test_scope": "tests/test_rag_context.py validates graph evidence at the prompt boundary with controlled fakes."
+  }
+}

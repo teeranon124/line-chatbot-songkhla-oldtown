@@ -137,8 +137,10 @@ def run_tests():
     if is_multi_message:
         msg1 = reply_messages[0]
         msg2 = reply_messages[1]
-        print(f"  Message 1: {msg1.alt_text}")
-        print(f"  Message 2: {msg2.alt_text}")
+        desc1 = getattr(msg1, "alt_text", getattr(msg1, "text", str(msg1)))
+        desc2 = getattr(msg2, "alt_text", getattr(msg2, "text", str(msg2)))
+        print(f"  Message 1: {desc1[:80]}")
+        print(f"  Message 2: {desc2[:80]}")
         
         # Check carousel bubbles count
         carousel_bubbles = msg2.contents.contents if hasattr(msg2.contents, "contents") else []

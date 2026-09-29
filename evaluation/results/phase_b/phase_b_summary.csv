@@ -1,0 +1,5 @@
+mode,status,n,hit_at_1,hit_at_3,hit_at_5,mrr,mean_latency_ms
+dense,NOT_RUN,0,,,,,
+sparse,NOT_RUN,0,,,,,
+graph,OK,48,0.6458333333333334,0.6875,0.6875,0.6666666666666666,0.08383333333333333
+hybrid,NOT_RUN,0,,,,,

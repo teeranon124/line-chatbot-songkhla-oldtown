@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "dataset_path": "evaluation/phase_b_dataset.json",
+  "total_items": 50,
+  "answerable_items": 48,
+  "insufficient_evidence_items": 2,
+  "category_counts": {
+    "comparison": 5,
+    "dense_friendly": 3,
+    "direct_fact": 8,
+    "entity_relation": 8,
+    "graph_friendly": 5,
+    "insufficient_evidence": 2,
+    "lexical_mismatch": 5,
+    "multi_hop_relation": 5,
+    "natural_thai": 4,
+    "recommendation": 5
+  },
+  "errors": [],
+  "warnings": []
+}

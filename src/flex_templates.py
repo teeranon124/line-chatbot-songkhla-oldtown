@@ -14,6 +14,8 @@ import re
 from typing import List, Dict, Any
 from linebot.models import (
     FlexSendMessage,
+    ImageSendMessage,
+    TextSendMessage,
     QuickReply,
     QuickReplyButton,
     MessageAction
@@ -58,12 +60,13 @@ class SongkhlaFlexTemplates:
 
     @staticmethod
     def clean_maps_url(url_raw: str, default: str = "https://maps.google.com/?q=Songkhla+Old+Town") -> str:
-        """Ensures URL strictly conforms to HTTP/HTTPS scheme required by LINE."""
+        """Ensures URL strictly conforms to HTTP/HTTPS scheme and encodes Thai characters for LINE."""
         if not url_raw or not isinstance(url_raw, str):
             return default
         url_clean = url_raw.strip()
         if url_clean.startswith("http://") or url_clean.startswith("https://"):
-            return url_clean
+            import urllib.parse
+            return urllib.parse.quote(url_clean, safe=":/?&=#+%@")
         return default
 
     @staticmethod
@@ -404,106 +407,195 @@ class SongkhlaFlexTemplates:
         )
 
     @staticmethod
-    def build_itinerary_carousel() -> FlexSendMessage:
-        """2-Day 1-Night Itinerary Cards."""
-        card_day1 = {
-            "type": "bubble",
-            "size": "mega",
-            "hero": {
-                "type": "image",
-                "url": PLACE_IMAGES["default_banner"],
-                "size": "full",
-                "aspectRatio": "20:10",
-                "aspectMode": "cover"
+    def build_itinerary_messages(
+        places: List[Dict[str, Any]], day_numbers: List[int] = None
+    ) -> List[Any]:
+        """
+        Build itinerary as readable LINE TextMessages with optional images.
+
+        LINE TextMessage has a 5,000-character limit.
+        Each itinerary day is kept together when possible.
+        If plan + map links is too long, maps are sent separately.
+        Long map sections are split only between place entries,
+        so URLs are never cut in half.
+        """
+        MAX_TEXT_LENGTH = 4800
+
+        itinerary_days = [
+            {
+                "day": 1,
+                "title": "โปรแกรมวันที่ 1: เที่ยวรอบเมืองเก่า 3 ถนน",
+                "stops": [
+                    "09.00 น. หอศิลป์สงขลา (Songkhla Art Center)",
+                    "10.00 น. บ้านนครใน (พิพิธภัณฑ์บ้านโบราณ)",
+                    "11.00 น. โรงสีแดงหับโห้หิ้น (ถ่ายรูปริมน้ำ)",
+                    "12.00 น. มื้อเที่ยง: ข้าวสตู ร้านเกียดฟั่ง",
+                    "13.00 น. บ้านจีน 300 ปี (สถาปัตยกรรมฮกเกี้ยน)",
+                    "14.00 น. เช็คอิน โรงแรมสงขลาแต่แรก",
+                    "15.00 น. บ้านสงครามโลก ครั้งที่ 2",
+                    "16.00 น. สักการะศาลเจ้าพ่อหลักเมืองสงขลา",
+                    "17.00 น. สตรีทอาร์ท & แวะชิม ร้านไอติมโอ่ง",
+                    "18.00 น. มื้อค่ำ: ต้มยำแห้ง ร้านแต้เฮี้ยงอิ้ว",
+                ],
+                "place_ids": [
+                    "songkhla_art_center",
+                    "baan_nakorn_in",
+                    "hub_ho_hin",
+                    "kiat_fang",
+                    "baan_chinese_300yr",
+                    "hotel_songkhla_taeraek",
+                    "baan_ww2",
+                    "city_pillar_shrine",
+                    "songkhla_street_art",
+                    "aitim_oang",
+                    "tae_hiang_iu",
+                ],
+                "image_id": "songkhla_art_center",
             },
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                    {
-                        "type": "text",
-                        "text": "โปรแกรมวันที่ 1: เที่ยวรอบเมืองเก่า 3 ถนน",
-                        "weight": "bold",
-                        "size": "md",
-                        "color": "#c0392b"
-                    },
-                    {
-                        "type": "separator",
-                        "margin": "sm"
-                    },
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "margin": "md",
-                        "spacing": "xs",
-                        "contents": [
-                            {"type": "text", "text": "• 09.00 น. หอศิลป์สงขลา (Songkhla Art Center)", "size": "xs", "color": "#333333"},
-                            {"type": "text", "text": "• 10.00 น. บ้านนครใน (พิพิธภัณฑ์บ้านโบราณ)", "size": "xs", "color": "#333333"},
-                            {"type": "text", "text": "• 11.00 น. โรงสีแดงหับโห้หิ้น (ถ่ายรูปริมน้ำ)", "size": "xs", "color": "#333333"},
-                            {"type": "text", "text": "• 12.00 น. มื้อเที่ยง: ข้าวสตู ร้านเกียดฟั่ง", "size": "xs", "color": "#d35400", "weight": "bold"},
-                            {"type": "text", "text": "• 13.00 น. บ้านจีน 300 ปี (สถาปัตยกรรมฮกเกี้ยน)", "size": "xs", "color": "#333333"},
-                            {"type": "text", "text": "• 14.00 น. เช็คอิน โรงแรมสงขลาแต่แรก", "size": "xs", "color": "#2980b9"},
-                            {"type": "text", "text": "• 15.00 น. บ้านสงครามโลก ครั้งที่ 2", "size": "xs", "color": "#333333"},
-                            {"type": "text", "text": "• 16.00 น. สักการะศาลเจ้าพ่อหลักเมืองสงขลา", "size": "xs", "color": "#333333"},
-                            {"type": "text", "text": "• 17.00 น. สตรีทอาร์ท & แวะชิม ร้านไอติมโอ่ง", "size": "xs", "color": "#d35400", "weight": "bold"},
-                            {"type": "text", "text": "• 18.00 น. มื้อค่ำ: ต้มยำแห้ง ร้านแต้เฮี้ยงอิ้ว", "size": "xs", "color": "#d35400", "weight": "bold"}
-                        ]
-                    }
-                ]
-            }
-        }
-
-        card_day2 = {
-            "type": "bubble",
-            "size": "mega",
-            "hero": {
-                "type": "image",
-                "url": PLACE_IMAGES["singora_tram"],
-                "size": "full",
-                "aspectRatio": "20:10",
-                "aspectMode": "cover"
+            {
+                "day": 2,
+                "title": "โปรแกรมวันที่ 2: รถราง สมิหลา เขาตังกวน",
+                "stops": [
+                    "07.00 น. รับประทานอาหารเช้าที่โรงแรม",
+                    "08.00 น. นั่งรถรางชมเมืองสงขลา ฟรี ชมพญานาค & นางเงือกทอง",
+                    "10.00 น. ขึ้นลิฟต์กระเช้าไฟฟ้า ยอดเขาตังกวน (วิว 360 องศา)",
+                    "11.00 น. พักจิบกาแฟ คาเฟ่ Songkhla Station",
+                    "12.00 น. มื้อเที่ยง: ข้าวต้มปลากะพง ร้านเจ๊นิ (สาขาโรงสีแดง)",
+                    "13.00 น. ซื้อของฝากทองเอก สัมปันนี บ้านขนมไทยสองแสน",
+                    "14.00 น. เดินทางกลับสนามบินหาดใหญ่โดยสวัสดิภาพ",
+                ],
+                "place_ids": [
+                    "singora_tram",
+                    "khao_tang_kuan",
+                    "songkhla_station",
+                    "jae_ni",
+                    "khanom_thai_song_saen",
+                ],
+                "image_id": "singora_tram",
             },
-            "body": {
-                "type": "box",
-                "layout": "vertical",
-                "contents": [
-                    {
-                        "type": "text",
-                        "text": "โปรแกรมวันที่ 2: รถราง สมิหลา เขาตังกวน",
-                        "weight": "bold",
-                        "size": "md",
-                        "color": "#27ae60"
-                    },
-                    {
-                        "type": "separator",
-                        "margin": "sm"
-                    },
-                    {
-                        "type": "box",
-                        "layout": "vertical",
-                        "margin": "md",
-                        "spacing": "xs",
-                        "contents": [
-                            {"type": "text", "text": "• 07.00 น. รับประทานอาหารเช้าที่โรงแรม", "size": "xs", "color": "#333333"},
-                            {"type": "text", "text": "• 08.00 น. นั่งรถรางชมเมืองสงขลา ฟรี ชมพญานาค & นางเงือกทอง", "size": "xs", "color": "#2980b9", "weight": "bold"},
-                            {"type": "text", "text": "• 10.00 น. ขึ้นลิฟต์กระเช้าไฟฟ้า ยอดเขาตังกวน (วิว 360 องศา)", "size": "xs", "color": "#333333"},
-                            {"type": "text", "text": "• 11.00 น. พักจิบกาแฟ คาเฟ่ Songkhla Station", "size": "xs", "color": "#d35400"},
-                            {"type": "text", "text": "• 12.00 น. มื้อเที่ยง: ข้าวต้มปลากะพง ร้านเจ๊นิ (สาขาโรงสีแดง)", "size": "xs", "color": "#d35400", "weight": "bold"},
-                            {"type": "text", "text": "• 13.00 น. ซื้อของฝากทองเอก สัมปันนี บ้านขนมไทยสองแสน", "size": "xs", "color": "#d35400", "weight": "bold"},
-                            {"type": "text", "text": "• 14.00 น. เดินทางกลับสนามบินหาดใหญ่โดยสวัสดิภาพ", "size": "xs", "color": "#27ae60"}
-                        ]
-                    }
-                ]
-            }
-        }
+        ]
 
-        carousel = {"type": "carousel", "contents": [card_day1, card_day2]}
-        return FlexSendMessage(
-            alt_text="🗺️ แผนการท่องเที่ยวสงขลา 2 วัน 1 คืน",
-            contents=carousel,
-            quick_reply=SongkhlaFlexTemplates.get_quick_replies()
-        )
+        selected_days = set(day_numbers or (1, 2))
+        place_by_id = {place.get("id"): place for place in places}
+        messages = []
 
+        def build_map_entries(day):
+            """Return complete map entries. Never split individual URLs."""
+            entries = []
+            seen_urls = set()
+
+            for place_id in day["place_ids"]:
+                place = place_by_id.get(place_id, {})
+                map_url = place.get("google_maps_url")
+
+                if not isinstance(map_url, str):
+                    continue
+
+                map_url = map_url.strip()
+
+                if not map_url.startswith(("http://", "https://")):
+                    continue
+
+                if map_url in seen_urls:
+                    continue
+
+                seen_urls.add(map_url)
+
+                place_name = place.get("name", "").split("(")[0].strip()
+
+                if not place_name:
+                    continue
+
+                entries.append(
+                    f"• {place_name}\n{map_url}"
+                )
+
+            return entries
+
+        def append_map_messages(day_number, entries):
+            """
+            Split maps between complete place entries.
+            A URL is therefore never cut in half.
+            """
+            if not entries:
+                return
+
+            header = f"📍 แผนที่สถานที่ในวันที่ {day_number}"
+            current = header
+
+            for entry in entries:
+                candidate = f"{current}\n\n{entry}"
+
+                if len(candidate) <= MAX_TEXT_LENGTH:
+                    current = candidate
+                else:
+                    messages.append(TextSendMessage(text=current))
+                    current = f"{header} (ต่อ)\n\n{entry}"
+
+            if current:
+                messages.append(TextSendMessage(text=current))
+
+        for day in itinerary_days:
+            if day["day"] not in selected_days:
+                continue
+
+            # ---------- itinerary ----------
+            plan_lines = [
+                f"🗓 {day['title']}",
+                "",
+            ]
+            plan_lines.extend(f"• {stop}" for stop in day["stops"])
+            plan_text = "\n".join(plan_lines)
+
+            # ---------- maps ----------
+            map_entries = build_map_entries(day)
+
+            map_text = ""
+            if map_entries:
+                map_text = (
+                    f"📍 แผนที่สถานที่ในวันที่ {day['day']}\n\n"
+                    + "\n\n".join(map_entries)
+                )
+
+            # Keep plan + maps together when LINE can accept them.
+            combined_text = plan_text
+
+            if map_text:
+                combined_text += "\n\n" + map_text
+
+            if len(combined_text) <= MAX_TEXT_LENGTH:
+                messages.append(TextSendMessage(text=combined_text))
+
+            else:
+                # Plan first.
+                messages.append(TextSendMessage(text=plan_text))
+
+                # Maps separately and safely.
+                append_map_messages(day["day"], map_entries)
+
+            # ---------- optional existing image ----------
+            image_url = PLACE_IMAGES.get(day["image_id"])
+
+            if image_url:
+                messages.append(
+                    ImageSendMessage(
+                        original_content_url=image_url,
+                        preview_image_url=image_url,
+                    )
+                )
+
+        # Debug information for LINE limits.
+        for i, message in enumerate(messages):
+            text = getattr(message, "text", None)
+
+            if text is not None:
+                print(
+                    f"📏 [Itinerary Message {i + 1}] "
+                    f"{len(text)} characters"
+                )
+
+        return messages[:5]
+        
     @staticmethod
     def build_hotels_carousel(hotels: List[Dict[str, Any]]) -> FlexSendMessage:
         """Hotels Carousel Cards."""

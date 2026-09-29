@@ -22,6 +22,7 @@ class PathConfig:
     data_dir: Path = DATA_DIR
     chunks_path: Path = DATA_DIR / "songkhla_rag_chunks.json"
     facts_path: Path = DATA_DIR / "songkhla_places_facts.json"
+    places_facts_path: Path = DATA_DIR / "songkhla_places_facts.json"
     faiss_index_path: Path = DATA_DIR / "songkhla_faiss.index"
     bm25_index_path: Path = DATA_DIR / "songkhla_bm25.pkl"
     graph_pkl_path: Path = DATA_DIR / "songkhla_graph.pkl"
